@@ -65,6 +65,13 @@ in
       windowManager.dwm.package = pkgs.dwm.overrideAttrs {
         src = /home/zacc/suckless/dwm;
       };
+      displayManager = {
+        defaultSession = "none+dwm";
+        autoLogin = {
+          enable = true;
+          user = "zacc";
+        };
+      };
       desktopManager.wallpaper.mode = "fill";
     };
 
