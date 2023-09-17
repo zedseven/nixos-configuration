@@ -80,6 +80,7 @@
     enable = true;
     profileExtra = ''
       slstatus &
+      slock &
     '';
   };
 
