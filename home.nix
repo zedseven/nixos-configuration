@@ -1,6 +1,7 @@
 {
   config,
   pkgs,
+  lib,
   ...
 }: {
   # Home Manager needs a bit of information about you and the paths it should
@@ -185,6 +186,43 @@
       youtube-dl = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
       yt-dlp = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
       ytd = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
+    };
+  };
+
+  programs.starship = {
+    enable = true;
+    settings = {
+      format = lib.concatStrings [
+        "$username"
+        "$hostname"
+        "$directory"
+        "$git_branch"
+        "$time"
+        "$rust"
+        "$sudo"
+        "$fill"
+        "$cmd_duration"
+        "$line_break"
+        "$character"
+      ];
+      character = {
+        success_symbol = "[λ](bold green)";
+        error_symbol = "[λ](bold red)";
+        vimcmd_symbol = "[ν](bold green)";
+        vimcmd_replace_one_symbol = "[ν](bold purple)";
+        vimcmd_replace_symbol = "[ν](bold purple)";
+        vimcmd_visual_symbol = "[ν](bold yellow)";
+      };
+      time = {
+        disabled = false;
+      };
+      sudo = {
+        disabled = false;
+        symbol = "🥄";
+      };
+      fill = {
+        symbol = " ";
+      };
     };
   };
 
