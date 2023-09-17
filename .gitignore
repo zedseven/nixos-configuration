@@ -1,0 +1,5 @@
+# JetBrains IDEs' config & project settings directory
+**/.idea/
+
+# Private configuration (passwords, etc.)
+/private/
