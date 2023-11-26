@@ -38,6 +38,7 @@ in
     '';
 
     environment = {
+      etc."nixos".source = "/home/zacc/nix";
       etc."mullvad-vpn".source = "/persist/etc/mullvad-vpn";
     };
 
