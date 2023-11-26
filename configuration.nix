@@ -196,7 +196,7 @@ in
     };
     home-manager.useGlobalPkgs = true;
     home-manager.useUserPackages = true;
-    home-manager.users.zacc = import ./home.nix;
+    home-manager.users.zacc = import ./users/zacc.nix;
 
     # List packages installed in system profile. To search, run:
     # $ nix search wget
