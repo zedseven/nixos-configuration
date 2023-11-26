@@ -153,6 +153,7 @@ in
         home-manager
         jetbrains.clion
         keepass
+        libfaketime
         miniserve
         neofetch
         obsidian
