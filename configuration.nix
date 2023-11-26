@@ -153,6 +153,7 @@ in
         gnumake
         home-manager
         jetbrains.clion
+        jetbrains.rust-rover
         keepass
         libfaketime
         miniserve
