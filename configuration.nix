@@ -7,6 +7,7 @@ in
   {
     config,
     pkgs,
+    lib,
     ...
   }: {
     imports = [
@@ -26,6 +27,18 @@ in
       device = "nodev";
       efiSupport = true;
       enableCryptodisk = true;
+    };
+
+    # Wipe the root directory on boot
+    # NixOS will rebuild it every time, giving the system a "new computer feel" on every boot
+    # This also tests the system's ability to build from scratch
+    # https://grahamc.com/blog/erase-your-darlings/
+    boot.initrd.postDeviceCommands = lib.mkAfter ''
+      zfs rollback -r rpool/local/root@blank
+    '';
+
+    environment = {
+      etc."mullvad-vpn".source = "/persist/etc/mullvad-vpn";
     };
 
     networking.hostName = "wraith"; # Define your hostname.
