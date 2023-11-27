@@ -23,6 +23,7 @@
       };
     };
     desktopManager.wallpaper.mode = "fill";
+    dpi = lib.mkDefault 128;
   };
 
   hardware.opengl = {
@@ -76,6 +77,17 @@
         slock &
       '';
     };
+
+    home.pointerCursor = {
+      name = "Adwaita";
+      package = pkgs.gnome.adwaita-icon-theme;
+      size = lib.mkDefault 32;
+      x11.enable = true;
+    };
+
+    xresources.properties = lib.mkDefault {
+      "Xft.dpi" = 128;
+    };
   };
 
   programs.light.enable = true;
@@ -110,6 +122,6 @@
 
   # To allow file sharing over HTTP via `miniserve`
   networking.firewall = {
-    allowedTCPPorts = [ 8080 ];
+    allowedTCPPorts = [8080];
   };
 }
