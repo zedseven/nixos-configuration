@@ -20,6 +20,7 @@ in
       packages = with pkgs; [
         alejandra
         bottom
+        cargo
         du-dust
         eza
         fd
@@ -36,7 +37,7 @@ in
         rclone
         restic
         ripgrep
-        rustup
+        rustc
         (tealdeer.overrideAttrs (drv: rec {
           src = fetchFromGitHub {
             owner = "zedseven"; # Until https://github.com/dbrgn/tealdeer/issues/320 is resolved
