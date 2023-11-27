@@ -3,3 +3,6 @@
 
 # Private configuration (passwords, etc.)
 /private/
+
+# Host selection
+/configuration.nix
