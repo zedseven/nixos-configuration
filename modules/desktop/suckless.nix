@@ -18,7 +18,7 @@
       src = /home/zacc/suckless/slstatus;
     };
     st = pkgs.st.overrideAttrs (oldAttrs: rec {
-      buildInputs = oldAttrs.buildInputs ++ [harfbuzz];
+      buildInputs = oldAttrs.buildInputs ++ [pkgs.harfbuzz];
       src = /home/zacc/suckless/st;
     });
   };
