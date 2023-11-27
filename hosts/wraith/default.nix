@@ -30,6 +30,16 @@ in
     networking.wireless.enable = true; # Enables wireless support via wpa_supplicant.
     networking.wireless.networks = private.networks;
 
+    hardware.nvidia.prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:59@0:0:0";
+    };
+
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
     # on your system were taken. It's perfectly fine and recommended to leave
