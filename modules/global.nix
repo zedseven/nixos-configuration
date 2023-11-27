@@ -22,6 +22,7 @@
   i18n.defaultLocale = "en_CA.utf8";
 
   security.sudo.extraConfig = ''
+    Defaults lecture="never"
     Defaults timestamp_timeout=15
   '';
 
