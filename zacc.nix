@@ -129,6 +129,9 @@ in
       # Let Home Manager install and manage itself.
       programs.home-manager.enable = true;
 
+      services.autorandr.enable = true;
+      programs.autorandr.enable = true;
+
       programs.fish = {
         enable = true;
         shellAbbrs = {
