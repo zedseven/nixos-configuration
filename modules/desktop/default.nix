@@ -23,7 +23,7 @@
       };
     };
     desktopManager.wallpaper.mode = "fill";
-    dpi = lib.mkDefault 128;
+    dpi = lib.mkDefault 96;
   };
 
   hardware.opengl = {
@@ -86,7 +86,7 @@
     };
 
     xresources.properties = lib.mkDefault {
-      "Xft.dpi" = 128;
+      "Xft.dpi" = 96;
     };
   };
 
