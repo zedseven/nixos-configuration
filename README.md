@@ -1,5 +1,5 @@
 # NixOS Configuration
-This is my personal NixOS configuration for all machines that I manage.
+My personal NixOS configuration for all of my machines.
 
 ## Usage
 1. Checkout the repo on the new machine.
@@ -9,7 +9,7 @@ This is my personal NixOS configuration for all machines that I manage.
 5. Import the necessary modules in `default.nix`.
 6. Lastly, create `configuration.nix` in the root of the repo and import the host-specific `default.nix` that you just created:
 ```nix
-{...}: {
+{
   imports = [
     ./hosts/<HOSTNAME>
   ];
