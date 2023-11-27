@@ -54,6 +54,10 @@
     ];
     # GUI packages
     packages = with pkgs; [
+      betterdiscordctl
+      (discord.overrideAttrs {
+        withOpenASAR = true;
+      })
       dmenu
       firefox-devedition
       jetbrains.clion
