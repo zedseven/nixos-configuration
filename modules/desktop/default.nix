@@ -107,4 +107,9 @@
     enable = true;
     package = pkgs.mullvad-vpn;
   };
+
+  # To allow file sharing over HTTP via `miniserve`
+  networking.firewall = {
+    allowedTCPPorts = [ 8080 ];
+  };
 }
