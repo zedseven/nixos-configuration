@@ -1,5 +1,5 @@
 let
-  private = import ./private;
+  private = import ../../private;
 in
   {
     config,
