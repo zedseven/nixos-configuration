@@ -88,6 +88,17 @@
     xresources.properties = lib.mkDefault {
       "Xft.dpi" = 96;
     };
+
+    services.sxhkd = {
+      enable = true;
+      keybindings = {
+        "XF86AudioRaiseVolume" = "amixer set Master 5%+";
+        "XF86AudioLowerVolume" = "amixer set Master 5%-";
+        "XF86AudioMute" = "amixer set Master toggle";
+        "XF86MonBrightnessUp" = "light -A 5";
+        "XF86MonBrightnessDown" = "light -U 5";
+      };
+    };
   };
 
   programs.light.enable = true;
