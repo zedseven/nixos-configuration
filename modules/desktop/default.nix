@@ -55,10 +55,6 @@
     ];
     # GUI packages
     packages = with pkgs; [
-      betterdiscordctl
-      (discord.overrideAttrs {
-        withOpenASAR = true;
-      })
       dmenu
       firefox-devedition
       jetbrains.clion
@@ -70,6 +66,10 @@
     ];
   };
   home-manager.users.zacc = {
+    imports = [
+      ./discord
+    ];
+
     xsession = {
       enable = true;
       profileExtra = ''
@@ -98,6 +98,17 @@
         "XF86MonBrightnessUp" = "light -A 5";
         "XF86MonBrightnessDown" = "light -U 5";
       };
+    };
+
+    programs.discord = {
+      enable = true;
+      wrapDiscord = true;
+    };
+  };
+
+  nixpkgs.config.packageOverrides = pkgs: {
+    discord = pkgs.discord.overrideAttrs {
+      withOpenASAR = true;
     };
   };
 
