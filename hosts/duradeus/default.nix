@@ -13,6 +13,7 @@ in
       ../../modules/global.nix
       ../../modules/desktop
       ../../modules/desktop/nvidia.nix
+      ../../modules/desktop/games.nix
       ../../modules/darlings.nix
       ../../modules/zfs.nix
       ../../zacc.nix
