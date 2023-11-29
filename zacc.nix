@@ -184,6 +184,7 @@ in
           ge = "git checkout";
           geb = "git checkout -b";
           gf = "git fetch";
+          gg = "git merge --no-ff";
           gh = "git cherry-pick -x --edit";
           gl = "git log --show-signature --graph";
           gm = "git remote";
