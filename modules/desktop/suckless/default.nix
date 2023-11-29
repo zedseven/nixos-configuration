@@ -26,8 +26,8 @@
         src = pkgs.fetchFromGitHub {
           owner = "zedseven";
           repo = "dwm";
-          rev = "8119b63b814295ff80083647e8b6ac3888aa045e";
-          sha256 = "sha256-GnXanSRQlh66X0EBnevrU/oR3Qc1lD2VesN1EdTwSf0=";
+          rev = "38d365ba283514549e756129970ef274ce9fb134";
+          sha256 = "sha256-Ka+qrJMsPlRM6/JZWNQApR6g7lNQtXJiQkvAkAArYAA=";
         };
       }))
       .override {
