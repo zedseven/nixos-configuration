@@ -12,12 +12,14 @@
         rev = "b823f73f2b477796ff95f48edbe1f740d800986e";
         sha256 = "sha256-nxodcOXYhW5HPTWDyUot6lEIQDF2fnzWQFH+Xjq7ZSQ=";
       };
+      # For `dmenu`, `conf` can't be used because the derivation doesn't support it
       postPatch =
         oldAttrs.postPatch
         + ''
           cp ${pkgs.writeText "config.dmenu.h" (builtins.readFile ./config.dmenu.h)} config.h
         '';
     });
+
     dwm =
       (pkgs.dwm.overrideAttrs (oldAttrs: {
         buildInputs = oldAttrs.buildInputs ++ [pkgs.xorg.libXcursor];
@@ -31,6 +33,7 @@
       .override {
         conf = builtins.readFile ./config.dwm.h;
       };
+
     slock =
       (pkgs.slock.overrideAttrs {
         src = pkgs.fetchFromGitHub {
@@ -43,9 +46,11 @@
       .override {
         conf = builtins.readFile ./config.slock.h;
       };
+
     slstatus = pkgs.slstatus.override {
       conf = builtins.readFile ./config.slstatus.h;
     };
+
     st =
       (pkgs.st.overrideAttrs
         (oldAttrs: {
