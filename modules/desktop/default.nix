@@ -78,11 +78,15 @@
       '';
     };
 
+    # Required so that cursor settings are applied for GTK applications
+    gtk.enable = true;
+
     home.pointerCursor = {
-      name = "Adwaita";
-      package = pkgs.gnome.adwaita-icon-theme;
+      name = "phinger-cursors-light";
+      package = pkgs.phinger-cursors;
       size = lib.mkDefault 32;
       x11.enable = true;
+      gtk.enable = true;
     };
 
     xresources.properties = lib.mkDefault {
@@ -111,6 +115,9 @@
       withOpenASAR = true;
     };
   };
+
+  # Required when `gtk.enable` is set in `home-manager`: https://github.com/nix-community/home-manager/issues/3113
+  programs.dconf.enable = true;
 
   programs.light.enable = true;
 
