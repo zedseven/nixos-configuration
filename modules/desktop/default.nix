@@ -5,7 +5,7 @@
   ...
 }: {
   imports = [
-    ./suckless.nix
+    ./suckless
   ];
 
   security.protectKernelImage = false; # To allow for hibernation
