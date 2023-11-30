@@ -96,8 +96,8 @@
     services.sxhkd = {
       enable = true;
       keybindings = {
-        "XF86AudioRaiseVolume" = "pactl set-sink-volume @DEFAULT_SINK@ +5%";
-        "XF86AudioLowerVolume" = "pactl set-sink-volume @DEFAULT_SINK@ -5%";
+        "XF86AudioRaiseVolume" = "pactl set-sink-volume @DEFAULT_SINK@ +2%";
+        "XF86AudioLowerVolume" = "pactl set-sink-volume @DEFAULT_SINK@ -2%";
         "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
         "XF86MonBrightnessUp" = "light -A 5";
         "XF86MonBrightnessDown" = "light -U 5";
