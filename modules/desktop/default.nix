@@ -61,16 +61,22 @@
       "video"
     ];
     # GUI packages
-    packages = with pkgs; [
-      dmenu
-      firefox-devedition
-      jetbrains.clion
-      jetbrains.rust-rover
-      keepass
-      obsidian
-      slstatus
-      st
-    ];
+    packages = with pkgs;
+      [
+        dmenu
+        firefox-devedition
+        jetbrains.clion
+        jetbrains.rust-rover
+        keepass
+        obsidian
+        slstatus
+        st
+      ]
+      ++ [
+        (pkgs.writeShellScriptBin "shutdown-now" ''
+          shutdown -h now
+        '')
+      ];
   };
   home-manager.users.zacc = {
     imports = [
