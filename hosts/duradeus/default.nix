@@ -57,6 +57,13 @@ in
       };
     };
 
+    hardware.pulseaudio.extraConfig = ''
+      set-default-sink alsa_output.usb-Sony_Sony_USB_DAC_Amplifier-00.analog-stereo
+      set-sink-volume @DEFAULT_SINK@ 50%
+      set-default-source alsa_input.pci-0000_0c_00.4.analog-stereo
+      set-source-mute @DEFAULT_SOURCE@ 0
+    '';
+
     # This value determines the NixOS release from which the default
     # settings for stateful data, like file locations and database versions
     # on your system were taken. It's perfectly fine and recommended to leave
