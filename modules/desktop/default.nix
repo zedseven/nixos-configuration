@@ -24,6 +24,13 @@
     };
     desktopManager.wallpaper.mode = "fill";
     dpi = lib.mkDefault 96;
+    extraConfig = ''
+      # Security settings for `slock`
+      Section "ServerFlags"
+      	#Option "DontVTSwitch" "True"
+      	Option "DontZap"      "True"
+      EndSection
+    '';
   };
 
   hardware.opengl = {
