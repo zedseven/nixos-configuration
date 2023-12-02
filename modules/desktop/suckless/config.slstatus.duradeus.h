@@ -70,7 +70,6 @@ static const struct arg args[] = {
 	{ cpu_perc,     "CPU: %s%% ",     "" },
 	{ temp,         "%s°C ",          "/sys/class/hwmon/hwmon3/temp1_input" },
 	{ ram_perc,     "RAM: %s%% ",     "" },
-//	{ battery_perc, "Battery: %s%% ", "BAT0" },
 	{ wifi_essid,   "Wi-Fi: %s ",     "wlp5s0" },
 	{ datetime,     "%s",             "%F %T" },
 };
