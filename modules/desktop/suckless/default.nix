@@ -48,7 +48,7 @@
       };
 
     slstatus = pkgs.slstatus.override {
-      conf = builtins.readFile ./config.slstatus.h;
+      conf = builtins.readFile ./config.slstatus.${config.networking.hostName}.h;
     };
 
     st =
