@@ -32,6 +32,7 @@ in
         libfaketime
         miniserve
         neofetch
+        nixpkgs-fmt
         plantuml
         procs
         rclone
