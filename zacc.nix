@@ -295,6 +295,7 @@ in
           signByDefault = true;
         };
         extraConfig = {
+          checkout.defaultRemote = "origin";
           commit.gpgSign = true;
           core = {
             autocrlf = "input";
