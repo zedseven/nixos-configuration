@@ -327,5 +327,7 @@ in
           tag.gpgSign = true;
         };
       };
+
+      programs.git-cliff.enable = true;
     };
   }
