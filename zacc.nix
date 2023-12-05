@@ -286,7 +286,19 @@ in
 
       programs.gpg.enable = true;
 
-      programs.git = {
+      programs.git = let
+        exitWithConflicts = pkgs.writeShellScriptBin "git-merge-exit-with-conflicts" ''
+          # https://stackoverflow.com/questions/5074452/git-how-to-force-merge-conflict-and-manual-merge-on-selected-file
+          # https://git-scm.com/docs/gitattributes#_defining_a_custom_merge_driver
+          ANCESTOR="$1"
+          CURRENT="$2"
+          OTHER="$3"
+          CONFLICT_MARKER_SIZE="$4"
+          RESULT_PATH="$5"
+          ${pkgs.git}/bin/git merge-file "$CURRENT" "$ANCESTOR" "$OTHER"
+          exit 1 # Always exit indicating a conflict
+        '';
+      in {
         enable = true;
         userName = "Zacchary Dempsey-Plante";
         userEmail = "zacc@ztdp.ca";
@@ -304,6 +316,12 @@ in
           };
           credential.helper = "store";
           init.defaultBranch = "main";
+          merge = {
+            "exit-with-conflicts" = {
+              name = "Exit With Conflicts";
+              driver = "${exitWithConflicts}/bin/git-merge-exit-with-conflicts %O %A %B %L %P";
+            };
+          };
           push.gpgSign = "if-asked";
           tag.gpgSign = true;
         };
