@@ -317,6 +317,7 @@ in
           credential.helper = "store";
           init.defaultBranch = "main";
           merge = {
+            conflictStyle = "diff3";
             "exit-with-conflicts" = {
               name = "Exit With Conflicts";
               driver = "${exitWithConflicts}/bin/git-merge-exit-with-conflicts %O %A %B %L %P";
