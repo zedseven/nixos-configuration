@@ -307,6 +307,7 @@ in
           signByDefault = true;
         };
         extraConfig = {
+          # https://git-scm.com/docs/git-config
           checkout.defaultRemote = "origin";
           commit.gpgSign = true;
           core = {
@@ -329,5 +330,10 @@ in
       };
 
       programs.git-cliff.enable = true;
+
+      programs.direnv = {
+        enable = true;
+        nix-direnv.enable = true;
+      };
     };
   }
