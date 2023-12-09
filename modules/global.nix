@@ -5,15 +5,6 @@
     experimental-features = ["nix-command" "flakes"];
   };
 
-  boot.loader = {
-    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      device = "nodev";
-      efiSupport = true;
-    };
-  };
-
   # Set your time zone.
   time.timeZone = "America/Toronto";
 
