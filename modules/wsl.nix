@@ -9,7 +9,9 @@ in {
   options.services.wsl-vpnkit = with lib; {
     enable = mkEnableOption "Whether to set up `wsl-vpnkit` as a service.";
     gvproxyWinPath = mkOption {
-      type = types.nullOr types.path;
+      # This is a string instead of a path so that Nix does not copy it to the Nix store
+      # If Nix copies the executable to the Nix store, it gets run from within WSL, defeating the whole point
+      type = types.nullOr types.str;
       description = mdDoc ''
         The path to the Windows version of `gvproxy`, `gvproxy-windows.exe`.
 
