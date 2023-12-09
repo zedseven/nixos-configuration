@@ -26,5 +26,10 @@
     defaultUser = "zacc";
   };
 
+  services.wsl-vpnkit = {
+    enable = true;
+    gvproxyWinPath = "/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe";
+  };
+
   system.stateVersion = "23.05"; # Don't touch this, ever
 }
