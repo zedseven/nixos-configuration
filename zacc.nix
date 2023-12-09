@@ -21,6 +21,7 @@ in
         alejandra
         bottom
         cargo
+        deadnix
         du-dust
         eza
         fd
@@ -39,6 +40,7 @@ in
         restic
         ripgrep
         rustc
+        statix
         (tealdeer.overrideAttrs (drv: rec {
           src = fetchFromGitHub {
             owner = "zedseven"; # Until https://github.com/dbrgn/tealdeer/issues/320 is resolved
