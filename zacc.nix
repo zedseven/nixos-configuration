@@ -196,6 +196,9 @@ in
                 vimcmd_replace_symbol = "[ν](bold purple)";
                 vimcmd_visual_symbol = "[ν](bold yellow)";
               };
+              directory = {
+                fish_style_pwd_dir_length = 1;
+              };
               time = {
                 disabled = false;
               };
