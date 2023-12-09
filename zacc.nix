@@ -20,7 +20,6 @@ in
       packages = with pkgs; [
         alejandra
         bottom
-        cargo
         deadnix
         du-dust
         eza
@@ -39,7 +38,6 @@ in
         rclone
         restic
         ripgrep
-        rustc
         statix
         (tealdeer.overrideAttrs (drv: rec {
           src = fetchFromGitHub {
