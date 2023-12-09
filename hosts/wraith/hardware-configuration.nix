@@ -36,6 +36,8 @@ in
         };
       };
 
+      loader.grub.enableCryptodisk = true;
+
       kernelModules = ["kvm-intel"];
       extraModulePackages = [];
       resumeDevice = swapDevice;

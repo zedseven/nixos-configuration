@@ -33,6 +33,8 @@
       };
     };
 
+    loader.grub.enableCryptodisk = true;
+
     kernelModules = ["kvm-amd"];
     extraModulePackages = [];
   };
