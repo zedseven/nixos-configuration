@@ -1,19 +1,51 @@
-{pkgs, ...}: {
-  environment.systemPackages = with pkgs; [
-    wsl-open
-  ];
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}: let
+  cfg = config.services.wsl-vpnkit;
+in {
+  options.services.wsl-vpnkit = with lib; {
+    enable = mkEnableOption "Whether to set up `wsl-vpnkit` as a service.";
+    gvproxyWinPath = mkOption {
+      type = types.nullOr types.path;
+      description = mdDoc ''
+        The path to the Windows version of `gvproxy`, `gvproxy-windows.exe`.
 
-  # Set up a `systemd` service for `wsl-vpnkit`
-  systemd.services.wsl-vpnkit = {
-    enable = true;
-    description = "wsl-vpnkit";
-    after = ["network.target"];
-    serviceConfig = {
-      ExecStart = "${pkgs.wsl-vpnkit}/bin/wsl-vpnkit";
-      Environment = "GVPROXY_PATH=/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe"; # Required because Windows security blocks execution of the executable stored inside WSL
-      Restart = "always";
-      KillMode = "mixed";
+        The Nix derivation for `wsl-vpnkit` creates it but on some Windows systems, Windows' security
+        settings block execution of the executable from within the WSL directory.
+
+        This option defines the path to a copy of the executable on the Windows installation.
+      '';
     };
-    wantedBy = ["multi-user.target"];
   };
+
+  config = lib.mkMerge [
+    {
+      environment.systemPackages = with pkgs; [
+        wsl-open
+      ];
+    }
+    (lib.mkIf cfg.enable {
+      # Set up a `systemd` service for `wsl-vpnkit`
+      # Based on `wsl-vpnkit.service` from `wsl-vpnkit`
+      systemd.services.wsl-vpnkit = {
+        enable = true;
+        description = "wsl-vpnkit";
+        after = ["network.target"];
+        serviceConfig = lib.mkMerge [
+          {
+            ExecStart = "${pkgs.wsl-vpnkit}/bin/wsl-vpnkit";
+            Restart = "always";
+            KillMode = "mixed";
+          }
+          (lib.mkIf (cfg.gvproxyWinPath != null) {
+            Environment = "GVPROXY_PATH=${cfg.gvproxyWinPath}";
+          })
+        ];
+        wantedBy = ["multi-user.target"];
+      };
+    })
+  ];
 }
