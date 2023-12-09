@@ -9,50 +9,89 @@
 
   security.protectKernelImage = false; # To allow for hibernation
 
-  # Enable the X11 windowing system.
-  services.xserver = {
-    enable = true;
-    libinput.enable = true;
-    windowManager.dwm.enable = true;
-    displayManager = {
-      defaultSession = "none+dwm";
-      autoLogin = {
-        enable = true;
-        user = "zacc";
+  services = {
+    xserver = {
+      enable = true;
+      libinput.enable = true;
+      windowManager.dwm.enable = true;
+      displayManager = {
+        defaultSession = "none+dwm";
+        autoLogin = {
+          enable = true;
+          user = "zacc";
+        };
       };
+      desktopManager.wallpaper.mode = "fill";
+      dpi = lib.mkDefault 96;
+      extraConfig = ''
+        # Security settings for `slock`
+        Section "ServerFlags"
+        	#Option "DontVTSwitch" "True"
+        	Option "DontZap"      "True"
+        EndSection
+      '';
     };
-    desktopManager.wallpaper.mode = "fill";
-    dpi = lib.mkDefault 96;
-    extraConfig = ''
-      # Security settings for `slock`
-      Section "ServerFlags"
-      	#Option "DontVTSwitch" "True"
-      	Option "DontZap"      "True"
-      EndSection
-    '';
+
+    pcscd.enable = true;
+    printing.enable = true;
+    logind = {
+      lidSwitch = "hybrid-sleep";
+      extraConfig = ''
+        HandlePowerKey=hybrid-sleep
+        IdleAction=hybrid-sleep
+        IdleActionSec=1m
+      '';
+    };
+    mullvad-vpn = {
+      enable = true;
+      package = pkgs.mullvad-vpn;
+    };
   };
 
-  hardware.opengl = {
+  hardware = {
+    opengl = {
+      enable = true;
+      driSupport = true;
+      driSupport32Bit = true;
+    };
+    pulseaudio = {
+      enable = true;
+      support32Bit = true;
+    };
+  };
+
+  sound = {
     enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
+    enableOSSEmulation = true; # Allows for `/dev/mixer`
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  services.pcscd.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    pinentryFlavor = "gtk2";
-    enableSSHSupport = true;
+  programs = {
+    gnupg.agent = {
+      enable = true;
+      pinentryFlavor = "gtk2";
+      enableSSHSupport = true;
+    };
+    dconf.enable = true; # Required when `gtk.enable` is set in `home-manager`: https://github.com/nix-community/home-manager/issues/3113
+    light.enable = true;
+    slock.enable = true;
+    xss-lock = {
+      enable = true;
+      lockerCommand = "${pkgs.slock}/bin/slock -c";
+    };
   };
 
-  # Enable sound.
-  sound.enable = true;
-  sound.enableOSSEmulation = true; # Allows for `/dev/mixer`
-  hardware.pulseaudio.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  systemd.sleep.extraConfig = ''
+    AllowHibernation=yes
+    HibernateMode=platform shutdown
+    HibernateState=disk
+    HybridSleepMode=suspend platform shutdown
+    HybridSleepState=disk
+  '';
+
+  # To allow file sharing over HTTP via `miniserve`
+  networking.firewall = {
+    allowedTCPPorts = [8080];
+  };
 
   users.users.zacc = {
     extraGroups = [
@@ -126,43 +165,5 @@
     discord = pkgs.discord.overrideAttrs {
       withOpenASAR = true;
     };
-  };
-
-  # Required when `gtk.enable` is set in `home-manager`: https://github.com/nix-community/home-manager/issues/3113
-  programs.dconf.enable = true;
-
-  programs.light.enable = true;
-
-  programs.slock.enable = true;
-  programs.xss-lock = {
-    enable = true;
-    lockerCommand = "${pkgs.slock}/bin/slock -c";
-  };
-
-  services.logind = {
-    lidSwitch = "hybrid-sleep";
-    extraConfig = ''
-      HandlePowerKey=hybrid-sleep
-      IdleAction=hybrid-sleep
-      IdleActionSec=1m
-    '';
-  };
-
-  systemd.sleep.extraConfig = ''
-    AllowHibernation=yes
-    HibernateMode=platform shutdown
-    HibernateState=disk
-    HybridSleepMode=suspend platform shutdown
-    HybridSleepState=disk
-  '';
-
-  services.mullvad-vpn = {
-    enable = true;
-    package = pkgs.mullvad-vpn;
-  };
-
-  # To allow file sharing over HTTP via `miniserve`
-  networking.firewall = {
-    allowedTCPPorts = [8080];
   };
 }

@@ -5,13 +5,14 @@
     experimental-features = ["nix-command" "flakes"];
   };
 
-  boot.loader.efi.canTouchEfiVariables = true;
-
-  boot.loader.grub = {
-    enable = true;
-    device = "nodev";
-    efiSupport = true;
-    enableCryptodisk = true;
+  boot.loader = {
+    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      device = "nodev";
+      efiSupport = true;
+      enableCryptodisk = true;
+    };
   };
 
   # Set your time zone.
@@ -25,16 +26,18 @@
     Defaults timestamp_timeout=15
   '';
 
-  environment.systemPackages = with pkgs; [
-    killall
-    lshw
-    lsof
-    pciutils
-    unzip
-    vim
-    wget
-  ];
-  environment.shells = with pkgs; [fish];
+  environment = {
+    systemPackages = with pkgs; [
+      killall
+      lshw
+      lsof
+      pciutils
+      unzip
+      vim
+      wget
+    ];
+    shells = with pkgs; [fish];
+  };
 
   programs.fish.enable = true;
 
