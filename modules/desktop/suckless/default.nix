@@ -1,9 +1,4 @@
-{
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
+{config, ...}: {
   nixpkgs.config.packageOverrides = pkgs: {
     dmenu = pkgs.dmenu.overrideAttrs (oldAttrs: {
       src = pkgs.fetchFromGitHub {

@@ -1,9 +1,4 @@
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
   services.xserver.dpi = 192;
 
   home-manager.users.zacc = {

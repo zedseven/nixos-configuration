@@ -7,7 +7,6 @@ in
   {
     config,
     lib,
-    pkgs,
     modulesPath,
     ...
   }: {

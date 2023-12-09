@@ -2,7 +2,6 @@ let
   private = import ./private;
 in
   {
-    config,
     pkgs,
     lib,
     ...

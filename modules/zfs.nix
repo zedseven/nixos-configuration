@@ -1,9 +1,4 @@
 {
-  config,
-  pkgs,
-  lib,
-  ...
-}: {
   boot.supportedFilesystems = ["zfs"];
 
   services.zfs.autoScrub = {
