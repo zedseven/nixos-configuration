@@ -137,6 +137,7 @@ in
       programs.fish = {
         enable = true;
         shellAbbrs = {
+          alejandra = "alejandra --quiet";
           bottom = "btm --regex --tree";
           btm = "btm --regex --tree"; # Maybe also include `--battery`?
           c = "cargo";
@@ -177,6 +178,7 @@ in
           ctt = "cargo tree";
           cttd = "cargo tree --duplicates";
           d = "dust";
+          deadnix = "deadnix --hidden";
           du = "dust";
           e = "exit";
           g = "git";
