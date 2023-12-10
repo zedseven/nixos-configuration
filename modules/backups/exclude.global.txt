@@ -1,0 +1,31 @@
+# Steam installs
+**/steamapps/common/
+
+# Compilation artifacts
+**/target/
+**/node_modules/
+
+# Minecraft runtime assets
+**/.minecraft/.*/
+**/.minecraft/assets/
+**/.minecraft/bin/
+**/.minecraft/launcher/
+**/.minecraft/libraries/
+**/.minecraft/logs/
+**/.minecraft/runtime/
+
+# Cache directories
+**/*[cC]ache/
+
+# Temp directories
+**/[tT]emp/
+**/[tT]mp/
+
+# Trash directories
+**/.trash/
+
+# Cargo directory
+**/.cargo/
+
+# Windows Recycle Bin
+**/$RECYCLE.BIN/

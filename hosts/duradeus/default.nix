@@ -12,6 +12,7 @@ in {
     ../../modules/desktop/games.nix
     ../../modules/darlings.nix
     ../../modules/zfs.nix
+    ../../modules/backups
     ../../zacc.nix
   ];
 
@@ -76,6 +77,24 @@ in {
       set-source-mute @DEFAULT_SOURCE@ 0
     .endif
   '';
+
+  services.backups = {
+    enable = true;
+    repository = "b2:zedseven-restic";
+    backupPaths = ["/home" "/persist"];
+    extraExcludeConfig = ''
+      # Torrents
+      /home/zacc/torrents/artifacts/
+
+      # Nixpkgs Git repo
+      /home/zacc/git/nixpkgs
+    '';
+    passwordSource = "/home/zacc/nix/private/backup-passwords.sh";
+    rclone = {
+      enable = true;
+      configPath = "/home/zacc/nix/private/rclone.conf";
+    };
+  };
 
   system.stateVersion = "23.05"; # Don't touch this, ever
 }
