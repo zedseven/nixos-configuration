@@ -6,6 +6,8 @@ in
     pkgs,
     lib,
     home-manager,
+    agenix,
+    system,
     ...
   }: {
     imports = [
@@ -19,6 +21,7 @@ in
       ];
       # CLI packages
       packages = with pkgs; [
+        agenix.packages.${system}.default
         alejandra
         bottom
         deadnix
