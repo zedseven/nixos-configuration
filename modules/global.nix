@@ -1,13 +1,24 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  nixpkgs,
+  home-manager,
+  ...
+}: {
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [
       "electron-25.9.0"
     ];
   };
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes"];
+  nix = {
+    registry = {
+      nixpkgs.flake = nixpkgs;
+      home-manager.flake = home-manager;
+    };
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = ["nix-command" "flakes"];
+    };
   };
 
   # Set your time zone.
