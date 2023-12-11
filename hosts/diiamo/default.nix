@@ -2,11 +2,6 @@
 # The name comes from the saying "a diamond in the rough" because it's a haven of declarative Linux
 # running inside the mess that is Windows.
 {
-  config,
-  lib,
-  pkgs,
-  ...
-}: {
   imports = [
     <nixos-wsl/modules>
     <home-manager/nixos>
