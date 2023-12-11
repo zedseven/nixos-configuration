@@ -94,6 +94,7 @@ in {
       enable = true;
       configPath = "/home/zacc/nix/private/rclone.conf";
     };
+    scheduled.onCalendar = "*-*-* 00:00:00";
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever

@@ -7,7 +7,7 @@
   cfg = config.services.backups;
 in {
   options.services.backups = with lib; {
-    enable = mkEnableOption "Whether to set up automatic backups.";
+    enable = mkEnableOption "backups";
     repository = mkOption {
       description = mdDoc ''
         The repository to backup to.
@@ -35,90 +35,137 @@ in {
       type = types.str;
       default = "";
     };
-    rclone = mkOption {
-      description = mdDoc "The configuration for `rclone`.";
-      type = types.submodule {
-        options = {
-          enable = mkEnableOption "Whether to use `rclone` as the backend for `restic`.";
-          package = mkOption {
-            description = mdDoc "The package to use for `rclone`.";
-            type = types.package;
-            default = pkgs.rclone;
-            defaultText = lib.literalExpression "pkgs.rclone";
-          };
-          configPath = mkOption {
-            description = mdDoc "An alternate path to the `rclone` config file. If not defined, `rclone` will look in its default location.";
-            type = types.nullOr types.str;
-            default = null;
-          };
-        };
+    rclone = {
+      enable = mkEnableOption "rclone";
+      package = mkOption {
+        description = mdDoc "The package to use for `rclone`.";
+        type = types.package;
+        default = pkgs.rclone;
+        defaultText = lib.literalExpression "pkgs.rclone";
+      };
+      configPath = mkOption {
+        description = mdDoc "An alternate path to the `rclone` config file. If not defined, `rclone` will look in its default location.";
+        type = types.nullOr types.str;
+        default = null;
+      };
+    };
+    scheduled = {
+      enable = mkOption {
+        description = "Whether to set up scheduled backups.";
+        type = types.bool;
+        default = true;
+      };
+      onCalendar = mkOption {
+        description = mdDoc ''
+          The interval to run the scheduled backups at.
+          This corresponds to the `OnCalendar` systemd timer option.
+
+          See https://wiki.archlinux.org/title/Systemd/Timers for more information.
+        '';
+        type = types.str;
+        default = "daily";
+      };
+      requiresNetwork = mkOption {
+        description = "Whether the backup repository requires active networking to access.";
+        type = types.bool;
+        default = cfg.rclone.enable;
       };
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    users.users.zacc = {
-      packages = let
-        repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
-        excludeFile = pkgs.writeText "exclude.txt" ''
-          ${builtins.readFile ./exclude.global.txt}
-          ${cfg.extraExcludeConfig}
-        '';
-        backupSpecs =
-          lib.concatMapStrings
-          (backupPath: let
-            escapedFilename = lib.replaceStrings ["/" " "] ["-" "-"] (lib.removePrefix "/" backupPath);
-          in "\"${backupPath};${escapedFilename}.txt\"\n")
-          cfg.backupPaths;
-        runBackup = pkgs.writeShellScriptBin "run-backup" ''
-          # Constants
-          TREES_DIR="$(mktemp -d)"
-          RESTIC_EXCLUDE_FILE="${excludeFile}"
-          RESTIC_HOSTNAME="${config.networking.hostName}"
+  config = lib.mkIf cfg.enable (let
+    repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
+    excludeFile = pkgs.writeText "exclude.txt" ''
+      ${builtins.readFile ./exclude.global.txt}
+      ${cfg.extraExcludeConfig}
+    '';
+    backupSpecs =
+      lib.concatMapStrings
+      (backupPath: let
+        escapedFilename = lib.replaceStrings ["/" " "] ["-" "-"] (lib.removePrefix "/" backupPath);
+      in "\"${backupPath};${escapedFilename}.txt\"\n")
+      cfg.backupPaths;
+    runBackup = pkgs.writeShellScriptBin "run-backup" ''
+      # Constants
+      TREES_DIR="$(mktemp -d)"
+      RESTIC_EXCLUDE_FILE="${excludeFile}"
+      RESTIC_HOSTNAME="${config.networking.hostName}"
 
-          # Environment Variables
-          export RESTIC_REPOSITORY="${repository}"
-          export RESTIC_COMPRESSION="max"
-          source "${cfg.passwordSource}"
-          ${
-            lib.optionalString cfg.rclone.enable
-            (lib.optionalString (cfg.rclone.configPath != null) "export RCLONE_CONFIG=\"${cfg.rclone.configPath}\"\n")
-            + "PATH=\"${cfg.rclone.package}/bin\${PATH:+:\${PATH}}\"\n"
-          }
+      # Environment Variables
+      export RESTIC_REPOSITORY="${repository}"
+      export RESTIC_COMPRESSION="max"
+      source "${cfg.passwordSource}"
+      ${
+        lib.optionalString cfg.rclone.enable
+        (lib.optionalString (cfg.rclone.configPath != null) "export RCLONE_CONFIG=\"${cfg.rclone.configPath}\"\n")
+        + "PATH=\"${cfg.rclone.package}/bin\${PATH:+:\${PATH}}\"\n"
+      }
 
-          # Directories to Backup
-          declare -a BACKUP_SPECS=(
-            ${backupSpecs}
-          )
+      # Directories to Backup
+      declare -a BACKUP_SPECS=(
+        ${backupSpecs}
+      )
 
-          declare -a BACKUP_DIRS=()
+      declare -a BACKUP_DIRS=()
 
-          # Process each entry to build the arguments list and generate tree files
-          for BACKUP_SPEC in "''${BACKUP_SPECS[@]}"; do
-            # Split the entry on the `;` character
-            SPLIT=(''${BACKUP_SPEC//;/ })
-            BACKUP_DIR="''${SPLIT[0]}"
-            TREE_FILE="''${SPLIT[1]}"
+      # Process each entry to build the arguments list and generate tree files
+      for BACKUP_SPEC in "''${BACKUP_SPECS[@]}"; do
+        # Split the entry on the `;` character
+        SPLIT=(''${BACKUP_SPEC//;/ })
+        BACKUP_DIR="''${SPLIT[0]}"
+        TREE_FILE="''${SPLIT[1]}"
 
-            # Generate the tree file to archive the list of all files and their locations
-            ${pkgs.tree}/bin/tree --dirsfirst -F -a "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
+        # Generate the tree file to archive the list of all files and their locations
+        ${pkgs.tree}/bin/tree --dirsfirst -F -a "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
 
-            # Append the directory to the arguments list
-            BACKUP_DIRS+=("$BACKUP_DIR")
-          done
+        # Append the directory to the arguments list
+        BACKUP_DIRS+=("$BACKUP_DIR")
+      done
 
-          # Backup the tree file directory
-          BACKUP_DIRS+=("$TREES_DIR")
+      # Backup the tree file directory
+      BACKUP_DIRS+=("$TREES_DIR")
 
-          # Backup the directories
-          ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
+      # Backup the directories
+      ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
 
-          # Delete the temporary tree file directory
-          rm -rf "$TREES_DIR"
-        '';
-      in [
-        runBackup
-      ];
-    };
-  };
+      # Delete the temporary tree file directory
+      rm -rf "$TREES_DIR"
+    '';
+  in
+    lib.mkMerge [
+      {
+        users.users.zacc = {
+          packages = [
+            runBackup
+          ];
+        };
+      }
+      (lib.mkIf cfg.scheduled.enable {
+        systemd = {
+          services."run-backup" = lib.mkMerge [
+            {
+              enable = true;
+              description = "run-backup";
+              serviceConfig = {
+                User = "zacc";
+                ExecStart = "${runBackup}/bin/run-backup";
+                Restart = "always";
+              };
+            }
+            (lib.mkIf cfg.scheduled.requiresNetwork {
+              requires = ["network-online.target"];
+            })
+          ];
+
+          timers."run-backup" = {
+            timerConfig = {
+              OnCalendar = cfg.scheduled.onCalendar;
+              Persistent = true;
+              Unit = "run-backup.service";
+            };
+            wantedBy = ["timers.target"];
+          };
+        };
+      })
+    ]);
 }
