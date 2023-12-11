@@ -104,7 +104,7 @@
         dmenu
         firefox-devedition
         jetbrains.clion
-        (jetbrains.rust-rover.overrideAttrs (drv: let
+        (jetbrains.rust-rover.overrideAttrs (let
           version = "233.10527.212";
         in rec {
           inherit version;
