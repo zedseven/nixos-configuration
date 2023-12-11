@@ -10,6 +10,7 @@ in {
     ../../modules/desktop
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/games.nix
+    ../../modules/audio.nix
     ../../modules/darlings.nix
     ../../modules/zfs.nix
     ../../modules/backups
@@ -59,24 +60,10 @@ in {
     };
   };
 
-  hardware.pulseaudio.extraConfig = let
-    defaultSink = "alsa_output.usb-Sony_Sony_USB_DAC_Amplifier-00.analog-stereo";
-    defaultSource = "alsa_input.pci-0000_0c_00.4.analog-stereo";
-  in ''
-    .ifexists ${defaultSink}
-      set-default-sink ${defaultSink}
-      set-sink-volume @DEFAULT_SINK@ 50%
-    .endif
-
-    # The extraneous toggles here are because, for some reason, `set-source-mute ... 0` does not unmute
-    # the device until it's been toggled
-    .ifexists ${defaultSource}
-      set-default-source ${defaultSource}
-      set-source-mute @DEFAULT_SOURCE@ toggle
-      set-source-mute @DEFAULT_SOURCE@ toggle
-      set-source-mute @DEFAULT_SOURCE@ 0
-    .endif
-  '';
+  services.persistentAudioSettings = {
+    enable = true;
+    alsaDirPath = "/persist/var/lib/alsa";
+  };
 
   services.backups = {
     enable = true;
