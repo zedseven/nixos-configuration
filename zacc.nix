@@ -32,6 +32,7 @@ in
         libfaketime
         miniserve
         neofetch
+        nix-tree
         nixpkgs-fmt
         plantuml
         procs
