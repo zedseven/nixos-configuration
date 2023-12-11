@@ -1,9 +1,12 @@
 {
+  self,
   pkgs,
   nixpkgs,
   home-manager,
   ...
 }: {
+  system.configurationRevision = self.rev or self.dirtyRev;
+
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [
