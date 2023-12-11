@@ -1,9 +1,9 @@
 # My main PC.
-let
-  private = import ../../private;
+{home-manager, ...}: let
+  private = import /home/zacc/nix/private;
 in {
   imports = [
-    <home-manager/nixos>
+    home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules/global.nix
     ../../modules/physical.nix
@@ -25,7 +25,6 @@ in {
   };
 
   networking = {
-    hostName = "duradeus";
     hostId = "c4f086eb";
     wireless = {
       enable = true;

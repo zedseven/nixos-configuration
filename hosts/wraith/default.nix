@@ -1,9 +1,9 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
-let
-  private = import ../../private;
+{home-manager, ...}: let
+  private = import /home/zacc/nix/private;
 in {
   imports = [
-    <home-manager/nixos>
+    home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules/global.nix
     ../../modules/physical.nix
@@ -23,7 +23,6 @@ in {
   };
 
   networking = {
-    hostName = "wraith";
     hostId = "eff5369a";
     wireless = {
       enable = true;

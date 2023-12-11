@@ -1,14 +1,15 @@
 let
-  private = import ./private;
+  private = import /home/zacc/nix/private;
 in
   {
     config,
     pkgs,
     lib,
+    home-manager,
     ...
   }: {
     imports = [
-      <home-manager/nixos>
+      home-manager.nixosModules.home-manager
     ];
 
     users.users.zacc = {

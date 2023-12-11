@@ -1,5 +1,10 @@
 {pkgs, ...}: {
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "electron-25.9.0"
+    ];
+  };
   nix.settings = {
     auto-optimise-store = true;
     experimental-features = ["nix-command" "flakes"];

@@ -104,15 +104,7 @@
         dmenu
         firefox-devedition
         jetbrains.clion
-        (jetbrains.rust-rover.overrideAttrs (let
-          version = "233.10527.212";
-        in rec {
-          inherit version;
-          src = fetchurl {
-            url = "https://download.jetbrains.com/rustrover/RustRover-${version}.tar.gz";
-            sha256 = "sha256-j1I3hrz7DxEtERLHxl8vvaARKVI1fJMfIVtihTDFUM8=";
-          };
-        }))
+        jetbrains.rust-rover
         keepass
         obsidian
         slstatus
