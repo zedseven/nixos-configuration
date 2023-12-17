@@ -41,11 +41,13 @@
       lsof
       pciutils
       unzip
-      vim
       wget
     ];
     shells = with pkgs; [fish];
   };
 
-  programs.fish.enable = true;
+  programs = {
+    fish.enable = true;
+    vim.defaultEditor = true;
+  };
 }

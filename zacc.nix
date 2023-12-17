@@ -174,6 +174,12 @@ in
             '';
           };
 
+          vim = {
+            enable = true;
+            defaultEditor = true;
+            packageConfigurable = pkgs.vim;
+          };
+
           starship = {
             enable = true;
             settings = {
