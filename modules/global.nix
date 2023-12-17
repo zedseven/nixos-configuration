@@ -2,7 +2,6 @@
   self,
   pkgs,
   nixpkgs,
-  home-manager,
   ...
 }: {
   system.configurationRevision = self.rev or self.dirtyRev;
@@ -14,10 +13,10 @@
     ];
   };
   nix = {
-    registry = {
-      nixpkgs.flake = nixpkgs;
-      home-manager.flake = home-manager;
-    };
+    channel.enable = false;
+    # Only `nixpkgs` is pinned because none of the other inputs are used outside of the flake
+    nixPath = ["nixpkgs=flake:nixpkgs"];
+    registry.nixpkgs.flake = nixpkgs;
     settings = {
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
