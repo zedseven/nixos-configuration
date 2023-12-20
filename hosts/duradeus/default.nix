@@ -11,6 +11,7 @@ in {
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/games.nix
     ../../modules/audio.nix
+    ../../modules/bluetooth.nix
     ../../modules/darlings.nix
     ../../modules/zfs.nix
     ../../modules/backups
