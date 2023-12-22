@@ -59,6 +59,7 @@ in
         }))
         tree
         viu
+        yt-dlp
       ];
       inherit (private) hashedPassword;
       shell = pkgs.fish;
