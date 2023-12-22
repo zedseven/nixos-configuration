@@ -2,6 +2,7 @@
   self,
   pkgs,
   nixpkgs,
+  programs-db,
   ...
 }: {
   system.configurationRevision = self.rev or self.dirtyRev;
@@ -44,9 +45,13 @@
       wget
     ];
     shells = with pkgs; [fish];
+    etc = {
+      "programs.sqlite".source = programs-db.packages.${pkgs.system}.programs-sqlite;
+    };
   };
 
   programs = {
+    command-not-found.dbPath = "/etc/programs.sqlite";
     fish.enable = true;
     vim.defaultEditor = true;
   };
