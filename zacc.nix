@@ -35,6 +35,7 @@ in
         home-manager
         libfaketime
         miniserve
+        mpv
         neofetch
         nix-tree
         nixpkgs-fmt
