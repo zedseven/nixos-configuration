@@ -149,7 +149,6 @@ in {
               serviceConfig = {
                 User = "zacc";
                 ExecStart = "${runBackup}/bin/run-backup";
-                Restart = "always";
               };
             }
             (lib.mkIf cfg.scheduled.requiresNetwork {
