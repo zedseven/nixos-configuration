@@ -13,15 +13,17 @@ in {
     ../../modules/audio.nix
     ../../modules/bluetooth.nix
     ../../modules/darlings.nix
+    ../../modules/symlinks.nix
     ../../modules/zfs.nix
     ../../modules/backups
     ../../zacc.nix
   ];
 
   environment = {
-    etc = {
-      "nixos".source = "/home/zacc/nix";
-      "mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+    symlinks = {
+      "/etc/nixos".source = "/home/zacc/nix";
+      "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+      "/var/lib/bluetooth".source = "/persist/var/lib/bluetooth";
     };
   };
 

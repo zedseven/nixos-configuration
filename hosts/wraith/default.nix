@@ -11,14 +11,15 @@ in {
     ../../modules/desktop/nvidia.nix
     ../../modules/desktop/4k.nix
     ../../modules/darlings.nix
+    ../../modules/symlinks.nix
     ../../modules/zfs.nix
     ../../zacc.nix
   ];
 
   environment = {
-    etc = {
-      "nixos".source = "/home/zacc/nix";
-      "mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+    symlinks = {
+      "/etc/nixos".source = "/home/zacc/nix";
+      "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
     };
   };
 
