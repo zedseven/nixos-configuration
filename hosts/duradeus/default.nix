@@ -20,10 +20,17 @@ in {
     ../../zacc.nix
   ];
 
-  environment.symlinks = {
-    "/etc/nixos".source = configPath;
-    "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
-    "/var/lib/bluetooth".source = "/persist/var/lib/bluetooth";
+  environment = {
+    darlings = {
+      enable = true;
+      persist.paths = [
+        "/etc/mullvad-vpn"
+        "/var/lib/bluetooth"
+      ];
+    };
+    symlinks = {
+      "/etc/nixos".source = configPath;
+    };
   };
 
   networking = {

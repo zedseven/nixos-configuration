@@ -17,9 +17,16 @@ in {
     ../../zacc.nix
   ];
 
-  environment.symlinks = {
-    "/etc/nixos".source = configPath;
-    "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+  environment = {
+    darlings = {
+      enable = true;
+      persist.paths = [
+        "/etc/mullvad-vpn"
+      ];
+    };
+    symlinks = {
+      "/etc/nixos".source = configPath;
+    };
   };
 
   networking = {
