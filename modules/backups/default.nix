@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  username,
   ...
 }: let
   cfg = config.services.backups;
@@ -134,7 +135,7 @@ in {
   in
     lib.mkMerge [
       {
-        users.users.zacc = {
+        users.users.${username} = {
           packages = [
             runBackup
           ];
@@ -147,7 +148,7 @@ in {
               enable = true;
               description = "run-backup";
               serviceConfig = {
-                User = "zacc";
+                User = username;
                 ExecStart = "${runBackup}/bin/run-backup";
               };
             }

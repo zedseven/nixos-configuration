@@ -4,6 +4,7 @@
 {
   nixos-wsl,
   home-manager,
+  username,
   ...
 }: {
   imports = [
@@ -16,7 +17,7 @@
 
   wsl = {
     enable = true;
-    defaultUser = "zacc";
+    defaultUser = username;
   };
 
   services.wsl-vpnkit = {

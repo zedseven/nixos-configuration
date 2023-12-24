@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  username,
   ...
 }: {
   imports = [
@@ -18,7 +19,7 @@
         defaultSession = "none+dwm";
         autoLogin = {
           enable = true;
-          user = "zacc";
+          user = username;
         };
       };
       desktopManager.wallpaper.mode = "fill";
@@ -93,7 +94,7 @@
     allowedTCPPorts = [8080];
   };
 
-  users.users.zacc = {
+  users.users.${username} = {
     extraGroups = [
       "audio"
       "video"
@@ -116,7 +117,7 @@
         '')
       ];
   };
-  home-manager.users.zacc = {
+  home-manager.users.${username} = {
     imports = [
       ./discord
     ];

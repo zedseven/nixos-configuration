@@ -1,7 +1,7 @@
 {
   services.xserver.dpi = 192;
 
-  home-manager.users.zacc = {
+  home-manager.users.${username} = {
     home.pointerCursor.size = 64;
 
     xresources.properties = {

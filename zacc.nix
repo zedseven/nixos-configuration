@@ -8,13 +8,14 @@ in
     home-manager,
     agenix,
     system,
+    username,
     ...
   }: {
     imports = [
       home-manager.nixosModules.home-manager
     ];
 
-    users.users.zacc = {
+    users.users.${username} = {
       isNormalUser = true;
       extraGroups = [
         "wheel" # Enable `sudo`
@@ -69,10 +70,10 @@ in
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.zacc = {
+      users.${username} = {
         home = {
-          username = "zacc";
-          homeDirectory = "/home/zacc";
+          inherit username;
+          homeDirectory = "/home/${username}";
           stateVersion = "22.11"; # Don't touch this, ever
           language.base = config.i18n.defaultLocale;
         };
@@ -242,7 +243,7 @@ in
                 auto_update_interval_hours = 720;
               };
               directories = {
-                custom_pages_dir = "/home/zacc/tealdeer";
+                custom_pages_dir = "/home/${username}/tealdeer";
               };
             };
           };

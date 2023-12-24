@@ -1,5 +1,9 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
-{home-manager, ...}: let
+{
+  home-manager,
+  username,
+  ...
+}: let
   configPath = "/persist/etc/nixos";
   private = import /persist/etc/nixos/private;
 in {
@@ -47,7 +51,7 @@ in {
     nvidiaBusId = "PCI:59@0:0:0";
   };
 
-  home-manager.users.zacc.programs.autorandr.profiles = {
+  home-manager.users.${username}.programs.autorandr.profiles = {
     "home" = {
       # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
       fingerprint = {

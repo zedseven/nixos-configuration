@@ -1,5 +1,9 @@
 # My main PC.
-{home-manager, ...}: let
+{
+  home-manager,
+  username,
+  ...
+}: let
   configPath = "/persist/etc/nixos";
   private = import /persist/etc/nixos/private;
 in {
@@ -41,7 +45,7 @@ in {
     };
   };
 
-  home-manager.users.zacc.programs.autorandr.profiles = {
+  home-manager.users.${username}.programs.autorandr.profiles = {
     "home" = {
       # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
       fingerprint = {
@@ -79,10 +83,10 @@ in {
     backupPaths = ["/home" "/persist"];
     extraExcludeConfig = ''
       # Torrents
-      /home/zacc/torrents/artifacts/
+      /home/${username}/torrents/artifacts/
 
       # Nixpkgs Git repo
-      /home/zacc/git/nixpkgs
+      /home/${username}/git/nixpkgs
     '';
     passwordSource = "/persist/etc/nixos/private/backup-passwords.sh";
     rclone = {
