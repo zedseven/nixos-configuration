@@ -1,6 +1,7 @@
 # My main PC.
 {home-manager, ...}: let
-  private = import /home/zacc/nix/private;
+  configPath = "/persist/etc/nixos";
+  private = import /persist/etc/nixos/private;
 in {
   imports = [
     home-manager.nixosModules.home-manager
@@ -19,12 +20,10 @@ in {
     ../../zacc.nix
   ];
 
-  environment = {
-    symlinks = {
-      "/etc/nixos".source = "/home/zacc/nix";
-      "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
-      "/var/lib/bluetooth".source = "/persist/var/lib/bluetooth";
-    };
+  environment.symlinks = {
+    "/etc/nixos".source = configPath;
+    "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+    "/var/lib/bluetooth".source = "/persist/var/lib/bluetooth";
   };
 
   networking = {
@@ -78,10 +77,10 @@ in {
       # Nixpkgs Git repo
       /home/zacc/git/nixpkgs
     '';
-    passwordSource = "/home/zacc/nix/private/backup-passwords.sh";
+    passwordSource = "/persist/etc/nixos/private/backup-passwords.sh";
     rclone = {
       enable = true;
-      configPath = "/home/zacc/nix/private/rclone.conf";
+      configPath = "/persist/etc/nixos/private/rclone.conf";
     };
     scheduled.onCalendar = "*-*-* 00:00:00";
   };

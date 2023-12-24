@@ -14,10 +14,6 @@
     ../../zacc.nix
   ];
 
-  environment = {
-    etc."nixos".source = "/home/zacc/nix";
-  };
-
   wsl = {
     enable = true;
     defaultUser = "zacc";

@@ -1,6 +1,7 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
 {home-manager, ...}: let
-  private = import /home/zacc/nix/private;
+  configPath = "/persist/etc/nixos";
+  private = import /persist/etc/nixos/private;
 in {
   imports = [
     home-manager.nixosModules.home-manager
@@ -16,11 +17,9 @@ in {
     ../../zacc.nix
   ];
 
-  environment = {
-    symlinks = {
-      "/etc/nixos".source = "/home/zacc/nix";
-      "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
-    };
+  environment.symlinks = {
+    "/etc/nixos".source = configPath;
+    "/etc/mullvad-vpn".source = "/persist/etc/mullvad-vpn";
   };
 
   networking = {

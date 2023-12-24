@@ -1,5 +1,5 @@
 let
-  private = import /home/zacc/nix/private;
+  private = import /persist/etc/nixos/private;
 in
   {
     config,
