@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  cfg = config.environment.symlinks;
+  cfg = config.custom.symlinks;
 in {
   # This is mostly based on the implementation of `environment.etc` in the main NixOS source
-  options.environment.symlinks = with lib;
+  options.custom.symlinks = with lib;
     mkOption {
       description = "The symlinks to create.";
       type = types.attrsOf (types.submodule ({name, ...}: {

@@ -10,8 +10,7 @@
   imports = [
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
-    ../../modules/global.nix
-    ../../modules/wsl.nix
+    ../../modules
     ../../user.nix
   ];
 
@@ -20,7 +19,7 @@
     defaultUser = userInfo.username;
   };
 
-  services.wsl-vpnkit = {
+  custom.wsl.wsl-vpnkit = {
     enable = true;
     gvproxyWinPath = "/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe";
   };

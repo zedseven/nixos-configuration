@@ -37,6 +37,7 @@ in {
     };
 
     loader.grub.enableCryptodisk = true;
+    supportedFilesystems = ["zfs"];
 
     kernelModules = ["kvm-intel"];
     extraModulePackages = [];

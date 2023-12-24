@@ -7,13 +7,13 @@
   lib,
   ...
 }: let
-  cfg = config.environment.darlings;
+  cfg = config.custom.darlings;
 in {
   imports = [
     ./symlinks.nix
   ];
 
-  options.environment.darlings = with lib; {
+  options.custom.darlings = with lib; {
     enable = mkEnableOption "erase-your-darlings";
     wipeCommand = mkOption {
       description = "The command to run to wipe the root partition. Run on boot, after the devices are set up.";
@@ -37,7 +37,7 @@ in {
   config = lib.mkIf cfg.enable {
     boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
 
-    environment.symlinks = builtins.listToAttrs (map (path: {
+    custom.symlinks = builtins.listToAttrs (map (path: {
         name = path;
         value = {
           source = cfg.persist.mirrorRoot + path;

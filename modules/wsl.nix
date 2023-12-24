@@ -4,9 +4,9 @@
   lib,
   ...
 }: let
-  cfg = config.services.wsl-vpnkit;
+  cfg = config.custom.wsl.wsl-vpnkit;
 in {
-  options.services.wsl-vpnkit = with lib; {
+  options.custom.wsl.wsl-vpnkit = with lib; {
     enable = mkEnableOption "wsl-vpnkit as a service";
     gvproxyWinPath = mkOption {
       description = mdDoc ''

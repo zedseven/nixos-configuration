@@ -6,9 +6,9 @@
   userInfo,
   ...
 }: let
-  cfg = config.services.backups;
+  cfg = config.custom.backups;
 in {
-  options.services.backups = with lib; {
+  options.custom.backups = with lib; {
     enable = mkEnableOption "backups";
     repository = mkOption {
       description = mdDoc ''

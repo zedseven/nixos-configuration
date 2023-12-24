@@ -10,27 +10,56 @@ in {
   imports = [
     home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
-    ../../modules/global.nix
-    ../../modules/physical.nix
-    ../../modules/desktop
-    ../../modules/desktop/nvidia.nix
-    ../../modules/desktop/4k.nix
-    ../../modules/darlings.nix
-    ../../modules/symlinks.nix
-    ../../modules/zfs.nix
+    ../../modules
     ../../user.nix
   ];
 
-  environment = {
+  custom = {
+    backups = {
+      enable = true;
+      repository = "b2:zedseven-restic";
+      backupPaths = ["/home" "/persist"];
+      extraExcludeConfig = ''
+        # Torrents
+        /home/${userInfo.username}/torrents/artifacts/
+
+        # Nixpkgs Git repo
+        /home/${userInfo.username}/git/nixpkgs
+      '';
+      passwordSource = "/persist/etc/nixos/private/backup-passwords.sh";
+      rclone = {
+        enable = true;
+        configPath = "/persist/etc/nixos/private/rclone.conf";
+      };
+      scheduled.onCalendar = "*-*-* 00:00:00";
+    };
+
     darlings = {
       enable = true;
       persist.paths = [
         "/etc/mullvad-vpn"
       ];
     };
+
+    desktop = {
+      enable = true;
+      displayDriver = "nvidia";
+      audio.persistentSettings = {
+        enable = true;
+        alsaDirPath = "/persist/var/lib/alsa";
+      };
+      discord = {
+        enable = true;
+        wrapDiscord = true;
+      };
+    };
+
     symlinks = {
       "/etc/nixos".source = configPath;
     };
+
+    physical.enable = true;
+    zfs.enable = true;
   };
 
   networking = {
