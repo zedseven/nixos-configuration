@@ -24,11 +24,7 @@
     };
   };
 
-  outputs = {
-    self,
-    nixpkgs,
-    ...
-  } @ inputs: {
+  outputs = {nixpkgs, ...} @ inputs: {
     nixosConfigurations = let
       userInfo = {
         username = "zacc";
