@@ -1,4 +1,8 @@
-{config, ...}: {
+{
+  config,
+  hostname,
+  ...
+}: {
   nixpkgs.config.packageOverrides = pkgs: {
     dmenu = pkgs.dmenu.overrideAttrs (oldAttrs: {
       src = pkgs.fetchFromGitHub {
@@ -43,7 +47,7 @@
       };
 
     slstatus = pkgs.slstatus.override {
-      conf = builtins.readFile ./config.slstatus.${config.networking.hostName}.h;
+      conf = builtins.readFile ./config.slstatus.${hostname}.h;
     };
 
     st =

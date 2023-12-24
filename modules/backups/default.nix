@@ -2,6 +2,7 @@
   config,
   pkgs,
   lib,
+  hostname,
   userInfo,
   ...
 }: let
@@ -90,7 +91,7 @@ in {
       # Constants
       TREES_DIR="$(mktemp -d)"
       RESTIC_EXCLUDE_FILE="${excludeFile}"
-      RESTIC_HOSTNAME="${config.networking.hostName}"
+      RESTIC_HOSTNAME="${hostname}"
 
       # Environment Variables
       export RESTIC_REPOSITORY="${repository}"
