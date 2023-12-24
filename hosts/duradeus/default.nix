@@ -1,7 +1,7 @@
 # My main PC.
 {
   home-manager,
-  username,
+  userInfo,
   ...
 }: let
   configPath = "/persist/etc/nixos";
@@ -21,7 +21,7 @@ in {
     ../../modules/symlinks.nix
     ../../modules/zfs.nix
     ../../modules/backups
-    ../../zacc.nix
+    ../../user.nix
   ];
 
   environment = {
@@ -45,7 +45,7 @@ in {
     };
   };
 
-  home-manager.users.${username}.programs.autorandr.profiles = {
+  home-manager.users.${userInfo.username}.programs.autorandr.profiles = {
     "home" = {
       # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
       fingerprint = {
@@ -83,10 +83,10 @@ in {
     backupPaths = ["/home" "/persist"];
     extraExcludeConfig = ''
       # Torrents
-      /home/${username}/torrents/artifacts/
+      /home/${userInfo.username}/torrents/artifacts/
 
       # Nixpkgs Git repo
-      /home/${username}/git/nixpkgs
+      /home/${userInfo.username}/git/nixpkgs
     '';
     passwordSource = "/persist/etc/nixos/private/backup-passwords.sh";
     rclone = {

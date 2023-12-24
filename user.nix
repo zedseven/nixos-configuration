@@ -8,14 +8,14 @@ in
     home-manager,
     agenix,
     system,
-    username,
+    userInfo,
     ...
   }: {
     imports = [
       home-manager.nixosModules.home-manager
     ];
 
-    users.users.${username} = {
+    users.users.${userInfo.username} = {
       isNormalUser = true;
       extraGroups = [
         "wheel" # Enable `sudo`
@@ -70,10 +70,10 @@ in
     home-manager = {
       useGlobalPkgs = true;
       useUserPackages = true;
-      users.${username} = {
+      users.${userInfo.username} = {
         home = {
-          inherit username;
-          homeDirectory = "/home/${username}";
+          inherit (userInfo) username;
+          homeDirectory = "/home/${userInfo.username}";
           stateVersion = "22.11"; # Don't touch this, ever
           language.base = config.i18n.defaultLocale;
         };
@@ -243,7 +243,7 @@ in
                 auto_update_interval_hours = 720;
               };
               directories = {
-                custom_pages_dir = "/home/${username}/tealdeer";
+                custom_pages_dir = "/home/${userInfo.username}/tealdeer";
               };
             };
           };
@@ -266,10 +266,10 @@ in
             '';
           in {
             enable = true;
-            userName = "Zacchary Dempsey-Plante";
-            userEmail = "zacc@ztdp.ca";
+            userName = userInfo.name;
+            userEmail = userInfo.email;
             signing = {
-              key = "64FABC62F4572875";
+              key = userInfo.gpgKeyId;
               signByDefault = true;
             };
             extraConfig = {

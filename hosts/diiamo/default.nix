@@ -4,7 +4,7 @@
 {
   nixos-wsl,
   home-manager,
-  username,
+  userInfo,
   ...
 }: {
   imports = [
@@ -12,12 +12,12 @@
     home-manager.nixosModules.home-manager
     ../../modules/global.nix
     ../../modules/wsl.nix
-    ../../zacc.nix
+    ../../user.nix
   ];
 
   wsl = {
     enable = true;
-    defaultUser = username;
+    defaultUser = userInfo.username;
   };
 
   services.wsl-vpnkit = {

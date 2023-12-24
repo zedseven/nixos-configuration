@@ -30,7 +30,12 @@
     ...
   } @ inputs: {
     nixosConfigurations = let
-      username = "zacc";
+      userInfo = {
+        username = "zacc";
+        name = "Zacchary Dempsey-Plante";
+        email = "zacc@ztdp.ca";
+        gpgKeyId = "64FABC62F4572875";
+      };
     in
       builtins.listToAttrs (map (host: {
           name = host.hostname;
@@ -38,7 +43,7 @@
             inherit (host) system;
             specialArgs =
               {
-                inherit username;
+                inherit userInfo;
                 inherit (host) system hostname;
               }
               // inputs;

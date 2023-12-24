@@ -1,7 +1,7 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
 {
   home-manager,
-  username,
+  userInfo,
   ...
 }: let
   configPath = "/persist/etc/nixos";
@@ -18,7 +18,7 @@ in {
     ../../modules/darlings.nix
     ../../modules/symlinks.nix
     ../../modules/zfs.nix
-    ../../zacc.nix
+    ../../user.nix
   ];
 
   environment = {
@@ -51,7 +51,7 @@ in {
     nvidiaBusId = "PCI:59@0:0:0";
   };
 
-  home-manager.users.${username}.programs.autorandr.profiles = {
+  home-manager.users.${userInfo.username}.programs.autorandr.profiles = {
     "home" = {
       # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
       fingerprint = {

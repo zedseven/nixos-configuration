@@ -1,7 +1,7 @@
 {
   pkgs,
   lib,
-  username,
+  userInfo,
   ...
 }: {
   imports = [
@@ -19,7 +19,7 @@
         defaultSession = "none+dwm";
         autoLogin = {
           enable = true;
-          user = username;
+          user = userInfo.username;
         };
       };
       desktopManager.wallpaper.mode = "fill";
@@ -94,7 +94,7 @@
     allowedTCPPorts = [8080];
   };
 
-  users.users.${username} = {
+  users.users.${userInfo.username} = {
     extraGroups = [
       "audio"
       "video"
@@ -117,7 +117,7 @@
         '')
       ];
   };
-  home-manager.users.${username} = {
+  home-manager.users.${userInfo.username} = {
     imports = [
       ./discord
     ];
