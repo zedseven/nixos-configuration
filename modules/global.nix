@@ -2,7 +2,9 @@
   self,
   pkgs,
   nixpkgs,
+  agenix,
   programs-db,
+  system,
   ...
 }: {
   system.configurationRevision = self.rev or self.dirtyRev;
@@ -37,16 +39,18 @@
 
   environment = {
     systemPackages = with pkgs; [
+      (agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
       killall
       lshw
       lsof
       pciutils
+      rage
       unzip
       wget
     ];
     shells = with pkgs; [fish];
     etc = {
-      "programs.sqlite".source = programs-db.packages.${pkgs.system}.programs-sqlite;
+      "programs.sqlite".source = programs-db.packages.${system}.programs-sqlite;
     };
   };
 

@@ -3,8 +3,6 @@
   pkgs,
   lib,
   home-manager,
-  agenix,
-  system,
   userInfo,
   ...
 }: let
@@ -21,7 +19,6 @@ in {
     ];
     # CLI packages
     packages = with pkgs; [
-      (agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
       alejandra
       bottom
       deadnix
@@ -41,7 +38,6 @@ in {
       nixpkgs-fmt
       plantuml
       procs
-      rage
       rclone
       restic
       ripgrep
