@@ -21,7 +21,7 @@ in {
     ];
     # CLI packages
     packages = with pkgs; [
-      agenix.packages.${system}.default
+      (agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
       alejandra
       bottom
       deadnix
