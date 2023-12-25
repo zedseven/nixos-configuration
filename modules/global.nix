@@ -7,7 +7,13 @@
   programs-db,
   system,
   ...
-}: {
+}: let
+  programsDbRedirectionPath = "/etc/programs.sqlite";
+in {
+  imports = [
+    ./symlinks.nix
+  ];
+
   system.configurationRevision = self.rev or self.dirtyRev;
 
   nixpkgs.config = {
@@ -50,13 +56,15 @@
       wget
     ];
     shells = with pkgs; [fish];
-    etc = {
-      "programs.sqlite".source = programs-db.packages.${system}.programs-sqlite;
-    };
+  };
+
+  custom.symlinks = {
+    # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
+    ${programsDbRedirectionPath}.source = "${programs-db.packages.${system}.programs-sqlite}";
   };
 
   programs = {
-    command-not-found.dbPath = "/etc/programs.sqlite";
+    command-not-found.dbPath = programsDbRedirectionPath;
     fish.enable = true;
     vim.defaultEditor = true;
   };
