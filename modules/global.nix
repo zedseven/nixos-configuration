@@ -1,6 +1,7 @@
 {
   self,
   pkgs,
+  lib,
   nixpkgs,
   agenix,
   programs-db,
@@ -58,5 +59,16 @@
     command-not-found.dbPath = "/etc/programs.sqlite";
     fish.enable = true;
     vim.defaultEditor = true;
+  };
+
+  # Enable OpenSSH to have host keys generated, but don't open the firewall unless it's actually needed
+  services.openssh = {
+    enable = true;
+    openFirewall = lib.mkDefault false;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      X11Forwarding = true;
+    };
   };
 }

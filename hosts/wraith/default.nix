@@ -38,6 +38,7 @@ in {
       enable = true;
       persist.paths = [
         "/etc/mullvad-vpn"
+        "/etc/ssh"
       ];
     };
 
