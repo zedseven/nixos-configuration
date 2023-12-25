@@ -41,6 +41,7 @@ in {
       nixpkgs-fmt
       plantuml
       procs
+      rage
       rclone
       restic
       ripgrep
