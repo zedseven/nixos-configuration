@@ -5,9 +5,7 @@
   home-manager,
   userInfo,
   ...
-}: let
-  private = import /persist/etc/nixos/private;
-in {
+}: {
   imports = [
     home-manager.nixosModules.home-manager
   ];
@@ -59,7 +57,7 @@ in {
       viu
       yt-dlp
     ];
-    inherit (private) hashedPassword;
+    hashedPasswordFile = config.age.secrets."user-password-hash".path;
     shell = pkgs.fish;
   };
 
@@ -222,10 +220,7 @@ in {
           };
         };
 
-        ssh = {
-          enable = true;
-          matchBlocks = private.sshConfig;
-        };
+        ssh.enable = true;
 
         tealdeer = {
           enable = true;

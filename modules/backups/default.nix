@@ -22,15 +22,9 @@ in {
       description = mdDoc "The paths to backup.";
       type = types.listOf types.str;
     };
-    passwordSource = mkOption {
-      description = mdDoc ''
-        The path to the script that exports the necessary passwords.
-        - `RESTIC_PASSWORD` needs to always be set.
-        - `RCLONE_CONFIG_PASS` needs to be set if using `rclone` with an encrypted config.
-
-        It's done this way to avoid storing the data in the Nix store.
-      '';
-      type = types.str;
+    passwordFile = mkOption {
+      description = mdDoc "The path to file that contains the Restic repository password.";
+      type = types.path;
     };
     extraExcludeConfig = mkOption {
       description = mdDoc "The extra exclude config, appended to the global one.";
@@ -47,7 +41,7 @@ in {
       };
       configPath = mkOption {
         description = mdDoc "An alternate path to the `rclone` config file. If not defined, `rclone` will look in its default location.";
-        type = types.nullOr types.str;
+        type = types.nullOr types.path;
         default = null;
       };
     };
@@ -96,7 +90,7 @@ in {
       # Environment Variables
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_COMPRESSION="max"
-      source "${cfg.passwordSource}"
+      export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
       ${
         lib.optionalString cfg.rclone.enable
         (lib.optionalString (cfg.rclone.configPath != null) "export RCLONE_CONFIG=\"${cfg.rclone.configPath}\"\n")

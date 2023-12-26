@@ -5,12 +5,14 @@
   nixpkgs,
   agenix,
   programs-db,
+  private,
   system,
   ...
 }: let
   programsDbRedirectionPath = "/etc/programs.sqlite";
 in {
   imports = [
+    private.nixosModules.default
     ./symlinks.nix
   ];
 

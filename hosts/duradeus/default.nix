@@ -1,11 +1,11 @@
 # My main PC.
 {
+  config,
   home-manager,
   userInfo,
   ...
 }: let
   configPath = "/persist/etc/nixos";
-  private = import /persist/etc/nixos/private;
 in {
   imports = [
     home-manager.nixosModules.home-manager
@@ -26,10 +26,10 @@ in {
         # Nixpkgs Git repo
         /home/${userInfo.username}/git/nixpkgs
       '';
-      passwordSource = "/persist/etc/nixos/private/backup-passwords.sh";
+      passwordFile = config.age.secrets."restic-repository-password".path;
       rclone = {
         enable = true;
-        configPath = "/persist/etc/nixos/private/rclone.conf";
+        configPath = config.age.secrets."rclone.conf".path;
       };
       scheduled.onCalendar = "*-*-* 00:00:00";
     };
@@ -60,6 +60,8 @@ in {
 
     symlinks = {
       "/etc/nixos".source = configPath;
+      "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
+      "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
     };
 
     physical.enable = true;
@@ -68,10 +70,8 @@ in {
 
   networking = {
     hostId = "c4f086eb";
-    wireless = {
-      enable = true;
-      inherit (private) networks;
-    };
+    # Networks are defined in `/etc/wpa_supplicant.conf`
+    wireless.enable = true;
   };
 
   home-manager.users.${userInfo.username}.programs.autorandr.profiles = {

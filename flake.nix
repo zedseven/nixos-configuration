@@ -20,6 +20,15 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
+        darwin.follows = ""; # Not necessary on Linux
+      };
+    };
+    private = {
+      # Add the flake to the registry with: `nix registry add flake:private git+file:///path/to/local/repo`
+      url = "flake:private";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        agenix.follows = "agenix";
       };
     };
   };
