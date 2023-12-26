@@ -104,8 +104,9 @@ in {
                   less = "less --raw-control-chars";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
-                  nfl = "nix flake lock --update-input";
-                  nflo = "nix flake lock --offline --update-input";
+                  nflu = "nix flake lock --update-input";
+                  nfluo = "nix flake lock --offline --update-input";
+                  nfu = "nix flake update";
                   nrb = "sudo nixos-rebuild boot";
                   nrs = "sudo nixos-rebuild switch";
                   nrt = "sudo nixos-rebuild test --impure --show-trace";
