@@ -10,6 +10,7 @@
 in {
   imports = [
     home-manager.nixosModules.home-manager
+    ./symlinks.nix
   ];
 
   options.custom.user = with lib; {
@@ -21,6 +22,8 @@ in {
   };
 
   config = let
+    homeDirectory = "/home/${userInfo.username}";
+
     shellPromptCharacter =
       if cfg.type == "full"
       then "λ"
@@ -60,7 +63,7 @@ in {
           users.${userInfo.username} = {
             home = {
               inherit (userInfo) username;
-              homeDirectory = "/home/${userInfo.username}";
+              inherit homeDirectory;
               stateVersion = "22.11"; # Don't touch this, ever
               language.base = config.i18n.defaultLocale;
             };
@@ -223,6 +226,14 @@ in {
       (lib.mkIf
         (cfg.type == "full")
         {
+          # Set up symlinks so that the `agenix` CLI can find the system host keys automatically
+          custom.symlinks = {
+            "${homeDirectory}/.ssh/id_ed25519".source = "/etc/ssh/ssh_host_ed25519_key";
+            "${homeDirectory}/.ssh/id_ed25519.pub".source = "/etc/ssh/ssh_host_ed25519_key.pub";
+            "${homeDirectory}/.ssh/id_rsa".source = "/etc/ssh/ssh_host_rsa_key";
+            "${homeDirectory}/.ssh/id_rsa.pub".source = "/etc/ssh/ssh_host_rsa_key.pub";
+          };
+
           users.users.${userInfo.username} = {
             # CLI packages
             packages = with pkgs; [
@@ -324,7 +335,7 @@ in {
                   auto_update_interval_hours = 720;
                 };
                 directories = {
-                  custom_pages_dir = "/home/${userInfo.username}/tealdeer";
+                  custom_pages_dir = "${homeDirectory}/tealdeer";
                 };
               };
             };
