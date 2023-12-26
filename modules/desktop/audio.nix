@@ -17,17 +17,20 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.persistentSettings.enable {
-    systemd.services."persistent-audio-settings" = {
-      enable = true;
-      description = "persistent-audio-settings";
-      after = ["sound.target"];
-      serviceConfig = {
-        RemainAfterExit = true;
-        ExecStart = "${pkgs.alsa-utils}/bin/alsactl restore --config-dir=\"${cfg.persistentSettings.alsaDirPath}\" --file=\"${cfg.persistentSettings.alsaDirPath}/asound.state\"";
-        ExecStop = "${pkgs.alsa-utils}/bin/alsactl store --config-dir=\"${cfg.persistentSettings.alsaDirPath}\" --file=\"${cfg.persistentSettings.alsaDirPath}/asound.state\"";
+  config = let
+    stateFile = "${cfg.persistentSettings.alsaDirPath}/asound.state";
+  in
+    lib.mkIf cfg.persistentSettings.enable {
+      systemd.services."persistent-audio-settings" = {
+        enable = true;
+        description = "persistent-audio-settings";
+        after = ["sound.target"];
+        serviceConfig = {
+          RemainAfterExit = true;
+          ExecStart = "-${pkgs.alsa-utils}/bin/alsactl restore --config-dir=\"${cfg.persistentSettings.alsaDirPath}\" --file=\"${stateFile}\"";
+          ExecStop = "${pkgs.alsa-utils}/bin/alsactl store --config-dir=\"${cfg.persistentSettings.alsaDirPath}\" --file=\"${stateFile}\"";
+        };
+        wantedBy = ["graphical.target"];
       };
-      wantedBy = ["graphical.target"];
     };
-  };
 }
