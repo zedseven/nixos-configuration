@@ -83,7 +83,6 @@ in {
     programs = {
       gnupg.agent = {
         enable = true;
-        pinentryFlavor = "gtk2";
         enableSSHSupport = true;
       };
       dconf.enable = true; # Required when `gtk.enable` is set in `home-manager`: https://github.com/nix-community/home-manager/issues/3113
