@@ -21,6 +21,7 @@
       bottom
       deadnix
       du-dust
+      endlines
       eza
       fd
       file
