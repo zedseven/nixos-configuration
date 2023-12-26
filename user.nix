@@ -34,6 +34,7 @@
       neofetch
       nix-tree
       nixpkgs-fmt
+      openssh
       plantuml
       procs
       rclone
@@ -219,8 +220,6 @@
             };
           };
         };
-
-        ssh.enable = true;
 
         tealdeer = {
           enable = true;
