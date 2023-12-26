@@ -14,6 +14,8 @@ in {
   ];
 
   custom = {
+    user.type = "full";
+
     backups = {
       enable = true;
       repository = "b2:zedseven-restic";

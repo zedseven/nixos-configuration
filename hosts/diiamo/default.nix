@@ -18,9 +18,13 @@
     defaultUser = userInfo.username;
   };
 
-  custom.wsl.wsl-vpnkit = {
-    enable = true;
-    gvproxyWinPath = "/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe";
+  custom = {
+    user.type = "full";
+
+    wsl.wsl-vpnkit = {
+      enable = true;
+      gvproxyWinPath = "/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe";
+    };
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever
