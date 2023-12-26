@@ -26,10 +26,10 @@ in {
       description = mdDoc "The path to file that contains the Restic repository password.";
       type = types.path;
     };
-    extraExcludeConfig = mkOption {
+    extraExcludeEntries = mkOption {
       description = mdDoc "The extra exclude config, appended to the global one.";
-      type = types.str;
-      default = "";
+      type = types.listOf types.str;
+      default = [];
     };
     rclone = {
       enable = mkEnableOption "rclone";
@@ -73,7 +73,7 @@ in {
     repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
     excludeFile = pkgs.writeText "exclude.txt" ''
       ${builtins.readFile ./exclude.global.txt}
-      ${cfg.extraExcludeConfig}
+      ${lib.concatLines cfg.extraExcludeEntries}
     '';
     backupSpecs =
       lib.concatMapStrings

@@ -19,13 +19,10 @@ in {
       enable = true;
       repository = "b2:zedseven-restic";
       backupPaths = ["/home" "/persist"];
-      extraExcludeConfig = ''
-        # Torrents
-        /home/${userInfo.username}/torrents/artifacts/
-
-        # Nixpkgs Git repo
-        /home/${userInfo.username}/git/nixpkgs
-      '';
+      extraExcludeEntries = [
+        "/home/${userInfo.username}/torrents/artifacts/"
+        "/home/${userInfo.username}/git/nixpkgs"
+      ];
       passwordFile = config.age.secrets."restic-repository-password".path;
       rclone = {
         enable = true;
