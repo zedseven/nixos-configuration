@@ -1,6 +1,7 @@
 {
   imports = [
     ./global.nix
+    ./user.nix
     ./desktop
     ./backups
     ./physical.nix

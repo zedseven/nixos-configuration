@@ -11,7 +11,6 @@
     nixos-wsl.nixosModules.wsl
     home-manager.nixosModules.home-manager
     ../../modules
-    ../../user.nix
   ];
 
   wsl = {

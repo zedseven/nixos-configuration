@@ -11,7 +11,6 @@ in {
     home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
-    ../../user.nix
   ];
 
   custom = {
