@@ -9,11 +9,17 @@
     };
     nixos-wsl = {
       url = "github:nix-community/NixOS-WSL";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     programs-db = {
       url = "github:wamserma/flake-programs-sqlite";
-      inputs.nixpkgs.follows = "nixpkgs";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        utils.follows = "flake-utils";
+      };
     };
     agenix = {
       url = "github:ryantm/agenix";
@@ -21,6 +27,7 @@
         nixpkgs.follows = "nixpkgs";
         home-manager.follows = "home-manager";
         darwin.follows = ""; # Not necessary on Linux
+        systems.follows = "systems";
       };
     };
     private = {
@@ -31,6 +38,13 @@
         agenix.follows = "agenix";
       };
     };
+    # The below inputs aren't used directly, but they're included here so that the other dependencies all
+    # use the same versions of them
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+      inputs.systems.follows = "systems";
+    };
+    systems.url = "github:nix-systems/default";
   };
 
   outputs = {nixpkgs, ...} @ inputs: {
