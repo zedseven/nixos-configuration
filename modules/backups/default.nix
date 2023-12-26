@@ -2,11 +2,13 @@
   config,
   pkgs,
   lib,
+  hostname,
+  userInfo,
   ...
 }: let
-  cfg = config.services.backups;
+  cfg = config.custom.backups;
 in {
-  options.services.backups = with lib; {
+  options.custom.backups = with lib; {
     enable = mkEnableOption "backups";
     repository = mkOption {
       description = mdDoc ''
@@ -20,20 +22,14 @@ in {
       description = mdDoc "The paths to backup.";
       type = types.listOf types.str;
     };
-    passwordSource = mkOption {
-      description = mdDoc ''
-        The path to the script that exports the necessary passwords.
-        - `RESTIC_PASSWORD` needs to always be set.
-        - `RCLONE_CONFIG_PASS` needs to be set if using `rclone` with an encrypted config.
-
-        It's done this way to avoid storing the data in the Nix store.
-      '';
-      type = types.str;
+    passwordFile = mkOption {
+      description = mdDoc "The path to file that contains the Restic repository password.";
+      type = types.path;
     };
-    extraExcludeConfig = mkOption {
+    extraExcludeEntries = mkOption {
       description = mdDoc "The extra exclude config, appended to the global one.";
-      type = types.str;
-      default = "";
+      type = types.listOf types.str;
+      default = [];
     };
     rclone = {
       enable = mkEnableOption "rclone";
@@ -45,7 +41,7 @@ in {
       };
       configPath = mkOption {
         description = mdDoc "An alternate path to the `rclone` config file. If not defined, `rclone` will look in its default location.";
-        type = types.nullOr types.str;
+        type = types.nullOr types.path;
         default = null;
       };
     };
@@ -77,7 +73,7 @@ in {
     repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
     excludeFile = pkgs.writeText "exclude.txt" ''
       ${builtins.readFile ./exclude.global.txt}
-      ${cfg.extraExcludeConfig}
+      ${lib.concatLines cfg.extraExcludeEntries}
     '';
     backupSpecs =
       lib.concatMapStrings
@@ -89,12 +85,12 @@ in {
       # Constants
       TREES_DIR="$(mktemp -d)"
       RESTIC_EXCLUDE_FILE="${excludeFile}"
-      RESTIC_HOSTNAME="${config.networking.hostName}"
+      RESTIC_HOSTNAME="${hostname}"
 
       # Environment Variables
       export RESTIC_REPOSITORY="${repository}"
       export RESTIC_COMPRESSION="max"
-      source "${cfg.passwordSource}"
+      export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
       ${
         lib.optionalString cfg.rclone.enable
         (lib.optionalString (cfg.rclone.configPath != null) "export RCLONE_CONFIG=\"${cfg.rclone.configPath}\"\n")
@@ -134,7 +130,7 @@ in {
   in
     lib.mkMerge [
       {
-        users.users.zacc = {
+        users.users.${userInfo.username} = {
           packages = [
             runBackup
           ];
@@ -147,9 +143,8 @@ in {
               enable = true;
               description = "run-backup";
               serviceConfig = {
-                User = "zacc";
+                User = userInfo.username;
                 ExecStart = "${runBackup}/bin/run-backup";
-                Restart = "always";
               };
             }
             (lib.mkIf cfg.scheduled.requiresNetwork {

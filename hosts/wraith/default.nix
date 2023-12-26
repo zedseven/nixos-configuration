@@ -1,34 +1,71 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
-let
-  private = import ../../private;
+{
+  config,
+  home-manager,
+  userInfo,
+  ...
+}: let
+  configPath = "/persist/etc/nixos";
 in {
   imports = [
-    <home-manager/nixos>
+    home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
-    ../../modules/global.nix
-    ../../modules/physical.nix
-    ../../modules/desktop
-    ../../modules/desktop/nvidia.nix
-    ../../modules/desktop/4k.nix
-    ../../modules/darlings.nix
-    ../../modules/zfs.nix
-    ../../zacc.nix
+    ../../modules
+    ../../user.nix
   ];
 
-  environment = {
-    etc = {
-      "nixos".source = "/home/zacc/nix";
-      "mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+  custom = {
+    backups = {
+      enable = true;
+      repository = "b2:zedseven-restic";
+      backupPaths = ["/home" "/persist"];
+      extraExcludeEntries = [
+        "/home/${userInfo.username}/torrents/artifacts/"
+        "/home/${userInfo.username}/git/nixpkgs"
+      ];
+      passwordFile = config.age.secrets."restic-repository-password".path;
+      rclone = {
+        enable = true;
+        configPath = config.age.secrets."rclone.conf".path;
+      };
+      scheduled.onCalendar = "*-*-* 00:00:00";
     };
+
+    darlings = {
+      enable = true;
+      persist.paths = [
+        "/etc/mullvad-vpn"
+        "/etc/ssh"
+      ];
+    };
+
+    desktop = {
+      enable = true;
+      displayDriver = "nvidia";
+      audio.persistentSettings = {
+        enable = true;
+        alsaDirPath = "/persist/var/lib/alsa";
+      };
+      discord = {
+        enable = true;
+        wrapDiscord = true;
+      };
+    };
+
+    symlinks = {
+      "/etc/nixos".source = configPath;
+      "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
+      "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
+    };
+
+    physical.enable = true;
+    zfs.enable = true;
   };
 
   networking = {
-    hostName = "wraith";
     hostId = "eff5369a";
-    wireless = {
-      enable = true;
-      inherit (private) networks;
-    };
+    # Networks are defined in `/etc/wpa_supplicant.conf`
+    wireless.enable = true;
   };
 
   hardware.nvidia.prime = {
@@ -41,7 +78,7 @@ in {
     nvidiaBusId = "PCI:59@0:0:0";
   };
 
-  home-manager.users.zacc.programs.autorandr.profiles = {
+  home-manager.users.${userInfo.username}.programs.autorandr.profiles = {
     "home" = {
       # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
       fingerprint = {

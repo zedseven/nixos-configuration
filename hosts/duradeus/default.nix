@@ -1,39 +1,77 @@
 # My main PC.
-let
-  private = import ../../private;
+{
+  config,
+  home-manager,
+  userInfo,
+  ...
+}: let
+  configPath = "/persist/etc/nixos";
 in {
   imports = [
-    <home-manager/nixos>
+    home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
-    ../../modules/global.nix
-    ../../modules/physical.nix
-    ../../modules/desktop
-    ../../modules/desktop/nvidia.nix
-    ../../modules/desktop/games.nix
-    ../../modules/audio.nix
-    ../../modules/darlings.nix
-    ../../modules/zfs.nix
-    ../../modules/backups
-    ../../zacc.nix
+    ../../modules
+    ../../user.nix
   ];
 
-  environment = {
-    etc = {
-      "nixos".source = "/home/zacc/nix";
-      "mullvad-vpn".source = "/persist/etc/mullvad-vpn";
+  custom = {
+    backups = {
+      enable = true;
+      repository = "b2:zedseven-restic";
+      backupPaths = ["/home" "/persist"];
+      extraExcludeEntries = [
+        "/home/${userInfo.username}/torrents/artifacts/"
+        "/home/${userInfo.username}/git/nixpkgs"
+      ];
+      passwordFile = config.age.secrets."restic-repository-password".path;
+      rclone = {
+        enable = true;
+        configPath = config.age.secrets."rclone.conf".path;
+      };
+      scheduled.onCalendar = "*-*-* 00:00:00";
     };
+
+    darlings = {
+      enable = true;
+      persist.paths = [
+        "/etc/mullvad-vpn"
+        "/etc/ssh"
+        "/var/lib/bluetooth"
+      ];
+    };
+
+    desktop = {
+      enable = true;
+      displayDriver = "nvidia";
+      audio.persistentSettings = {
+        enable = true;
+        alsaDirPath = "/persist/var/lib/alsa";
+      };
+      bluetooth.enable = true;
+      discord = {
+        enable = true;
+        wrapDiscord = true;
+      };
+      games.enable = true;
+    };
+
+    symlinks = {
+      "/etc/nixos".source = configPath;
+      "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
+      "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
+    };
+
+    physical.enable = true;
+    zfs.enable = true;
   };
 
   networking = {
-    hostName = "duradeus";
     hostId = "c4f086eb";
-    wireless = {
-      enable = true;
-      inherit (private) networks;
-    };
+    # Networks are defined in `/etc/wpa_supplicant.conf`
+    wireless.enable = true;
   };
 
-  home-manager.users.zacc.programs.autorandr.profiles = {
+  home-manager.users.${userInfo.username}.programs.autorandr.profiles = {
     "home" = {
       # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
       fingerprint = {
@@ -58,30 +96,6 @@ in {
         };
       };
     };
-  };
-
-  services.persistentAudioSettings = {
-    enable = true;
-    alsaDirPath = "/persist/var/lib/alsa";
-  };
-
-  services.backups = {
-    enable = true;
-    repository = "b2:zedseven-restic";
-    backupPaths = ["/home" "/persist"];
-    extraExcludeConfig = ''
-      # Torrents
-      /home/zacc/torrents/artifacts/
-
-      # Nixpkgs Git repo
-      /home/zacc/git/nixpkgs
-    '';
-    passwordSource = "/home/zacc/nix/private/backup-passwords.sh";
-    rclone = {
-      enable = true;
-      configPath = "/home/zacc/nix/private/rclone.conf";
-    };
-    scheduled.onCalendar = "*-*-* 00:00:00";
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever

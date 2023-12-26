@@ -1,8 +1,38 @@
-{pkgs, ...}: {
-  nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    auto-optimise-store = true;
-    experimental-features = ["nix-command" "flakes"];
+{
+  self,
+  pkgs,
+  lib,
+  nixpkgs,
+  agenix,
+  programs-db,
+  private,
+  system,
+  ...
+}: let
+  programsDbRedirectionPath = "/etc/programs.sqlite";
+in {
+  imports = [
+    private.nixosModules.default
+    ./symlinks.nix
+  ];
+
+  system.configurationRevision = self.rev or self.dirtyRev;
+
+  nixpkgs.config = {
+    allowUnfree = true;
+    permittedInsecurePackages = [
+      "electron-25.9.0"
+    ];
+  };
+  nix = {
+    channel.enable = false;
+    # Only `nixpkgs` is pinned because none of the other inputs are used outside of the flake
+    nixPath = ["nixpkgs=flake:nixpkgs"];
+    registry.nixpkgs.flake = nixpkgs;
+    settings = {
+      auto-optimise-store = true;
+      experimental-features = ["nix-command" "flakes"];
+    };
   };
 
   # Set your time zone.
@@ -18,21 +48,37 @@
 
   environment = {
     systemPackages = with pkgs; [
+      (agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
       killall
       lshw
       lsof
       pciutils
+      rage
       unzip
-      vim
       wget
     ];
     shells = with pkgs; [fish];
   };
 
-  programs.fish.enable = true;
+  custom.symlinks = {
+    # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
+    ${programsDbRedirectionPath}.source = "${programs-db.packages.${system}.programs-sqlite}";
+  };
 
-  # Copy the NixOS configuration file and link it from the resulting system
-  # (/run/current-system/configuration.nix). This is useful in case you
-  # accidentally delete configuration.nix.
-  system.copySystemConfiguration = true;
+  programs = {
+    command-not-found.dbPath = programsDbRedirectionPath;
+    fish.enable = true;
+    vim.defaultEditor = true;
+  };
+
+  # Enable OpenSSH to have host keys generated, but don't open the firewall unless it's actually needed
+  services.openssh = {
+    enable = true;
+    openFirewall = lib.mkDefault false;
+    settings = {
+      PasswordAuthentication = false;
+      PermitRootLogin = "no";
+      X11Forwarding = true;
+    };
+  };
 }
