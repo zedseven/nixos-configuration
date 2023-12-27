@@ -138,11 +138,9 @@ in {
   in
     lib.mkMerge [
       {
-        users.users.${userInfo.username} = {
-          packages = [
-            runBackup
-          ];
-        };
+        users.users.${userInfo.username}.packages = [
+          runBackup
+        ];
       }
       (lib.mkIf cfg.scheduled.enable {
         systemd = {
