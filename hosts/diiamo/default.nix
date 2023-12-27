@@ -21,9 +21,12 @@
   custom = {
     user.type = "full";
 
-    wsl.wsl-vpnkit = {
+    wsl = {
       enable = true;
-      gvproxyWinPath = "/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe";
+      wsl-vpnkit = {
+        enable = true;
+        gvproxyWinPath = "/mnt/c/Workspace/WSL/tools/gvproxy-windows.exe";
+      };
     };
   };
 
