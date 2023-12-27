@@ -30,6 +30,7 @@ in {
         configPath = config.age.secrets."rclone.conf".path;
       };
       scheduled.onCalendar = "*-*-* 00:00:00";
+      setEnvironmentVariables = true;
     };
 
     darlings = {

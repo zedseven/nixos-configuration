@@ -31,6 +31,14 @@ in {
       type = types.listOf types.str;
       default = [];
     };
+    setEnvironmentVariables = mkOption {
+      description = mdDoc ''
+        Whether to set the environment variables `RESTIC_PASSWORD_FILE` and (if `rclone` is enabled) `RCLONE_CONFIG` so
+        that backups can be accessed from the command line with `restic`.
+      '';
+      type = types.bool;
+      default = false;
+    };
     rclone = {
       enable = mkEnableOption "rclone";
       package = mkOption {
@@ -161,6 +169,16 @@ in {
             wantedBy = ["timers.target"];
           };
         };
+      })
+      (lib.mkIf cfg.setEnvironmentVariables {
+        environment.variables = lib.mkMerge [
+          {
+            RESTIC_PASSWORD_FILE = cfg.passwordFile;
+          }
+          (lib.mkIf cfg.rclone.enable {
+            RCLONE_CONFIG = cfg.rclone.configPath;
+          })
+        ];
       })
     ]);
 }
