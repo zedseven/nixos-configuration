@@ -46,8 +46,8 @@ in {
             Restart = "always";
             KillMode = "mixed";
           }
-          (lib.mkIf (cfg.gvproxyWinPath != null) {
-            Environment = "GVPROXY_PATH=${cfg.gvproxyWinPath}";
+          (lib.mkIf (cfg.wsl-vpnkit.gvproxyWinPath != null) {
+            Environment = "GVPROXY_PATH=${cfg.wsl-vpnkit.gvproxyWinPath}";
           })
         ];
         wantedBy = ["multi-user.target"];
