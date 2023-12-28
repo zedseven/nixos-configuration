@@ -31,18 +31,43 @@ in {
         type = types.listOf types.path;
         default = [];
       };
+      ageIdentityPaths = let
+        defaultAgeIdentityDir = "/etc/ssh";
+        defaultKeyFileName = "ssh_host_ed25519_key";
+      in {
+        enable = mkOption {
+          description = "Whether to set `age.identityPaths`.";
+          type = types.bool;
+          default = lib.any (path: lib.hasPrefix defaultAgeIdentityDir path) cfg.persist.paths; # Enable automatically if the path list contains the default age identity path
+        };
+        identityPaths = mkOption {
+          description = "The paths to the age identities to use.";
+          type = types.listOf types.path;
+          default = [
+            (cfg.persist.mirrorRoot + defaultAgeIdentityDir + "/ssh_host_rsa_key")
+            (cfg.persist.mirrorRoot + defaultAgeIdentityDir + "/ssh_host_ed25519_key")
+          ];
+        };
+      };
     };
   };
 
-  config = lib.mkIf cfg.enable {
-    boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    {
+      boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
 
-    custom.symlinks = builtins.listToAttrs (map (path: {
-        name = path;
-        value = {
-          source = cfg.persist.mirrorRoot + path;
-        };
-      })
-      cfg.persist.paths);
-  };
+      custom.symlinks = builtins.listToAttrs (map (path: {
+          name = path;
+          value = {
+            source = cfg.persist.mirrorRoot + path;
+          };
+        })
+        cfg.persist.paths);
+    }
+    (lib.mkIf cfg.persist.ageIdentityPaths.enable {
+      # Required because on boot, the root partition is wiped and the symlinks seem to be set up after `agenix` runs
+      # This is merged with the default values that `agenix` provides
+      age.identityPaths = lib.mkOptionDefault cfg.persist.ageIdentityPaths.identityPaths;
+    })
+  ]);
 }
