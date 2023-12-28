@@ -65,6 +65,7 @@
     "/persist" = {
       device = "rpool/safe/persist";
       fsType = "zfs";
+      neededForBoot = true; # Required because this is where the secret decryption key is stored
     };
   };
 

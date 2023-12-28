@@ -67,6 +67,9 @@ in {
     zfs.enable = true;
   };
 
+  # Required because on boot, the root partition is wiped and the symlinks seem to be set up after `agenix` runs
+  age.identityPaths = ["/persist/etc/ssh/ssh_host_ed25519_key"];
+
   networking = {
     hostId = "c4f086eb";
     # Networks are defined in `/etc/wpa_supplicant.conf`
