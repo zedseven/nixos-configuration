@@ -139,7 +139,7 @@
         "rev": "454b0863a0e8f6d646851f6474b38d4773e2fdcf",
         "revCount": 9,
         "type": "git",
-        "url": "file:///persist/etc/nixos/private"
+        "url": "file:///etc/nixos/private"
       },
       "original": {
         "id": "private",
