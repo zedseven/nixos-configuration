@@ -33,7 +33,6 @@ in {
       };
       ageIdentityPaths = let
         defaultAgeIdentityDir = "/etc/ssh";
-        defaultKeyFileName = "ssh_host_ed25519_key";
       in {
         enable = mkOption {
           description = "Whether to set `age.identityPaths`.";
