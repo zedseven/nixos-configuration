@@ -25,7 +25,7 @@ in {
           override = mkOption {
             description = "If a file or directory already exists at the destination, it will be removed.";
             type = types.bool;
-            default = true;
+            default = false;
           };
 
           onlyOnBoot = mkOption {
