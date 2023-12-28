@@ -16,7 +16,20 @@ in {
     ./symlinks.nix
   ];
 
-  system.configurationRevision = self.rev or self.dirtyRev;
+  system = {
+    configurationRevision = self.rev or self.dirtyRev;
+    # Sets the label that shows on the GRUB boot menu
+    nixos.tags = let
+      cut = revision: builtins.substring 0 8 revision;
+      dirtySuffix = "-dirty";
+    in [
+      (
+        if (self.rev or null) != null
+        then (cut self.rev)
+        else ((cut self.dirtyRev) + dirtySuffix)
+      )
+    ];
+  };
 
   nixpkgs.config = {
     allowUnfree = true;
