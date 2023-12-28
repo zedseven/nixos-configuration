@@ -19,15 +19,25 @@ in {
       type = types.enum ["minimal" "full"];
       default = "minimal";
     };
+    shellPromptCharacter = mkOption {
+      description = "The prompt character for the shell.";
+      type = types.str;
+      default =
+        {
+          "minimal" = "μ";
+          "full" = "λ";
+        }
+        ."${cfg.type}";
+    };
+    hashedPasswordFile = mkOption {
+      description = "The file that contains the hash of the user's password.";
+      type = types.nullOr types.str;
+      default = config.age.secrets."user-password-hash".path;
+    };
   };
 
   config = let
     homeDirectory = "/home/${userInfo.username}";
-
-    shellPromptCharacter =
-      if cfg.type == "full"
-      then "λ"
-      else "μ";
   in
     lib.mkMerge [
       # Minimal
@@ -53,7 +63,7 @@ in {
             ripgrep
             tree
           ];
-          hashedPasswordFile = config.age.secrets."user-password-hash".path;
+          inherit (cfg) hashedPasswordFile;
           shell = pkgs.fish;
         };
 
@@ -151,8 +161,8 @@ in {
                     "$character"
                   ];
                   character = {
-                    success_symbol = "[${shellPromptCharacter}](bold green)";
-                    error_symbol = "[${shellPromptCharacter}](bold red)";
+                    success_symbol = "[${cfg.shellPromptCharacter}](bold green)";
+                    error_symbol = "[${cfg.shellPromptCharacter}](bold red)";
                     vimcmd_symbol = "[ν](bold green)";
                     vimcmd_replace_one_symbol = "[ν](bold purple)";
                     vimcmd_replace_symbol = "[ν](bold purple)";
