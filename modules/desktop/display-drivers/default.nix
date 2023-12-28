@@ -8,7 +8,8 @@ in {
   options.custom.desktop = with lib; {
     displayDriver = mkOption {
       description = "The display driver to use.";
-      type = types.enum ["nvidia"];
+      type = types.nullOr (types.enum ["nvidia"]);
+      default = null;
     };
   };
 
