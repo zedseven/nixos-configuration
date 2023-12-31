@@ -1,22 +1,20 @@
 {
-  self,
   pkgs,
   lib,
-  nixpkgs,
-  agenix,
-  programs-db,
-  private,
+  inputs,
   system,
   ...
 }: let
   programsDbRedirectionPath = "/etc/programs.sqlite";
 in {
   imports = [
-    private.nixosModules.default
+    inputs.private.nixosModules.default
     ./symlinks.nix
   ];
 
-  system = {
+  system = let
+    self = inputs.self;
+  in {
     configurationRevision = self.rev or self.dirtyRev;
     # Sets the label that shows on the GRUB boot menu
     nixos.tags = let
@@ -41,7 +39,7 @@ in {
     channel.enable = false;
     # Only `nixpkgs` is pinned because none of the other inputs are used outside of the flake
     nixPath = ["nixpkgs=flake:nixpkgs"];
-    registry.nixpkgs.flake = nixpkgs;
+    registry.nixpkgs.flake = inputs.nixpkgs;
     settings = {
       auto-optimise-store = true;
       experimental-features = ["nix-command" "flakes"];
@@ -66,7 +64,7 @@ in {
 
   environment = {
     systemPackages = with pkgs; [
-      (agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
+      (inputs.agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
       killall
       lshw
       lsof
@@ -80,7 +78,7 @@ in {
 
   custom.symlinks = {
     # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
-    ${programsDbRedirectionPath}.source = "${programs-db.packages.${system}.programs-sqlite}";
+    ${programsDbRedirectionPath}.source = "${inputs.programs-db.packages.${system}.programs-sqlite}";
   };
 
   programs = {

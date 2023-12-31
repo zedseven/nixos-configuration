@@ -2,14 +2,14 @@
   config,
   pkgs,
   lib,
-  home-manager,
+  inputs,
   userInfo,
   ...
 }: let
   cfg = config.custom.user;
 in {
   imports = [
-    home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
     ./symlinks.nix
   ];
 

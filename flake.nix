@@ -60,12 +60,11 @@
           name = host.hostname;
           value = nixpkgs.lib.nixosSystem {
             inherit (host) system;
-            specialArgs =
-              {
-                inherit userInfo;
-                inherit (host) system hostname;
-              }
-              // inputs;
+            specialArgs = {
+              inherit inputs;
+              inherit userInfo;
+              inherit (host) system hostname;
+            };
             modules = [./hosts];
           };
         }) [

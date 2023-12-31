@@ -5,14 +5,14 @@
   config,
   pkgs,
   lib,
-  home-manager,
+  inputs,
   userInfo,
   ...
 }: let
   cfg = config.custom.desktop.discord;
 in {
   imports = [
-    home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
   ];
 
   options.custom.desktop.discord = {

@@ -2,14 +2,13 @@
 # The name comes from the saying "a diamond in the rough" because it's a haven of declarative Linux
 # running inside the mess that is Windows.
 {
-  nixos-wsl,
-  home-manager,
+  inputs,
   userInfo,
   ...
 }: {
   imports = [
-    nixos-wsl.nixosModules.wsl
-    home-manager.nixosModules.home-manager
+    inputs.nixos-wsl.nixosModules.wsl
+    inputs.home-manager.nixosModules.home-manager
     ../../modules
   ];
 

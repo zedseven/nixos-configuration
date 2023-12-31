@@ -1,14 +1,14 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
 {
   config,
-  home-manager,
+  inputs,
   userInfo,
   ...
 }: let
   configPath = "/persist/etc/nixos";
 in {
   imports = [
-    home-manager.nixosModules.home-manager
+    inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
   ];
