@@ -61,6 +61,8 @@ in {
         enable = true;
         package = pkgs.mullvad-vpn;
       };
+
+      gnome.gnome-keyring.enable = true;
     };
 
     hardware = {
