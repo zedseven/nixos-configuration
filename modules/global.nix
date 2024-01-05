@@ -13,7 +13,7 @@ in {
   ];
 
   system = let
-    self = inputs.self;
+    inherit (inputs) self;
   in {
     configurationRevision = self.rev or self.dirtyRev;
     # Sets the label that shows on the GRUB boot menu
