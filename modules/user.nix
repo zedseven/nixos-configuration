@@ -55,6 +55,7 @@ in {
             eza
             fd
             file
+            fzf
             git
             home-manager
             neofetch
@@ -84,9 +85,14 @@ in {
               fish = {
                 enable = true;
                 shellAbbrs = {
+                  b = "bat";
+                  bg = "batgrep --smart-case";
+                  bm = "batman";
                   bottom = "btm --regex --tree";
                   btm = "btm --regex --tree"; # Maybe also include `--battery`?
+                  cat = "bat";
                   d = "dust";
+                  diff = "batdiff";
                   du = "dust";
                   e = "exit";
                   g = "git";
@@ -114,6 +120,7 @@ in {
                   less = "less --raw-control-chars";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
+                  man = "batman";
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
                   nfu = "nix flake update";
@@ -129,6 +136,7 @@ in {
                   shutdown = "shutdown -h now";
                   top = "btm --regex";
                   w = "clear";
+                  watch = "batwatch";
                 };
                 interactiveShellInit = ''
                   set fish_greeting
@@ -182,6 +190,21 @@ in {
                     symbol = " ";
                   };
                 };
+              };
+
+              bat = {
+                enable = true;
+                extraPackages = with pkgs.bat-extras; [
+                  (batdiff.override
+                    {
+                      withDelta = true;
+                    })
+                  batgrep
+                  batman
+                  (batwatch.override {
+                    withEntr = true;
+                  })
+                ];
               };
 
               zoxide.enable = true;
