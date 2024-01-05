@@ -91,7 +91,7 @@ in {
                   bottom = "btm --regex --tree";
                   btm = "btm --regex --tree"; # Maybe also include `--battery`?
                   cat = "bat";
-                  d = "dust";
+                  d = "batdiff";
                   diff = "batdiff";
                   du = "dust";
                   e = "exit";
@@ -111,7 +111,7 @@ in {
                   gpu = "git push --set-upstream";
                   gr = "git reset";
                   grao = "git remote add origin";
-                  gs = "git status";
+                  gs = "batdiff && git status";
                   gu = "git pull";
                   gy = "git apply";
                   hibernate = "systemctl hibernate";
