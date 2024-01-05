@@ -65,6 +65,7 @@ in {
 
     physical.enable = true;
     zfs.enable = true;
+    qmk.enable = true;
   };
 
   networking = {

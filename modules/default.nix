@@ -8,6 +8,7 @@
     ./zfs.nix
     ./darlings.nix
     ./symlinks.nix
+    ./qmk.nix
     ./wsl.nix
   ];
 }
