@@ -84,7 +84,11 @@ in {
   programs = {
     command-not-found.dbPath = programsDbRedirectionPath;
     fish.enable = true;
-    vim.defaultEditor = true;
+    neovim = {
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
   };
 
   # Enable OpenSSH to have host keys generated, but don't open the firewall unless it's actually needed

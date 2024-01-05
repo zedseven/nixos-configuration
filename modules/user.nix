@@ -143,10 +143,15 @@ in {
                 '';
               };
 
-              vim = {
+              neovim = {
                 enable = true;
                 defaultEditor = true;
-                packageConfigurable = pkgs.vim;
+                viAlias = true;
+                vimAlias = true;
+                vimdiffAlias = true;
+                extraConfig = ''
+                  set hidden
+                '';
               };
 
               starship = {
@@ -238,7 +243,7 @@ in {
                   core = {
                     autocrlf = "input";
                     fileMode = false;
-                    editor = "vim";
+                    editor = "nvim";
                   };
                   credential.helper = "store";
                   init.defaultBranch = "main";
