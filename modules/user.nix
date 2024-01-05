@@ -120,6 +120,7 @@ in {
                   less = "less --raw-control-chars";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
+                  m = "batman";
                   man = "batman";
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
