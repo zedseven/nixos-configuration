@@ -48,7 +48,7 @@ in {
           (lib.optionalString link.override "+")
           (lib.optionalString link.onlyOnBoot "!")
         ];
-        escapeSpaces = text: lib.replaceStrings [" "] ["\\x20"] text;
+        escapeSpaces = text: lib.strings.escapeC [" "] text;
         escapedTarget = escapeSpaces link.target;
         escapedSource = escapeSpaces link.source;
       in "${type} ${escapedTarget} - - - - ${escapedSource}")
