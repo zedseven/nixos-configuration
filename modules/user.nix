@@ -88,8 +88,8 @@ in {
                   b = "bat";
                   bg = "batgrep --smart-case";
                   bm = "batman";
-                  bottom = "btm --regex --tree";
-                  btm = "btm --regex --tree"; # Maybe also include `--battery`?
+                  bottom = "btm --regex";
+                  btm = "btm --regex";
                   cat = "bat";
                   d = "batdiff";
                   diff = "batdiff";
