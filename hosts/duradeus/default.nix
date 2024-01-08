@@ -4,9 +4,7 @@
   inputs,
   userInfo,
   ...
-}: let
-  configPath = "/persist/etc/nixos";
-in {
+}: {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
@@ -15,6 +13,7 @@ in {
 
   custom = {
     user.type = "full";
+    global.configurationPath = "/persist/etc/nixos";
 
     backups = {
       enable = true;
@@ -58,7 +57,6 @@ in {
     };
 
     symlinks = {
-      "/etc/nixos".source = configPath;
       "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
       "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
     };
