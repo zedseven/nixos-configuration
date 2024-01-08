@@ -35,6 +35,7 @@
     darlings = {
       enable = true;
       persist.paths = [
+        "/etc/machine-id"
         "/etc/mullvad-vpn"
         "/etc/ssh"
       ];
