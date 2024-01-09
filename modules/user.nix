@@ -117,6 +117,8 @@ in {
                   hibernate = "systemctl hibernate";
                   ifconfig = "ip addr";
                   ipconfig = "ip addr";
+                  kill = "kill -9";
+                  killall = "killall -9";
                   less = "less --raw-control-chars";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
