@@ -10,6 +10,15 @@ As a result, you can't just clone this configuration and run it.
 
 You're welcome to use it as a reference for your own configuration, however I can't guarantee this is a perfect example.
 
+## Related Repositories
+There are several related repositories that contain additional customisations:
+- `suckless` tools (my customised versions):
+	- [`dmenu`](https://github.com/zedseven/dmenu)
+	- [`dwm`](https://github.com/zedseven/dwm)
+	- [`slock`](https://github.com/zedseven/slock)
+	- [`st`](https://github.com/zedseven/st)
+- [QMK firmware](https://github.com/zedseven/qmk_firmware) (for custom hardware-based keyboard layouts)
+
 ## Usage
 1. Checkout the repo on the new machine.
 2. Run the following to switch the machine config to the minimal install and generate SSH host keys:
