@@ -12,7 +12,7 @@ You're welcome to use it as a reference for your own configuration, however I ca
 
 ## Related Repositories
 There are several related repositories that contain additional customisations:
-- `suckless` tools (my customised versions):
+- `suckless` tools (my custom forks):
 	- [`dmenu`](https://github.com/zedseven/dmenu)
 	- [`dwm`](https://github.com/zedseven/dwm)
 	- [`slock`](https://github.com/zedseven/slock)
