@@ -288,7 +288,6 @@ in {
               gnumake
               libfaketime
               miniserve
-              mpv
               nixpkgs-fmt
               openssh
               plantuml
