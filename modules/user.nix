@@ -127,9 +127,10 @@ in {
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
                   nfu = "nix flake update";
-                  nrb = "sudo nixos-rebuild boot";
-                  nrs = "sudo nixos-rebuild switch";
-                  nrt = "sudo nixos-rebuild test --impure --show-trace";
+                  nrb = "git diff --quiet && nh os boot --nom --ask"; # `git diff --quiet` is to prevent switching to a dirty configuration
+                  nrs = "git diff --quiet && nh os switch --nom --ask";
+                  nrt = "nh os test --nom --verbose";
+                  nrtd = "nh os test --nom --verbose --dry";
                   poweroff = "systemctl poweroff";
                   procs = "procs --tree";
                   ps = "procs --tree";

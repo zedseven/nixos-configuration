@@ -74,8 +74,10 @@ in {
     '';
 
     environment = {
+      variables.FLAKE = cfg.configurationPath; # Required by `nh`, allowing rebuilds without providing the path every time
       systemPackages = with pkgs; [
         (inputs.agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
+        inputs.nh.packages.${system}.default
         killall
         lshw
         lsof

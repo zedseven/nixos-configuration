@@ -30,6 +30,10 @@
         systems.follows = "systems";
       };
     };
+    nh = {
+      url = "github:viperML/nh";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     private = {
       # Add the flake to the registry with: `nix registry add flake:private git+file:///path/to/local/repo`
       url = "flake:private";
@@ -38,6 +42,7 @@
         agenix.follows = "agenix";
       };
     };
+
     # The below inputs aren't used directly, but they're included here so that the other dependencies all
     # use the same versions of them
     flake-utils = {
