@@ -48,11 +48,8 @@ in {
     };
     nix = {
       channel.enable = false;
-      nixPath = [
-        "nixos-config=${cfg.configurationPath}"
-        # Only `nixpkgs` is pinned because none of the other inputs are used outside of the flake
-        "nixpkgs=flake:nixpkgs"
-      ];
+      # Only `nixpkgs` is pinned because none of the other inputs are used outside of the flake
+      nixPath = ["nixpkgs=flake:nixpkgs"];
       registry.nixpkgs.flake = inputs.nixpkgs;
       settings = {
         auto-optimise-store = true;
