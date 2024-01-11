@@ -58,6 +58,7 @@ in {
             fzf
             git
             home-manager
+            libtree
             neofetch
             nix-tree
             procs
@@ -119,7 +120,9 @@ in {
                   ipconfig = "ip addr";
                   kill = "kill -9";
                   killall = "killall -9";
+                  ldd = "libtree -v --path";
                   less = "less --raw-control-chars";
+                  libtree = "libtree -v --path";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
                   m = "batman";
