@@ -9,7 +9,7 @@
         owner = "zedseven";
         repo = "dmenu";
         rev = "b823f73f2b477796ff95f48edbe1f740d800986e";
-        sha256 = "sha256-nxodcOXYhW5HPTWDyUot6lEIQDF2fnzWQFH+Xjq7ZSQ=";
+        hash = "sha256-nxodcOXYhW5HPTWDyUot6lEIQDF2fnzWQFH+Xjq7ZSQ=";
       };
       # For `dmenu`, `conf` can't be used because the derivation doesn't support it
       postPatch =
@@ -26,7 +26,7 @@
           owner = "zedseven";
           repo = "dwm";
           rev = "38d365ba283514549e756129970ef274ce9fb134";
-          sha256 = "sha256-Ka+qrJMsPlRM6/JZWNQApR6g7lNQtXJiQkvAkAArYAA=";
+          hash = "sha256-Ka+qrJMsPlRM6/JZWNQApR6g7lNQtXJiQkvAkAArYAA=";
         };
       }))
       .override {
@@ -39,7 +39,7 @@
           owner = "zedseven";
           repo = "slock";
           rev = "84c9d2702e94cf45bd0049cd430755613e6dfbd3";
-          sha256 = "sha256-BnS/lKWgRpjxsGDWMflPfgrFQeuTiT5gXvg2cztxlYE=";
+          hash = "sha256-BnS/lKWgRpjxsGDWMflPfgrFQeuTiT5gXvg2cztxlYE=";
         };
       })
       .override {
@@ -58,7 +58,7 @@
             owner = "zedseven";
             repo = "st";
             rev = "54d82a8156a1bee8ebfec5836c3325490259fca3";
-            sha256 = "sha256-n91/Evy9RuUXF+G5gbwm/7eKvMwVMKg/pBgl6rX9UZg=";
+            hash = "sha256-n91/Evy9RuUXF+G5gbwm/7eKvMwVMKg/pBgl6rX9UZg=";
           };
         }))
       .override {
