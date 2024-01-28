@@ -356,6 +356,8 @@ in {
               ctt = "cargo tree";
               cttd = "cargo tree --duplicates";
               deadnix = "deadnix --hidden";
+              sc = "maim";
+              scs = "maim --select";
               t = "tldr";
               tealdeer = "tldr";
               youtube-dl = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";

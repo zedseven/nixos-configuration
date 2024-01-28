@@ -122,6 +122,7 @@ in {
           jetbrains.clion
           jetbrains.rust-rover
           keepass
+          maim
           mpv
           obsidian
           slstatus
