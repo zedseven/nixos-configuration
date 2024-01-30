@@ -46,7 +46,7 @@ in {
         "electron-25.9.0"
       ];
     };
-    nix = {
+    nix = rec {
       channel.enable = false;
       # Only `nixpkgs` is pinned because none of the other inputs are used outside of the flake
       nixPath = ["nixpkgs=flake:nixpkgs"];
@@ -60,6 +60,7 @@ in {
         dates = "daily";
         options = "--delete-older-than 14d";
       };
+      settings.nix-path = nixPath; # https://github.com/NixOS/nix/issues/8890#issuecomment-1703988345
     };
 
     # Set your time zone.
