@@ -56,22 +56,22 @@
           "local/root" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt";
+            mountpoint = "/";
           };
           "local/nix" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt/nix";
+            mountpoint = "/nix";
           };
           "safe/home" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt/home";
+            mountpoint = "/home";
           };
           "safe/persist" = {
             type = "zfs_fs";
             options.mountpoint = "legacy";
-            mountpoint = "/mnt/persist";
+            mountpoint = "/persist";
           };
         };
       };
