@@ -31,7 +31,8 @@
               };
             };
             swap = {
-              size = "100%"; # Fills the remaining space at the end, which should be `swapSizeGigabytes` gigabytes
+              size = "100%"; # Fills the remaining space at the end, which should be `swapSizeGigabytes`
+              type = "8200";
               content = {
                 type = "swap";
                 resumeDevice = true;
