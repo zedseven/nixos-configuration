@@ -44,10 +44,10 @@
     zpool = {
       rpool = {
         type = "zpool";
-        options.mountpoint = "none";
         rootFsOptions = {
           atime = "off";
           compression = "zstd";
+          mountpoint = "none";
         };
         postCreateHook = "zfs snapshot rpool/local/root@blank"; # For `darlings`
 
