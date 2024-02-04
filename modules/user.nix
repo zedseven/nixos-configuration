@@ -274,14 +274,6 @@ in {
       (lib.mkIf
         (cfg.type == "full")
         {
-          # Set up symlinks so that the `agenix` CLI can find the system host keys automatically
-          custom.symlinks = {
-            "${homeDirectory}/.ssh/id_ed25519".source = "/etc/ssh/ssh_host_ed25519_key";
-            "${homeDirectory}/.ssh/id_ed25519.pub".source = "/etc/ssh/ssh_host_ed25519_key.pub";
-            "${homeDirectory}/.ssh/id_rsa".source = "/etc/ssh/ssh_host_rsa_key";
-            "${homeDirectory}/.ssh/id_rsa.pub".source = "/etc/ssh/ssh_host_rsa_key.pub";
-          };
-
           users.users.${userInfo.username} = {
             # CLI packages
             packages = with pkgs; [
