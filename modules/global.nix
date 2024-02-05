@@ -54,6 +54,7 @@ in {
       settings = {
         auto-optimise-store = true;
         experimental-features = ["nix-command" "flakes"];
+        trusted-users = ["@wheel"]; # Trust any user with `sudo` privileges to update the Nix configuration
       };
       gc = {
         automatic = true;
