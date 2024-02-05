@@ -23,7 +23,7 @@ stdenvNoCC.mkDerivation (finalAttrs: {
 
   preInstall = ''
     mkdir -p $out/bin
-    cp patch.sh $out/bin/
+    install -Dm755 patch.sh $out/bin/patch.sh
   '';
 
   meta = {
