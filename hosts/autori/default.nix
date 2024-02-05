@@ -2,6 +2,7 @@
 {
   config,
   inputs,
+  hostname,
   ...
 }: {
   imports = [
@@ -39,6 +40,11 @@
   };
 
   networking.hostId = "0824a9c7";
+
+  services.openssh = {
+    openFirewall = true;
+    ports = config.private.serverPorts.${hostname}.ssh;
+  };
 
   system.stateVersion = "23.05"; # Don't touch this, ever
 }
