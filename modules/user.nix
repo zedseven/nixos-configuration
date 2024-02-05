@@ -67,6 +67,9 @@ in {
           ];
           inherit (cfg) hashedPasswordFile;
           shell = pkgs.fish;
+
+          # Set the user key as an authorised key
+          openssh.authorizedKeys.keys = [config.private.users.${userInfo.username}.publicKey];
         };
 
         home-manager = {
