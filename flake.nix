@@ -74,10 +74,6 @@
           };
         }) [
           {
-            hostname = "_install";
-            system = "x86_64-linux";
-          }
-          {
             hostname = "autori";
             system = "x86_64-linux";
           }
