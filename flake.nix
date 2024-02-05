@@ -78,6 +78,10 @@
             system = "x86_64-linux";
           }
           {
+            hostname = "autori";
+            system = "x86_64-linux";
+          }
+          {
             hostname = "diiamo";
             system = "x86_64-linux";
           }
