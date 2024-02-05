@@ -62,7 +62,7 @@
       "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
     };
 
-    physical.enable = true;
+    grub.enable = true;
     zfs.enable = true;
     qmk.enable = true;
   };

@@ -3,10 +3,10 @@
   lib,
   ...
 }: let
-  cfg = config.custom.physical;
+  cfg = config.custom.grub;
 in {
-  options.custom.physical = with lib; {
-    enable = mkEnableOption "physical device customisations";
+  options.custom.grub = with lib; {
+    enable = mkEnableOption "GRUB boot loader settings";
   };
 
   config = lib.mkIf cfg.enable {
@@ -14,7 +14,7 @@ in {
       efi.canTouchEfiVariables = true;
       grub = {
         enable = true;
-        device = "nodev";
+        device = lib.mkDefault "nodev";
         efiSupport = true;
       };
     };

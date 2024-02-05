@@ -4,7 +4,7 @@
     ./user.nix
     ./desktop
     ./backups
-    ./physical.nix
+    ./grub.nix
     ./zfs.nix
     ./darlings.nix
     ./symlinks.nix
