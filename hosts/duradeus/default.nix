@@ -54,7 +54,10 @@
         enable = true;
         wrapDiscord = true;
       };
-      games.enable = true;
+      games.steam = {
+        enable = true;
+        wrapSteam = true;
+      };
     };
 
     symlinks = {

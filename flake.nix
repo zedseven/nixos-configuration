@@ -53,6 +53,8 @@
   };
 
   outputs = {nixpkgs, ...} @ inputs: {
+    packages = import ./packages inputs;
+
     nixosConfigurations = let
       userInfo = {
         username = "zacc";

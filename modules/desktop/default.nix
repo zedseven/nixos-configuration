@@ -14,7 +14,7 @@ in {
     ./audio.nix
     ./bluetooth.nix
     ./discord
-    ./games.nix
+    ./games
   ];
 
   options.custom.desktop = with lib; {
