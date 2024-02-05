@@ -153,11 +153,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707078299,
-        "narHash": "sha256-lcfyVxdh9+pPmjwBiq5wb7dzXeNxQ9PVxI8B4VFt/jU=",
+        "lastModified": 1707100488,
+        "narHash": "sha256-CylziodN/8pRoFc4IRIdFQ1mUpAydgdJ57buxrbRzk4=",
         "ref": "refs/heads/main",
-        "rev": "d2a7e43be6289c47bbb89b9d6d1ee48b5ca3f0bf",
-        "revCount": 15,
+        "rev": "907e6de559ea7dd1923b6f8b29b70112a0b142b5",
+        "revCount": 16,
         "type": "git",
         "url": "file:///persist/etc/nixos/private"
       },
