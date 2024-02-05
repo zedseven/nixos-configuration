@@ -64,6 +64,9 @@ in {
       settings.nix-path = nixPath; # https://github.com/NixOS/nix/issues/8890#issuecomment-1703988345
     };
 
+    # Prevent users and groups from being modified at runtime
+    users.mutableUsers = false;
+
     # Set your time zone.
     time.timeZone = "America/Toronto";
 
