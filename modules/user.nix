@@ -180,6 +180,7 @@ in {
                     "$sudo"
                     "$fill"
                     "$cmd_duration"
+                    "$os"
                     "$line_break"
                     "$character"
                   ];
@@ -203,6 +204,12 @@ in {
                   };
                   fill = {
                     symbol = " ";
+                  };
+                  os = {
+                    disabled = false;
+                    symbols = {
+                      "NixOS" = "  ";
+                    };
                   };
                 };
               };
