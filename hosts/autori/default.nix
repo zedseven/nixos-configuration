@@ -34,10 +34,7 @@
       ];
     };
 
-    grub = {
-      enable = true;
-    };
-
+    grub.enable = true;
     zfs.enable = true;
   };
 
