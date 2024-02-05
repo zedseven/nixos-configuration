@@ -207,8 +207,9 @@ in {
                   };
                   os = {
                     disabled = false;
+                    style = "bold blue";
                     symbols = {
-                      "NixOS" = "  ";
+                      "NixOS" = "  "; # Use the Unicode Private Use character of the NixOS logo - PragmataPro supports this
                     };
                   };
                 };
