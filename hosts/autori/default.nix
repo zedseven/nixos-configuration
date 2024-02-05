@@ -43,7 +43,7 @@
 
   services.openssh = {
     openFirewall = true;
-    ports = config.private.serverPorts.${hostname}.ssh;
+    ports = inputs.private.unencryptedValues.serverPorts.${hostname}.ssh;
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever

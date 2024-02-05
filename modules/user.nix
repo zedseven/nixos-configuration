@@ -69,7 +69,7 @@ in {
           shell = pkgs.fish;
 
           # Set the user key as an authorised key
-          openssh.authorizedKeys.keys = [config.private.users.${userInfo.username}.publicKey];
+          openssh.authorizedKeys.keys = [inputs.private.unencryptedValues.users.${userInfo.username}.publicKey];
         };
 
         home-manager = {
