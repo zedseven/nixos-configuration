@@ -60,7 +60,10 @@
           };
           "local/nix" = {
             type = "zfs_fs";
-            options.mountpoint = "legacy";
+            options = {
+              dedup = "on";
+              mountpoint = "legacy";
+            };
             mountpoint = "/nix";
           };
           "safe/home" = {
