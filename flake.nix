@@ -92,5 +92,10 @@
             system = "x86_64-linux";
           }
         ]);
+
+    formatter = builtins.listToAttrs (map (system: {
+      name = system;
+      value = nixpkgs.legacyPackages.${system}.alejandra;
+    }) ["x86_64-linux"]);
   };
 }
