@@ -42,7 +42,10 @@
     zfs.enable = true;
   };
 
-  networking.hostId = "0824a9c7";
+  networking = {
+    hostId = "0824a9c7";
+    firewall.allowedTCPPorts = [80 443];
+  };
 
   services.openssh = {
     openFirewall = true;
