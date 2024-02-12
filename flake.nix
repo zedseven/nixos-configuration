@@ -34,13 +34,18 @@
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    # Add the flakes to the registry with: `nix registry add flake:<NAME> git+file:///path/to/local/repo`
     private = {
-      # Add the flake to the registry with: `nix registry add flake:private git+file:///path/to/local/repo`
       url = "flake:private";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         agenix.follows = "agenix";
       };
+    };
+    website-ztdp = {
+      url = "flake:website-ztdp";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
 
     # The below inputs aren't used directly, but they're included here so that the other dependencies all

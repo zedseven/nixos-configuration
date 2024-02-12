@@ -199,7 +199,8 @@
         "nixpkgs": "nixpkgs",
         "private": "private",
         "programs-db": "programs-db",
-        "systems": "systems"
+        "systems": "systems",
+        "website-ztdp": "website-ztdp"
       }
     },
     "systems": {
@@ -215,6 +216,26 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "website-ztdp": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1707690704,
+        "narHash": "sha256-H3zbQA/v5j6vd5ciYJlEqBAG3xFut0BEtf3biSeTGnk=",
+        "ref": "refs/heads/main",
+        "rev": "e4988ff2d8ae39e4ddc2867b34788fef8daa7e6f",
+        "revCount": 8,
+        "type": "git",
+        "url": "file:///home/zacc/git/website-ztdp"
+      },
+      "original": {
+        "id": "website-ztdp",
+        "type": "indirect"
       }
     }
   },

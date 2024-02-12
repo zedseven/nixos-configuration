@@ -3,6 +3,8 @@
   config,
   inputs,
   hostname,
+  userInfo,
+  system,
   ...
 }: {
   imports = [
@@ -32,6 +34,7 @@
       persist.paths = [
         "/etc/machine-id"
         "/etc/ssh"
+        "/var/lib/acme"
       ];
     };
 
@@ -44,6 +47,19 @@
   services.openssh = {
     openFirewall = true;
     ports = inputs.private.unencryptedValues.serverPorts.${hostname}.ssh;
+  };
+
+  services.nginx = {
+    enable = true;
+    virtualHosts."ztdp.ca" = {
+      enableACME = true;
+      forceSSL = true;
+      root = "${inputs.website-ztdp.packages.${system}.default}";
+    };
+  };
+  security.acme = {
+    acceptTerms = true;
+    defaults.email = userInfo.email;
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever
