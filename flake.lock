@@ -225,11 +225,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1707774007,
-        "narHash": "sha256-Y3f9vGLqVCf0VT0/8rhcMeu0niDrKXB3J5Rn3rEhCc0=",
+        "lastModified": 1707781099,
+        "narHash": "sha256-3YnElRGhNdPE+k8HoSEmsN0CCiilpOB24UDN1zkAm1s=",
         "ref": "refs/heads/main",
-        "rev": "aceb6bb8efe78128fcf30b724dd8bc839e32cf85",
-        "revCount": 9,
+        "rev": "7724c93f52618c03b8b03bd11f4b61a9d192d87d",
+        "revCount": 14,
         "type": "git",
         "url": "file:///home/zacc/git/website-ztdp"
       },
