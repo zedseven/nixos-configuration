@@ -47,19 +47,22 @@
     firewall.allowedTCPPorts = [80 443];
   };
 
-  services.openssh = {
-    openFirewall = true;
-    ports = inputs.private.unencryptedValues.serverPorts.${hostname}.ssh;
-  };
+  services = {
+    openssh = {
+      openFirewall = true;
+      ports = inputs.private.unencryptedValues.serverPorts.${hostname}.ssh;
+    };
 
-  services.nginx = {
-    enable = true;
-    virtualHosts."ztdp.ca" = {
-      enableACME = true;
-      forceSSL = true;
-      root = "${inputs.website-ztdp.packages.${system}.default}";
+    nginx = {
+      enable = true;
+      virtualHosts."ztdp.ca" = {
+        enableACME = true;
+        forceSSL = true;
+        root = "${inputs.website-ztdp.packages.${system}.default}";
+      };
     };
   };
+
   security.acme = {
     acceptTerms = true;
     defaults.email = userInfo.email;
