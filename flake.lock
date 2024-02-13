@@ -27,8 +27,34 @@
         "type": "github"
       }
     },
+    "deploy-rs": {
+      "inputs": {
+        "flake-compat": [
+          "flake-compat"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "utils": [
+          "flake-utils"
+        ]
+      },
+      "locked": {
+        "lastModified": 1706941307,
+        "narHash": "sha256-0ZCA6ak8cZyDttTfAGHuELcu9zehz2aLdCjSLrDVuhw=",
+        "owner": "n-hass",
+        "repo": "deploy-rs",
+        "rev": "f269062f48e731c0aceba2df754499d46c33bf71",
+        "type": "github"
+      },
+      "original": {
+        "owner": "n-hass",
+        "ref": "feature/interactive-sudo",
+        "repo": "deploy-rs",
+        "type": "github"
+      }
+    },
     "flake-compat": {
-      "flake": false,
       "locked": {
         "lastModified": 1696426674,
         "narHash": "sha256-kvjfFW7WAETZlt09AgDn1MrtKzP7t90Vf7vypd3OL1U=",
@@ -105,7 +131,9 @@
     },
     "nixos-wsl": {
       "inputs": {
-        "flake-compat": "flake-compat",
+        "flake-compat": [
+          "flake-compat"
+        ],
         "flake-utils": [
           "flake-utils"
         ],
@@ -192,6 +220,8 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "deploy-rs": "deploy-rs",
+        "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nh": "nh",

@@ -4,6 +4,7 @@
   lib,
   inputs,
   userInfo,
+  system,
   ...
 }: let
   cfg = config.custom.user;
@@ -288,6 +289,7 @@ in {
           users.users.${userInfo.username} = {
             # CLI packages
             packages = with pkgs; [
+              inputs.deploy-rs.packages.${system}.default
               alejandra
               deadnix
               gcc

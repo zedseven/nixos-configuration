@@ -11,6 +11,7 @@
       url = "github:nix-community/NixOS-WSL";
       inputs = {
         nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
         flake-utils.follows = "flake-utils";
       };
     };
@@ -34,6 +35,14 @@
       url = "github:viperML/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    deploy-rs = {
+      url = "github:n-hass/deploy-rs/feature/interactive-sudo"; # Awaiting the merge of https://github.com/serokell/deploy-rs/pull/257
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        utils.follows = "flake-utils";
+      };
+    };
 
     # Add the flakes to the registry with: `nix registry add flake:<NAME> git+file:///path/to/local/repo`
     private = {
@@ -50,6 +59,7 @@
 
     # The below inputs aren't used directly, but they're included here so that the other dependencies all
     # use the same versions of them
+    flake-compat.url = "github:edolstra/flake-compat";
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
@@ -57,7 +67,35 @@
     systems.url = "github:nix-systems/default";
   };
 
-  outputs = {nixpkgs, ...} @ inputs: {
+  outputs = {
+    self,
+    nixpkgs,
+    deploy-rs,
+    ...
+  } @ inputs: let
+    hosts = [
+      {
+        hostname = "autori";
+        system = "x86_64-linux";
+        isServer = true;
+      }
+      {
+        hostname = "diiamo";
+        system = "x86_64-linux";
+        isServer = false;
+      }
+      {
+        hostname = "duradeus";
+        system = "x86_64-linux";
+        isServer = false;
+      }
+      {
+        hostname = "wraith";
+        system = "x86_64-linux";
+        isServer = false;
+      }
+    ];
+  in {
     packages = import ./packages inputs;
 
     nixosConfigurations = let
@@ -75,28 +113,28 @@
             specialArgs = {
               inherit inputs;
               inherit userInfo;
-              inherit (host) system hostname;
+              inherit (host) system hostname isServer;
             };
             modules = [./hosts];
           };
-        }) [
-          {
-            hostname = "autori";
-            system = "x86_64-linux";
-          }
-          {
-            hostname = "diiamo";
-            system = "x86_64-linux";
-          }
-          {
-            hostname = "duradeus";
-            system = "x86_64-linux";
-          }
-          {
-            hostname = "wraith";
-            system = "x86_64-linux";
-          }
-        ]);
+        })
+        hosts);
+
+    deploy.nodes = builtins.listToAttrs (map (host: {
+        name = host.hostname;
+        value = {
+          inherit (host) hostname;
+          fastConnection = true;
+          interactiveSudo = true;
+          profiles.system = {
+            user = "root";
+            path = deploy-rs.lib.${host.system}.activate.nixos self.nixosConfigurations.${host.hostname};
+          };
+        };
+      })
+      (builtins.filter (host: host.isServer) hosts));
+
+    checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
     formatter = builtins.listToAttrs (map (system: {
       name = system;
