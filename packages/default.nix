@@ -1,6 +1,10 @@
-{nixpkgs, ...}: let
+{
+  inputs,
+  hostSystems,
+  ...
+}: let
   packages = system: let
-    inherit (nixpkgs.legacyPackages.${system}) callPackage;
+    inherit (inputs.nixpkgs.legacyPackages.${system}) callPackage;
   in {
     name = system;
     value = {
@@ -8,4 +12,4 @@
     };
   };
 in
-  builtins.listToAttrs (map packages ["x86_64-linux"])
+  builtins.listToAttrs (map packages hostSystems)

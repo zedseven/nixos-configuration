@@ -95,8 +95,11 @@
         isServer = false;
       }
     ];
+    hostSystems = nixpkgs.lib.lists.unique (map (host: host.system) hosts);
   in {
-    packages = import ./packages inputs;
+    packages = import ./packages {
+      inherit inputs hostSystems;
+    };
 
     nixosConfigurations = let
       userInfo = {
@@ -137,8 +140,9 @@
     checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
     formatter = builtins.listToAttrs (map (system: {
-      name = system;
-      value = nixpkgs.legacyPackages.${system}.alejandra;
-    }) ["x86_64-linux"]);
+        name = system;
+        value = nixpkgs.legacyPackages.${system}.alejandra;
+      })
+      hostSystems);
   };
 }
