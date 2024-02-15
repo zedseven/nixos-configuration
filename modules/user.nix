@@ -149,10 +149,22 @@ in {
                   top = "btm --regex";
                   w = "clear";
                   watch = "batwatch";
+                  y = "yazi";
                 };
                 interactiveShellInit = ''
                   set fish_greeting
                 '';
+              };
+
+              yazi = {
+                enable = true;
+                enableFishIntegration = true;
+                settings = {
+                  manager = {
+                    show_hidden = true;
+                    sort_dir_first = true;
+                  };
+                };
               };
 
               neovim = {
