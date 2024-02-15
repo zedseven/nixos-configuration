@@ -44,6 +44,7 @@
     desktop = {
       enable = true;
       displayDriver = "nvidia";
+      is4k = true;
       audio.persistentSettings = {
         enable = true;
         alsaDirPath = "/persist/var/lib/alsa";
