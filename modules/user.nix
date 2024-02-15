@@ -131,6 +131,7 @@ in {
                   ls = "eza --group-directories-first --git";
                   m = "batman";
                   man = "batman";
+                  n = "nix run nixpkgs#";
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
                   nfu = "nix flake update";
