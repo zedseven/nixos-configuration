@@ -119,6 +119,8 @@ in {
                   gs = "batdiff && git status";
                   gu = "git pull";
                   gy = "git apply";
+                  h = "hx";
+                  helix = "hx";
                   hibernate = "systemctl hibernate";
                   ifconfig = "ip addr";
                   ipconfig = "ip addr";
@@ -139,6 +141,7 @@ in {
                   nrs = "git diff --quiet && nh os switch --nom --ask";
                   nrt = "nh os test --nom --verbose";
                   nrtd = "nh os test --nom --verbose --dry";
+                  nvim = "hx";
                   poweroff = "systemctl poweroff";
                   procs = "procs --tree";
                   ps = "procs --tree";
@@ -147,6 +150,8 @@ in {
                   s = "sudo";
                   shutdown = "shutdown -h now";
                   top = "btm --regex";
+                  vi = "hx";
+                  vim = "hx";
                   w = "clear";
                   watch = "batwatch";
                   y = "yazi";
@@ -167,15 +172,9 @@ in {
                 };
               };
 
-              neovim = {
+              helix = {
                 enable = true;
                 defaultEditor = true;
-                viAlias = true;
-                vimAlias = true;
-                vimdiffAlias = true;
-                extraConfig = ''
-                  set hidden
-                '';
               };
 
               starship = {
@@ -330,6 +329,12 @@ in {
               }))
               viu
               yt-dlp
+
+              # Language Servers (LSP) and Debug Adapters (DAP)
+              #rust-analyzer # Rust (installed on a per-project basis to match the toolchain, using `direnv`)
+              clang-tools # C, C++
+              lldb # LLVM-based languages
+              nil # Nix
             ];
           };
 
