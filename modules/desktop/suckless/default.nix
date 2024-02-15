@@ -62,7 +62,7 @@
           };
         }))
       .override {
-        conf = builtins.readFile ./config.st.h;
+        conf = builtins.readFile ./config.st.${hostname}.h;
       };
   };
 }
