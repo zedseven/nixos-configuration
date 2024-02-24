@@ -40,16 +40,15 @@
         ]
       },
       "locked": {
-        "lastModified": 1706941307,
-        "narHash": "sha256-0ZCA6ak8cZyDttTfAGHuELcu9zehz2aLdCjSLrDVuhw=",
-        "owner": "n-hass",
+        "lastModified": 1708091384,
+        "narHash": "sha256-dTGGw2y8wvfjr+J9CjQbfdulOq72hUG17HXVNxpH1yE=",
+        "owner": "serokell",
         "repo": "deploy-rs",
-        "rev": "f269062f48e731c0aceba2df754499d46c33bf71",
+        "rev": "0a0187794ac7f7a1e62cda3dabf8dc041f868790",
         "type": "github"
       },
       "original": {
-        "owner": "n-hass",
-        "ref": "feature/interactive-sudo",
+        "owner": "serokell",
         "repo": "deploy-rs",
         "type": "github"
       }

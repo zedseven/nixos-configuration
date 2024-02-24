@@ -36,7 +36,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {
-      url = "github:n-hass/deploy-rs/feature/interactive-sudo"; # Awaiting the merge of https://github.com/serokell/deploy-rs/pull/257
+      url = "github:serokell/deploy-rs";
       inputs = {
         nixpkgs.follows = "nixpkgs";
         flake-compat.follows = "flake-compat";
