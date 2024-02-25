@@ -95,7 +95,7 @@ in {
       };
     in {
       systemd.tmpfiles.rules = [
-        "d ${cfg.logDirectory} 664 ${cfg.user} ${cfg.group}"
+        "d ${cfg.logDirectory} 775 ${cfg.user} ${cfg.group}"
       ];
 
       # Based upon https://lavalink.dev/configuration/systemd.html
