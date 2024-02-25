@@ -89,6 +89,8 @@ in {
           text = configurationContents;
           destination = "/${fileName}";
         };
+      # This merges the directory structure of the configuration and plugins
+      # All plugins are expected to have a structure like: `$out/plugins/plugin.jar`
       completeConfiguration = pkgs.symlinkJoin {
         name = "lavalink-service-configuration";
         paths = [configurationFile] ++ cfg.plugins;
