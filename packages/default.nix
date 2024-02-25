@@ -8,6 +8,7 @@
   in {
     name = system;
     value = {
+      lavalink = callPackage ./lavalink.nix {};
       steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
     };
   };

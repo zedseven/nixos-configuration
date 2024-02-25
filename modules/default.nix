@@ -10,5 +10,6 @@
     ./symlinks.nix
     ./qmk.nix
     ./wsl.nix
+    ./lavalink.nix
   ];
 }
