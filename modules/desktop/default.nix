@@ -15,6 +15,7 @@ in {
     ./bluetooth.nix
     ./discord
     ./games
+    ./calibre.nix
   ];
 
   options.custom.desktop = with lib; {
