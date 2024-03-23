@@ -302,7 +302,7 @@ in {
             # CLI packages
             packages = with pkgs; [
               inputs.deploy-rs.packages.${system}.default
-              alejandra
+              inputs.self.packages.${system}.alejandra
               deadnix
               gcc
               gnumake

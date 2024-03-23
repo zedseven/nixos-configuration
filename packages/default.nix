@@ -9,6 +9,7 @@
   in {
     name = system;
     value = {
+      alejandra = callPackage ./alejandra {};
       lavalink = callPackage ./lavalink.nix {};
       lavalinkPlugins = recurseIntoAttrs (callPackage ./lavalinkPlugins {});
       steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};

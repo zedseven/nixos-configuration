@@ -141,7 +141,7 @@
 
     formatter = builtins.listToAttrs (map (system: {
         name = system;
-        value = nixpkgs.legacyPackages.${system}.alejandra;
+        value = self.packages.${system}.alejandra;
       })
       hostSystems);
   };

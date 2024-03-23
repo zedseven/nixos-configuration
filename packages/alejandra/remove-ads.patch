@@ -1,0 +1,21 @@
+diff --git a/src/alejandra_cli/src/cli.rs b/src/alejandra_cli/src/cli.rs
+index bab102c..002ab34 100644
+--- a/src/alejandra_cli/src/cli.rs
++++ b/src/alejandra_cli/src/cli.rs
+@@ -206,7 +206,6 @@ pub fn main() -> std::io::Result<()> {
+
+             if in_place {
+                 eprintln!();
+-                eprint!("{}", random_ad());
+             }
+         }
+
+@@ -218,8 +217,6 @@ pub fn main() -> std::io::Result<()> {
+         eprintln!(
+             "Congratulations! Your code complies with the Alejandra style."
+         );
+-        eprintln!();
+-        eprint!("{}", random_ad());
+     }
+
+     std::process::exit(0);
