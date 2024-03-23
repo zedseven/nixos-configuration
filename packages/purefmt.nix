@@ -10,7 +10,7 @@ writeShellScriptBin "purefmt" ''
 
   TARGET="$1"
 
-  # For purity
+  # For purity - https://github.com/NixOS/rfcs/blob/master/rfcs/0166-nix-formatting.md#initial-standard-nix-format
   ${nixfmt-rfc-style}/bin/nixfmt "$TARGET"
 
   # For the style of `alejandra`
