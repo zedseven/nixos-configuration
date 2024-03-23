@@ -1,6 +1,7 @@
 {
   pkgs,
   lib,
+  ...
 }:
 lib.makeScope pkgs.newScope (
   self: let

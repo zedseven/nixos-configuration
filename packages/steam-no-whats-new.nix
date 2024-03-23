@@ -1,8 +1,10 @@
 {
-  pkgs,
   lib,
   stdenvNoCC,
   fetchFromGitHub,
+  gnugrep,
+  gnused,
+  ...
 }:
 stdenvNoCC.mkDerivation (
   finalAttrs: {
@@ -16,7 +18,7 @@ stdenvNoCC.mkDerivation (
       hash = "sha256-yh2RTnEzezoB1K+Yb0z97Impzkhx055vmxHVyumOPJg=";
     };
 
-    postPatch = with pkgs; ''
+    postPatch = ''
       substituteInPlace patch.sh \
       --replace "grep " "${gnugrep}/bin/grep " \
       --replace "sed " "${gnused}/bin/sed "

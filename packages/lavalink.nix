@@ -1,10 +1,10 @@
 {
-  pkgs,
   lib,
   stdenvNoCC,
   fetchurl,
   makeWrapper,
   jre,
+  ...
 }:
 stdenvNoCC.mkDerivation (
   finalAttrs: {
