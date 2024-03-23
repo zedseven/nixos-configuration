@@ -7,13 +7,17 @@
 }: let
   swapDevice = "/dev/disk/by-uuid/3433d9c0-ebca-4967-88d9-5669d188728c";
 in {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
     initrd = {
-      availableKernelModules = ["xhci_pci" "nvme" "usb_storage" "sd_mod" "rtsx_pci_sdmmc"];
+      availableKernelModules = [
+        "xhci_pci"
+        "nvme"
+        "usb_storage"
+        "sd_mod"
+        "rtsx_pci_sdmmc"
+      ];
       kernelModules = [];
 
       luks.devices = {
@@ -72,11 +76,7 @@ in {
     };
   };
 
-  swapDevices = [
-    {
-      device = swapDevice;
-    }
-  ];
+  swapDevices = [{device = swapDevice;}];
 
   networking.useDHCP = lib.mkDefault true;
 

@@ -27,8 +27,8 @@ in {
         after = ["sound.target"];
         serviceConfig = {
           RemainAfterExit = true;
-          ExecStart = "-${pkgs.alsa-utils}/bin/alsactl restore --config-dir=\"${cfg.persistentSettings.alsaDirPath}\" --file=\"${stateFile}\"";
-          ExecStop = "${pkgs.alsa-utils}/bin/alsactl store --config-dir=\"${cfg.persistentSettings.alsaDirPath}\" --file=\"${stateFile}\"";
+          ExecStart = ''-${pkgs.alsa-utils}/bin/alsactl restore --config-dir="${cfg.persistentSettings.alsaDirPath}" --file="${stateFile}"'';
+          ExecStop = ''${pkgs.alsa-utils}/bin/alsactl store --config-dir="${cfg.persistentSettings.alsaDirPath}" --file="${stateFile}"'';
         };
         wantedBy = ["graphical.target"];
       };

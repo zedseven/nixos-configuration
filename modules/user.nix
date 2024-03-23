@@ -17,7 +17,10 @@ in {
   options.custom.user = with lib; {
     type = mkOption {
       description = "The type of user configuration.";
-      type = types.enum ["minimal" "full"];
+      type = types.enum [
+        "minimal"
+        "full"
+      ];
       default = "minimal";
     };
     shellPromptCharacter = mkOption {
@@ -70,7 +73,9 @@ in {
           shell = pkgs.fish;
 
           # Set the user key as an authorised key
-          openssh.authorizedKeys.keys = [inputs.private.unencryptedValues.users.${userInfo.username}.publicKey];
+          openssh.authorizedKeys.keys = [
+            inputs.private.unencryptedValues.users.${userInfo.username}.publicKey
+          ];
         };
 
         home-manager = {
@@ -231,15 +236,10 @@ in {
               bat = {
                 enable = true;
                 extraPackages = with pkgs.bat-extras; [
-                  (batdiff.override
-                    {
-                      withDelta = true;
-                    })
+                  (batdiff.override {withDelta = true;})
                   batgrep
                   batman
-                  (batwatch.override {
-                    withEntr = true;
-                  })
+                  (batwatch.override {withEntr = true;})
                 ];
               };
 
@@ -295,26 +295,25 @@ in {
       }
 
       # Full
-      (lib.mkIf
-        (cfg.type == "full")
-        {
-          users.users.${userInfo.username} = {
-            # CLI packages
-            packages = with pkgs; [
-              inputs.deploy-rs.packages.${system}.default
-              inputs.self.packages.${system}.purefmt
-              deadnix
-              gcc
-              gnumake
-              libfaketime
-              miniserve
-              nixpkgs-fmt
-              openssh
-              plantuml
-              rclone
-              restic
-              statix
-              (tealdeer.overrideAttrs (drv: rec {
+      (lib.mkIf (cfg.type == "full") {
+        users.users.${userInfo.username} = {
+          # CLI packages
+          packages = with pkgs; [
+            inputs.deploy-rs.packages.${system}.default
+            inputs.self.packages.${system}.purefmt
+            deadnix
+            gcc
+            gnumake
+            libfaketime
+            miniserve
+            nixpkgs-fmt
+            openssh
+            plantuml
+            rclone
+            restic
+            statix
+            (tealdeer.overrideAttrs (
+              drv: rec {
                 src = fetchFromGitHub {
                   owner = "zedseven"; # Until https://github.com/dbrgn/tealdeer/issues/320 is resolved
                   repo = "tealdeer";
@@ -326,93 +325,94 @@ in {
                   inherit src;
                   outputHash = "sha256-ULIBSuCyr5naXhsQVCR2/Z0WY3av5rbbg5l30TCjHDY=";
                 };
-              }))
-              viu
-              yt-dlp
+              }
+            ))
+            viu
+            yt-dlp
 
-              # Language Servers (LSP) and Debug Adapters (DAP)
-              clang-tools # C, C++
-              lldb # LLVM-based languages
-              #rust-analyzer # Rust (installed on a per-project basis to match the toolchain, using `direnv`)
-              nil # Nix
-            ];
+            # Language Servers (LSP) and Debug Adapters (DAP)
+            clang-tools # C, C++
+            lldb # LLVM-based languages
+            #rust-analyzer # Rust (installed on a per-project basis to match the toolchain, using `direnv`)
+            nil # Nix
+          ];
+        };
+
+        home-manager.users.${userInfo.username}.programs = {
+          fish.shellAbbrs = {
+            alejandra = "purefmt";
+            c = "cargo";
+            cb = "cargo build";
+            cbr = "cargo build --release";
+            cc = "cargo clippy";
+            cd = "z";
+            cdd = "cargo doc";
+            cdda = "cargo doc --all-features";
+            cddar = "cargo doc --all-features --release";
+            cddars = "cargo doc --all-features --release --open";
+            cddas = "cargo doc --all-features --open";
+            cddr = "cargo doc --release";
+            cddrs = "cargo doc --release --open";
+            cdds = "cargo doc --open";
+            ce = "cargo expand --color=always --theme=OneHalfDark";
+            cf = "cargo fmt --all";
+            cfc = "cargo fmt --all --check";
+            cl = "cargo clean";
+            cm = "cargo miri";
+            cmr = "cargo miri run";
+            cmrr = "cargo miri ruh --release";
+            cmt = "cargo miri test";
+            cmtr = "cargo miri test --release";
+            cn = "cargo generate";
+            cng = "cargo generate general --define username=zedseven --name";
+            cql = "cargo license --color=always";
+            cqla = "cargo license --color=always --authors";
+            cqo = "cargo outdated --color=always --root-deps-only";
+            cqof = "cargo outdated --color=always";
+            cqu = "cargo update --color=always";
+            cr = "cargo run";
+            crr = "cargo run --release";
+            ct = "cargo test";
+            ctd = "cargo test --doc";
+            ctns = "cargo nono check && cargo build --target wasm32-unknown-unknown";
+            ctr = "cargo test --release";
+            ctt = "cargo tree";
+            cttd = "cargo tree --duplicates";
+            deadnix = "deadnix --hidden";
+            fmt = "purefmt";
+            sc = "maim";
+            scs = "maim --select";
+            t = "tldr";
+            tealdeer = "tldr";
+            youtube-dl = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
+            yt-dlp = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
+            ytd = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
           };
 
-          home-manager.users.${userInfo.username}.programs = {
-            fish.shellAbbrs = {
-              alejandra = "purefmt";
-              c = "cargo";
-              cb = "cargo build";
-              cbr = "cargo build --release";
-              cc = "cargo clippy";
-              cd = "z";
-              cdd = "cargo doc";
-              cdda = "cargo doc --all-features";
-              cddar = "cargo doc --all-features --release";
-              cddars = "cargo doc --all-features --release --open";
-              cddas = "cargo doc --all-features --open";
-              cddr = "cargo doc --release";
-              cddrs = "cargo doc --release --open";
-              cdds = "cargo doc --open";
-              ce = "cargo expand --color=always --theme=OneHalfDark";
-              cf = "cargo fmt --all";
-              cfc = "cargo fmt --all --check";
-              cl = "cargo clean";
-              cm = "cargo miri";
-              cmr = "cargo miri run";
-              cmrr = "cargo miri ruh --release";
-              cmt = "cargo miri test";
-              cmtr = "cargo miri test --release";
-              cn = "cargo generate";
-              cng = "cargo generate general --define username=zedseven --name";
-              cql = "cargo license --color=always";
-              cqla = "cargo license --color=always --authors";
-              cqo = "cargo outdated --color=always --root-deps-only";
-              cqof = "cargo outdated --color=always";
-              cqu = "cargo update --color=always";
-              cr = "cargo run";
-              crr = "cargo run --release";
-              ct = "cargo test";
-              ctd = "cargo test --doc";
-              ctns = "cargo nono check && cargo build --target wasm32-unknown-unknown";
-              ctr = "cargo test --release";
-              ctt = "cargo tree";
-              cttd = "cargo tree --duplicates";
-              deadnix = "deadnix --hidden";
-              fmt = "purefmt";
-              sc = "maim";
-              scs = "maim --select";
-              t = "tldr";
-              tealdeer = "tldr";
-              youtube-dl = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
-              yt-dlp = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
-              ytd = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
-            };
+          direnv = {
+            enable = true;
+            nix-direnv.enable = true;
+          };
 
-            direnv = {
-              enable = true;
-              nix-direnv.enable = true;
-            };
+          git-cliff.enable = true;
 
-            git-cliff.enable = true;
-
-            tealdeer = {
-              enable = true;
-              settings = {
-                display = {
-                  compact = true;
-                  use_pager = false;
-                };
-                updates = {
-                  auto_update = true;
-                  auto_update_interval_hours = 720;
-                };
-                directories = {
-                  custom_pages_dir = "${homeDirectory}/tealdeer";
-                };
+          tealdeer = {
+            enable = true;
+            settings = {
+              display = {
+                compact = true;
+                use_pager = false;
+              };
+              updates = {
+                auto_update = true;
+                auto_update_interval_hours = 720;
+              };
+              directories = {
+                custom_pages_dir = "${homeDirectory}/tealdeer";
               };
             };
           };
-        })
+        };
+      })
     ];
 }

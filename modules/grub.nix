@@ -10,20 +10,22 @@ in {
     efiSupport = mkEnableOption "EFI support";
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      boot.loader = {
-        grub = {
-          enable = true;
-          device = lib.mkDefault "nodev";
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        boot.loader = {
+          grub = {
+            enable = true;
+            device = lib.mkDefault "nodev";
+          };
         };
-      };
-    }
-    (lib.mkIf cfg.efiSupport {
-      boot.loader = {
-        efi.canTouchEfiVariables = true;
-        grub.efiSupport = true;
-      };
-    })
-  ]);
+      }
+      (lib.mkIf cfg.efiSupport {
+        boot.loader = {
+          efi.canTouchEfiVariables = true;
+          grub.efiSupport = true;
+        };
+      })
+    ]
+  );
 }

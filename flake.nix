@@ -97,9 +97,7 @@
     ];
     hostSystems = nixpkgs.lib.lists.unique (map (host: host.system) hosts);
   in {
-    packages = import ./packages {
-      inherit inputs hostSystems;
-    };
+    packages = import ./packages {inherit inputs hostSystems;};
 
     nixosConfigurations = let
       userInfo = {
@@ -109,7 +107,9 @@
         gpgKeyId = "64FABC62F4572875";
       };
     in
-      builtins.listToAttrs (map (host: {
+      builtins.listToAttrs (
+        map
+        (host: {
           name = host.hostname;
           value = nixpkgs.lib.nixosSystem {
             inherit (host) system;
@@ -121,9 +121,12 @@
             modules = [./hosts];
           };
         })
-        hosts);
+        hosts
+      );
 
-    deploy.nodes = builtins.listToAttrs (map (host: {
+    deploy.nodes = builtins.listToAttrs (
+      map
+      (host: {
         name = host.hostname;
         value = {
           inherit (host) hostname;
@@ -135,14 +138,18 @@
           };
         };
       })
-      (builtins.filter (host: host.isServer) hosts));
+      (builtins.filter (host: host.isServer) hosts)
+    );
 
     checks = builtins.mapAttrs (_: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
 
-    formatter = builtins.listToAttrs (map (system: {
+    formatter = builtins.listToAttrs (
+      map
+      (system: {
         name = system;
         value = self.packages.${system}.purefmt;
       })
-      hostSystems);
+      hostSystems
+    );
   };
 }

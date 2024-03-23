@@ -13,10 +13,5 @@ in {
     };
   };
 
-  config =
-    lib.mkIf (cfg.displayDriver
-      == "nvidia")
-    ((import
-      ./nvidia.nix)
-    inputs);
+  config = lib.mkIf (cfg.displayDriver == "nvidia") ((import ./nvidia.nix) inputs);
 }

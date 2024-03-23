@@ -9,9 +9,7 @@
 }: let
   cfg = config.custom.darlings;
 in {
-  imports = [
-    ./symlinks.nix
-  ];
+  imports = [./symlinks.nix];
 
   options.custom.darlings = with lib; {
     enable = mkEnableOption "erase-your-darlings";
@@ -51,22 +49,27 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {
+        boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
 
-      custom.symlinks = builtins.listToAttrs (map (path: {
-          name = path;
-          value = {
-            source = cfg.persist.mirrorRoot + path;
-          };
-        })
-        cfg.persist.paths);
-    }
-    (lib.mkIf cfg.persist.ageIdentityPaths.enable {
-      # Required because on boot, the root partition is wiped and the symlinks seem to be set up after `agenix` runs
-      # This is merged with the default values that `agenix` provides
-      age.identityPaths = lib.mkOptionDefault cfg.persist.ageIdentityPaths.identityPaths;
-    })
-  ]);
+        custom.symlinks = builtins.listToAttrs (
+          map
+          (path: {
+            name = path;
+            value = {
+              source = cfg.persist.mirrorRoot + path;
+            };
+          })
+          cfg.persist.paths
+        );
+      }
+      (lib.mkIf cfg.persist.ageIdentityPaths.enable {
+        # Required because on boot, the root partition is wiped and the symlinks seem to be set up after `agenix` runs
+        # This is merged with the default values that `agenix` provides
+        age.identityPaths = lib.mkOptionDefault cfg.persist.ageIdentityPaths.identityPaths;
+      })
+    ]
+  );
 }

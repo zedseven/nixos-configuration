@@ -9,32 +9,36 @@ in {
   options.custom.symlinks = with lib;
     mkOption {
       description = "The symlinks to create.";
-      type = types.attrsOf (types.submodule ({name, ...}: {
-        options = {
-          target = mkOption {
-            description = "Path of the symlink. Defaults to the name of the module.";
-            type = types.path;
-            default = name;
-          };
+      type = types.attrsOf (
+        types.submodule (
+          {name, ...}: {
+            options = {
+              target = mkOption {
+                description = "Path of the symlink. Defaults to the name of the module.";
+                type = types.path;
+                default = name;
+              };
 
-          source = mkOption {
-            description = "Path of the symlink source.";
-            type = types.path;
-          };
+              source = mkOption {
+                description = "Path of the symlink source.";
+                type = types.path;
+              };
 
-          override = mkOption {
-            description = "If a file or directory already exists at the destination, it will be removed.";
-            type = types.bool;
-            default = true;
-          };
+              override = mkOption {
+                description = "If a file or directory already exists at the destination, it will be removed.";
+                type = types.bool;
+                default = true;
+              };
 
-          onlyOnBoot = mkOption {
-            description = "Only create the symlink during boot. Only required if touching the symlink could break a running system.";
-            type = types.bool;
-            default = false;
-          };
-        };
-      }));
+              onlyOnBoot = mkOption {
+                description = "Only create the symlink during boot. Only required if touching the symlink could break a running system.";
+                type = types.bool;
+                default = false;
+              };
+            };
+          }
+        )
+      );
       default = {};
     };
 
@@ -42,16 +46,18 @@ in {
   config = {
     systemd.tmpfiles.rules =
       lib.attrsets.mapAttrsToList
-      (_: link: let
-        type = lib.concatStrings [
-          "L"
-          (lib.optionalString link.override "+")
-          (lib.optionalString link.onlyOnBoot "!")
-        ];
-        escapeSpaces = text: lib.strings.escapeC [" "] text;
-        escapedTarget = escapeSpaces link.target;
-        escapedSource = escapeSpaces link.source;
-      in "${type} ${escapedTarget} - - - - ${escapedSource}")
+      (
+        _: link: let
+          type = lib.concatStrings [
+            "L"
+            (lib.optionalString link.override "+")
+            (lib.optionalString link.onlyOnBoot "!")
+          ];
+          escapeSpaces = text: lib.strings.escapeC [" "] text;
+          escapedTarget = escapeSpaces link.target;
+          escapedSource = escapeSpaces link.source;
+        in "${type} ${escapedTarget} - - - - ${escapedSource}"
+      )
       cfg;
   };
 }

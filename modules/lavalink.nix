@@ -9,9 +9,7 @@
   cfg = config.custom.lavalink;
   defaultIdentity = "lavalink";
 in {
-  imports = [
-    ./symlinks.nix
-  ];
+  imports = [./symlinks.nix];
 
   options.custom.lavalink = with lib; {
     enable = mkEnableOption "the service for running Lavalink";
@@ -65,13 +63,13 @@ in {
     };
   };
 
-  config =
-    lib.mkIf cfg.enable
-    (let
+  config = lib.mkIf cfg.enable (
+    let
       # Based upon:
       # - https://lavalink.dev/configuration/#example-applicationyml
       # - https://github.com/lavalink-devs/Lavalink/blob/ae3deb1ad61ea31f040ddaa4a283a38c298f326f/LavalinkServer/application.yml.example
-      configurationContents = lib.generators.toYAML {} ({
+      configurationContents = lib.generators.toYAML {} (
+        {
           server = {
             inherit (cfg) address port;
           };
@@ -80,7 +78,8 @@ in {
           };
           logging.file.path = cfg.logDirectory;
         }
-        // cfg.extraConfig);
+        // cfg.extraConfig
+      );
       configurationFile = let
         fileName = "application.yml";
       in
@@ -96,15 +95,16 @@ in {
         paths = [configurationFile] ++ cfg.plugins;
       };
     in {
-      systemd.tmpfiles.rules = [
-        "d ${cfg.logDirectory} 775 ${cfg.user} ${cfg.group}"
-      ];
+      systemd.tmpfiles.rules = ["d ${cfg.logDirectory} 775 ${cfg.user} ${cfg.group}"];
 
       # Based upon https://lavalink.dev/configuration/systemd.html
       systemd.services."lavalink" = {
         enable = true;
         description = "Lavalink";
-        after = ["syslog.target" "network.target"];
+        after = [
+          "syslog.target"
+          "network.target"
+        ];
         serviceConfig = {
           ExecStart = "${cfg.package}/bin/lavalink";
           ExecStartPost = "${pkgs.coreutils}/bin/sleep 15"; # Allows the service to properly start up before any dependent services start
@@ -130,5 +130,6 @@ in {
           #gid = config.ids.gids.${defaultIdentity};
         };
       };
-    });
+    }
+  );
 }

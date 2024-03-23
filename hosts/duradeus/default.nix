@@ -18,7 +18,10 @@
     backups = {
       enable = true;
       repository = "b2:zedseven-restic";
-      backupPaths = ["/home" "/persist"];
+      backupPaths = [
+        "/home"
+        "/persist"
+      ];
       extraExcludeEntries = [
         "/home/${userInfo.username}/torrents/artifacts/"
         "/home/${userInfo.username}/git/nixpkgs"

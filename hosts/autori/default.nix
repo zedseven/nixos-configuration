@@ -20,7 +20,10 @@
     backups = {
       enable = true;
       repository = "b2:zedseven-restic";
-      backupPaths = ["/home" "/persist"];
+      backupPaths = [
+        "/home"
+        "/persist"
+      ];
       passwordFile = config.age.secrets."restic-repository-password".path;
       rclone = {
         enable = true;
@@ -44,7 +47,10 @@
 
   networking = {
     hostId = "0824a9c7";
-    firewall.allowedTCPPorts = [80 443];
+    firewall.allowedTCPPorts = [
+      80
+      443
+    ];
   };
 
   services = {

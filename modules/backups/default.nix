@@ -77,106 +77,115 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (let
-    repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
-    excludeFile = pkgs.writeText "exclude.txt" ''
-      ${builtins.readFile ./exclude.global.txt}
-      ${lib.concatLines cfg.extraExcludeEntries}
-    '';
-    backupSpecs =
-      lib.concatMapStrings
-      (backupPath: let
-        escapedFilename = lib.replaceStrings ["/" " "] ["-" "-"] (lib.removePrefix "/" backupPath);
-      in "\"${backupPath};${escapedFilename}.txt\"\n")
-      cfg.backupPaths;
-    runBackup = pkgs.writeShellScriptBin "run-backup" ''
-      # Constants
-      TREES_DIR="$(mktemp -d)"
-      RESTIC_EXCLUDE_FILE="${excludeFile}"
-      RESTIC_HOSTNAME="${hostname}"
+  config = lib.mkIf cfg.enable (
+    let
+      repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
+      excludeFile = pkgs.writeText "exclude.txt" ''
+        ${builtins.readFile ./exclude.global.txt}
+        ${lib.concatLines cfg.extraExcludeEntries}
+      '';
+      backupSpecs =
+        lib.concatMapStrings
+        (
+          backupPath: let
+            escapedFilename =
+              lib.replaceStrings
+              [
+                "/"
+                " "
+              ]
+              [
+                "-"
+                "-"
+              ]
+              (lib.removePrefix "/" backupPath);
+          in ''
+            "${backupPath};${escapedFilename}.txt"
+          ''
+        )
+        cfg.backupPaths;
+      runBackup = pkgs.writeShellScriptBin "run-backup" ''
+        # Constants
+        TREES_DIR="$(mktemp -d)"
+        RESTIC_EXCLUDE_FILE="${excludeFile}"
+        RESTIC_HOSTNAME="${hostname}"
 
-      # Environment Variables
-      export RESTIC_REPOSITORY="${repository}"
-      export RESTIC_COMPRESSION="max"
-      export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
-      ${
-        lib.optionalString cfg.rclone.enable
-        (lib.optionalString (cfg.rclone.configPath != null) "export RCLONE_CONFIG=\"${cfg.rclone.configPath}\"\n")
-        + "PATH=\"${cfg.rclone.package}/bin\${PATH:+:\${PATH}}\"\n"
-      }
+        # Environment Variables
+        export RESTIC_REPOSITORY="${repository}"
+        export RESTIC_COMPRESSION="max"
+        export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
+        ${lib.optionalString cfg.rclone.enable (
+            lib.optionalString (cfg.rclone.configPath != null) ''
+              export RCLONE_CONFIG="${cfg.rclone.configPath}"
+            ''
+          )
+          + ''
+            PATH="${cfg.rclone.package}/bin''${PATH:+:''${PATH}}"
+          ''}
 
-      # Directories to Backup
-      declare -a BACKUP_SPECS=(
-        ${backupSpecs}
-      )
+        # Directories to Backup
+        declare -a BACKUP_SPECS=(
+          ${backupSpecs}
+        )
 
-      declare -a BACKUP_DIRS=()
+        declare -a BACKUP_DIRS=()
 
-      # Process each entry to build the arguments list and generate tree files
-      for BACKUP_SPEC in "''${BACKUP_SPECS[@]}"; do
-        # Split the entry on the `;` character
-        SPLIT=(''${BACKUP_SPEC//;/ })
-        BACKUP_DIR="''${SPLIT[0]}"
-        TREE_FILE="''${SPLIT[1]}"
+        # Process each entry to build the arguments list and generate tree files
+        for BACKUP_SPEC in "''${BACKUP_SPECS[@]}"; do
+          # Split the entry on the `;` character
+          SPLIT=(''${BACKUP_SPEC//;/ })
+          BACKUP_DIR="''${SPLIT[0]}"
+          TREE_FILE="''${SPLIT[1]}"
 
-        # Generate the tree file to archive the list of all files and their locations
-        ${pkgs.tree}/bin/tree --dirsfirst -F -a "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
+          # Generate the tree file to archive the list of all files and their locations
+          ${pkgs.tree}/bin/tree --dirsfirst -F -a "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
 
-        # Append the directory to the arguments list
-        BACKUP_DIRS+=("$BACKUP_DIR")
-      done
+          # Append the directory to the arguments list
+          BACKUP_DIRS+=("$BACKUP_DIR")
+        done
 
-      # Backup the tree file directory
-      BACKUP_DIRS+=("$TREES_DIR")
+        # Backup the tree file directory
+        BACKUP_DIRS+=("$TREES_DIR")
 
-      # Backup the directories
-      ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
+        # Backup the directories
+        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
 
-      # Delete the temporary tree file directory
-      rm -rf "$TREES_DIR"
-    '';
-  in
-    lib.mkMerge [
-      {
-        users.users.${userInfo.username}.packages = [
-          runBackup
-        ];
-      }
-      (lib.mkIf cfg.scheduled.enable {
-        systemd = {
-          services."run-backup" = lib.mkMerge [
-            {
-              enable = true;
-              description = "run-backup";
-              serviceConfig = {
-                User = userInfo.username;
-                ExecStart = "${runBackup}/bin/run-backup";
+        # Delete the temporary tree file directory
+        rm -rf "$TREES_DIR"
+      '';
+    in
+      lib.mkMerge [
+        {users.users.${userInfo.username}.packages = [runBackup];}
+        (lib.mkIf cfg.scheduled.enable {
+          systemd = {
+            services."run-backup" = lib.mkMerge [
+              {
+                enable = true;
+                description = "run-backup";
+                serviceConfig = {
+                  User = userInfo.username;
+                  ExecStart = "${runBackup}/bin/run-backup";
+                };
+              }
+              (lib.mkIf cfg.scheduled.requiresNetwork {requires = ["network-online.target"];})
+            ];
+
+            timers."run-backup" = {
+              timerConfig = {
+                OnCalendar = cfg.scheduled.onCalendar;
+                Persistent = true;
+                Unit = "run-backup.service";
               };
-            }
-            (lib.mkIf cfg.scheduled.requiresNetwork {
-              requires = ["network-online.target"];
-            })
-          ];
-
-          timers."run-backup" = {
-            timerConfig = {
-              OnCalendar = cfg.scheduled.onCalendar;
-              Persistent = true;
-              Unit = "run-backup.service";
+              wantedBy = ["timers.target"];
             };
-            wantedBy = ["timers.target"];
           };
-        };
-      })
-      (lib.mkIf cfg.setEnvironmentVariables {
-        environment.variables = lib.mkMerge [
-          {
-            RESTIC_PASSWORD_FILE = cfg.passwordFile;
-          }
-          (lib.mkIf cfg.rclone.enable {
-            RCLONE_CONFIG = cfg.rclone.configPath;
-          })
-        ];
-      })
-    ]);
+        })
+        (lib.mkIf cfg.setEnvironmentVariables {
+          environment.variables = lib.mkMerge [
+            {RESTIC_PASSWORD_FILE = cfg.passwordFile;}
+            (lib.mkIf cfg.rclone.enable {RCLONE_CONFIG = cfg.rclone.configPath;})
+          ];
+        })
+      ]
+  );
 }

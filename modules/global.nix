@@ -43,9 +43,7 @@ in {
 
     nixpkgs.config = {
       allowUnfree = true;
-      permittedInsecurePackages = [
-        "electron-25.9.0"
-      ];
+      permittedInsecurePackages = ["electron-25.9.0"];
     };
     nix = rec {
       channel.enable = false;
@@ -54,7 +52,10 @@ in {
       registry.nixpkgs.flake = inputs.nixpkgs;
       settings = {
         auto-optimise-store = true;
-        experimental-features = ["nix-command" "flakes"];
+        experimental-features = [
+          "nix-command"
+          "flakes"
+        ];
         trusted-users = ["@wheel"]; # Trust any user with `sudo` privileges to update the Nix configuration
       };
       gc = {

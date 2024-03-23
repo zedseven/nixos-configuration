@@ -5,13 +5,18 @@
   system,
   ...
 }: {
-  imports = [
-    (modulesPath + "/installer/scan/not-detected.nix")
-  ];
+  imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
   boot = {
     initrd = {
-      availableKernelModules = ["nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod"];
+      availableKernelModules = [
+        "nvme"
+        "xhci_pci"
+        "ahci"
+        "usbhid"
+        "usb_storage"
+        "sd_mod"
+      ];
       kernelModules = [];
 
       luks.devices = {
@@ -35,7 +40,10 @@
     };
 
     loader.grub.enableCryptodisk = true;
-    supportedFilesystems = ["zfs" "ntfs"];
+    supportedFilesystems = [
+      "zfs"
+      "ntfs"
+    ];
 
     kernelModules = ["kvm-amd"];
     extraModulePackages = [];
@@ -69,9 +77,7 @@
     };
   };
 
-  swapDevices = [
-    {device = "/dev/disk/by-uuid/2db9cbb4-6936-4788-8a35-8936c5b8d688";}
-  ];
+  swapDevices = [{device = "/dev/disk/by-uuid/2db9cbb4-6936-4788-8a35-8936c5b8d688";}];
 
   networking.useDHCP = lib.mkDefault true;
 

@@ -155,9 +155,7 @@ in {
         gtk.enable = true;
       };
 
-      xresources.properties = lib.mkDefault {
-        "Xft.dpi" = 96;
-      };
+      xresources.properties = lib.mkDefault {"Xft.dpi" = 96;};
 
       programs.autorandr.enable = true;
 

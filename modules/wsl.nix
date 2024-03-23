@@ -27,31 +27,29 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (lib.mkMerge [
-    {
-      environment.systemPackages = with pkgs; [
-        wsl-open
-      ];
-    }
-    (lib.mkIf cfg.wsl-vpnkit.enable {
-      # Set up a `systemd` service for `wsl-vpnkit`
-      # Based on `wsl-vpnkit.service` from `wsl-vpnkit`
-      systemd.services.wsl-vpnkit = {
-        enable = true;
-        description = "wsl-vpnkit";
-        after = ["network.target"];
-        serviceConfig = lib.mkMerge [
-          {
-            ExecStart = "${pkgs.wsl-vpnkit}/bin/wsl-vpnkit";
-            Restart = "always";
-            KillMode = "mixed";
-          }
-          (lib.mkIf (cfg.wsl-vpnkit.gvproxyWinPath != null) {
-            Environment = "GVPROXY_PATH=${cfg.wsl-vpnkit.gvproxyWinPath}";
-          })
-        ];
-        wantedBy = ["multi-user.target"];
-      };
-    })
-  ]);
+  config = lib.mkIf cfg.enable (
+    lib.mkMerge [
+      {environment.systemPackages = with pkgs; [wsl-open];}
+      (lib.mkIf cfg.wsl-vpnkit.enable {
+        # Set up a `systemd` service for `wsl-vpnkit`
+        # Based on `wsl-vpnkit.service` from `wsl-vpnkit`
+        systemd.services.wsl-vpnkit = {
+          enable = true;
+          description = "wsl-vpnkit";
+          after = ["network.target"];
+          serviceConfig = lib.mkMerge [
+            {
+              ExecStart = "${pkgs.wsl-vpnkit}/bin/wsl-vpnkit";
+              Restart = "always";
+              KillMode = "mixed";
+            }
+            (lib.mkIf (cfg.wsl-vpnkit.gvproxyWinPath != null) {
+              Environment = "GVPROXY_PATH=${cfg.wsl-vpnkit.gvproxyWinPath}";
+            })
+          ];
+          wantedBy = ["multi-user.target"];
+        };
+      })
+    ]
+  );
 }
