@@ -302,7 +302,7 @@ in {
             # CLI packages
             packages = with pkgs; [
               inputs.deploy-rs.packages.${system}.default
-              inputs.self.packages.${system}.alejandra
+              inputs.self.packages.${system}.purefmt
               deadnix
               gcc
               gnumake
@@ -340,7 +340,7 @@ in {
 
           home-manager.users.${userInfo.username}.programs = {
             fish.shellAbbrs = {
-              alejandra = "alejandra --quiet";
+              alejandra = "purefmt";
               c = "cargo";
               cb = "cargo build";
               cbr = "cargo build --release";
@@ -379,6 +379,7 @@ in {
               ctt = "cargo tree";
               cttd = "cargo tree --duplicates";
               deadnix = "deadnix --hidden";
+              fmt = "purefmt";
               sc = "maim";
               scs = "maim --select";
               t = "tldr";

@@ -141,7 +141,7 @@
 
     formatter = builtins.listToAttrs (map (system: {
         name = system;
-        value = self.packages.${system}.alejandra;
+        value = self.packages.${system}.purefmt;
       })
       hostSystems);
   };
