@@ -58,9 +58,12 @@
         enable = true;
         wrapDiscord = true;
       };
-      games.steam = {
-        enable = true;
-        wrapSteam = true;
+      games = {
+        steam = {
+          enable = true;
+          wrapSteam = true;
+        };
+        minecraft.enable = true;
       };
     };
 
