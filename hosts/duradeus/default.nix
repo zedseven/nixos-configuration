@@ -114,5 +114,8 @@
     };
   };
 
+  # To allow cross-compilation for other architectures
+  boot.binfmt.emulatedSystems = ["aarch64-linux"];
+
   system.stateVersion = "23.05"; # Don't touch this, ever
 }
