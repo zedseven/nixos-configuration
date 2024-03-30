@@ -64,6 +64,8 @@ in {
       };
 
       gnome.gnome-keyring.enable = true;
+
+      openssh.settings.X11Forwarding = true;
     };
 
     hardware = {
