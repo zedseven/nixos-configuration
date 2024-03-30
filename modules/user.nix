@@ -135,17 +135,6 @@ in {
                 '';
               };
 
-              yazi = {
-                enable = true;
-                enableFishIntegration = true;
-                settings = {
-                  manager = {
-                    show_hidden = true;
-                    sort_dir_first = true;
-                  };
-                };
-              };
-
               helix = {
                 enable = true;
                 defaultEditor = true;
@@ -341,6 +330,17 @@ in {
           direnv = {
             enable = true;
             nix-direnv.enable = true;
+          };
+
+          yazi = {
+            enable = true;
+            enableFishIntegration = true;
+            settings = {
+              manager = {
+                show_hidden = true;
+                sort_dir_first = true;
+              };
+            };
           };
 
           gpg.enable = true;
