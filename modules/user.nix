@@ -55,13 +55,10 @@ in {
           packages = with pkgs; [
             bottom
             du-dust
-            endlines
             eza
             fd
             file
             fzf
-            git
-            home-manager
             libtree
             neofetch
             nix-tree
@@ -95,35 +92,10 @@ in {
               fish = {
                 enable = true;
                 shellAbbrs = {
-                  b = "bat";
-                  bg = "batgrep --smart-case";
-                  bm = "batman";
                   bottom = "btm --regex";
                   btm = "btm --regex";
-                  cat = "bat";
-                  d = "batdiff";
-                  diff = "batdiff";
                   du = "dust";
                   e = "exit";
-                  g = "git";
-                  ga = "git add";
-                  gb = "git branch";
-                  gc = "git commit --gpg-sign --message";
-                  ge = "git checkout";
-                  geb = "git checkout -b";
-                  gf = "git fetch --all";
-                  gg = "git merge --no-ff";
-                  gh = "git cherry-pick -x --edit";
-                  gl = "git log --show-signature --graph";
-                  gm = "git remote";
-                  go = "git clone";
-                  gp = "git push";
-                  gpu = "git push --set-upstream";
-                  gr = "git reset";
-                  grao = "git remote add origin";
-                  gs = "batdiff && git status";
-                  gu = "git pull";
-                  gy = "git apply";
                   h = "hx";
                   helix = "hx";
                   hibernate = "systemctl hibernate";
@@ -136,8 +108,6 @@ in {
                   libtree = "libtree -v --path";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
-                  m = "batman";
-                  man = "batman";
                   n = "nix run nixpkgs#";
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
@@ -158,7 +128,6 @@ in {
                   vi = "hx";
                   vim = "hx";
                   w = "clear";
-                  watch = "batwatch";
                   y = "yazi";
                 };
                 interactiveShellInit = ''
@@ -233,62 +202,7 @@ in {
                 };
               };
 
-              bat = {
-                enable = true;
-                extraPackages = with pkgs.bat-extras; [
-                  (batdiff.override {withDelta = true;})
-                  batgrep
-                  batman
-                  (batwatch.override {withEntr = true;})
-                ];
-              };
-
               zoxide.enable = true;
-
-              gpg.enable = true;
-
-              git = let
-                exitWithConflicts = pkgs.writeShellScriptBin "git-merge-exit-with-conflicts" ''
-                  # https://stackoverflow.com/questions/5074452/git-how-to-force-merge-conflict-and-manual-merge-on-selected-file
-                  # https://git-scm.com/docs/gitattributes#_defining_a_custom_merge_driver
-                  ANCESTOR="$1"
-                  CURRENT="$2"
-                  OTHER="$3"
-                  CONFLICT_MARKER_SIZE="$4"
-                  RESULT_PATH="$5"
-                  ${pkgs.git}/bin/git merge-file "$CURRENT" "$ANCESTOR" "$OTHER"
-                  exit 1 # Always exit indicating a conflict
-                '';
-              in {
-                enable = true;
-                userName = userInfo.name;
-                userEmail = userInfo.email;
-                signing = {
-                  key = userInfo.gpgKeyId;
-                  signByDefault = true;
-                };
-                extraConfig = {
-                  # https://git-scm.com/docs/git-config
-                  checkout.defaultRemote = "origin";
-                  commit.gpgSign = true;
-                  core = {
-                    autocrlf = "input";
-                    fileMode = false;
-                    editor = "nvim";
-                  };
-                  credential.helper = "store";
-                  init.defaultBranch = "main";
-                  merge = {
-                    conflictStyle = "diff3";
-                    "exit-with-conflicts" = {
-                      name = "Exit With Conflicts";
-                      driver = "${exitWithConflicts}/bin/git-merge-exit-with-conflicts %O %A %B %L %P";
-                    };
-                  };
-                  push.gpgSign = "if-asked";
-                  tag.gpgSign = true;
-                };
-              };
             };
           };
         };
@@ -302,6 +216,7 @@ in {
             inputs.deploy-rs.packages.${system}.default
             inputs.self.packages.${system}.purefmt
             deadnix
+            endlines
             gcc
             gnumake
             libfaketime
@@ -341,7 +256,10 @@ in {
         home-manager.users.${userInfo.username}.programs = {
           fish.shellAbbrs = {
             alejandra = "purefmt";
+            b = "bat";
+            bm = "batman";
             c = "cargo";
+            cat = "bat";
             cb = "cargo build";
             cbr = "cargo build --release";
             cc = "cargo clippy";
@@ -378,8 +296,31 @@ in {
             ctr = "cargo test --release";
             ctt = "cargo tree";
             cttd = "cargo tree --duplicates";
+            d = "batdiff";
             deadnix = "deadnix --hidden";
+            diff = "batdiff";
             fmt = "purefmt";
+            g = "git";
+            ga = "git add";
+            gb = "git branch";
+            gc = "git commit --gpg-sign --message";
+            ge = "git checkout";
+            geb = "git checkout -b";
+            gf = "git fetch --all";
+            gg = "git merge --no-ff";
+            gh = "git cherry-pick -x --edit";
+            gl = "git log --show-signature --graph";
+            gm = "git remote";
+            go = "git clone";
+            gp = "git push";
+            gpu = "git push --set-upstream";
+            gr = "git reset";
+            grao = "git remote add origin";
+            gs = "batdiff && git status";
+            gu = "git pull";
+            gy = "git apply";
+            m = "batman";
+            man = "batman";
             sc = "maim";
             scs = "maim --select";
             t = "tldr";
@@ -389,9 +330,62 @@ in {
             ytd = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
           };
 
+          bat = {
+            enable = true;
+            extraPackages = with pkgs.bat-extras; [
+              (batdiff.override {withDelta = true;})
+              batman
+            ];
+          };
+
           direnv = {
             enable = true;
             nix-direnv.enable = true;
+          };
+
+          gpg.enable = true;
+
+          git = let
+            exitWithConflicts = pkgs.writeShellScriptBin "git-merge-exit-with-conflicts" ''
+              # https://stackoverflow.com/questions/5074452/git-how-to-force-merge-conflict-and-manual-merge-on-selected-file
+              # https://git-scm.com/docs/gitattributes#_defining_a_custom_merge_driver
+              ANCESTOR="$1"
+              CURRENT="$2"
+              OTHER="$3"
+              CONFLICT_MARKER_SIZE="$4"
+              RESULT_PATH="$5"
+              ${pkgs.git}/bin/git merge-file "$CURRENT" "$ANCESTOR" "$OTHER"
+              exit 1 # Always exit indicating a conflict
+            '';
+          in {
+            enable = true;
+            userName = userInfo.name;
+            userEmail = userInfo.email;
+            signing = {
+              key = userInfo.gpgKeyId;
+              signByDefault = true;
+            };
+            extraConfig = {
+              # https://git-scm.com/docs/git-config
+              checkout.defaultRemote = "origin";
+              commit.gpgSign = true;
+              core = {
+                autocrlf = "input";
+                fileMode = false;
+                editor = "nvim";
+              };
+              credential.helper = "store";
+              init.defaultBranch = "main";
+              merge = {
+                conflictStyle = "diff3";
+                "exit-with-conflicts" = {
+                  name = "Exit With Conflicts";
+                  driver = "${exitWithConflicts}/bin/git-merge-exit-with-conflicts %O %A %B %L %P";
+                };
+              };
+              push.gpgSign = "if-asked";
+              tag.gpgSign = true;
+            };
           };
 
           git-cliff.enable = true;
