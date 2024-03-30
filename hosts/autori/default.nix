@@ -56,7 +56,7 @@
   services = {
     openssh = {
       openFirewall = true;
-      ports = inputs.private.unencryptedValues.serverPorts.${hostname}.ssh;
+      ports = [inputs.private.unencryptedValues.serverPorts.${hostname}.ssh];
     };
 
     nginx = {

@@ -3,6 +3,7 @@
 {
   config,
   inputs,
+  hostname,
   ...
 }: {
   imports = [
@@ -51,10 +52,9 @@
 
   networking.hostId = "7fed7617";
 
-  services = {
-    openssh = {
-      openFirewall = true;
-    };
+  services.openssh = {
+    openFirewall = true;
+    ports = [inputs.private.unencryptedValues.serverPorts.${hostname}.ssh];
   };
 
   system.stateVersion = "24.05"; # Don't touch this, ever
