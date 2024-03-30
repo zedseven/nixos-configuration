@@ -211,6 +211,7 @@ in {
             libfaketime
             miniserve
             nixpkgs-fmt
+            nmap
             openssh
             plantuml
             rclone
