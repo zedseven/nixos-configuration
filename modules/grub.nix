@@ -7,7 +7,10 @@
 in {
   options.custom.grub = with lib; {
     enable = mkEnableOption "GRUB boot loader settings";
-    efiSupport = mkEnableOption "EFI support";
+    efi = {
+      enable = mkEnableOption "EFI support";
+      installAsRemovable = mkEnableOption "installation as removable media, which can help with problematic systems";
+    };
   };
 
   config = lib.mkIf cfg.enable (
@@ -20,12 +23,17 @@ in {
           };
         };
       }
-      (lib.mkIf cfg.efiSupport {
-        boot.loader = {
-          efi.canTouchEfiVariables = true;
-          grub.efiSupport = true;
-        };
-      })
+      (lib.mkIf cfg.efi.enable (
+        lib.mkMerge [
+          {
+            boot.loader = {
+              efi.canTouchEfiVariables = true;
+              grub.efiSupport = true;
+            };
+          }
+          (lib.mkIf cfg.efi.installAsRemovable {boot.loader.grub.efiInstallAsRemovable = true;})
+        ]
+      ))
     ]
   );
 }

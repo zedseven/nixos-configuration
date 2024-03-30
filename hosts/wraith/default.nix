@@ -65,7 +65,7 @@
 
     grub = {
       enable = true;
-      efiSupport = true;
+      efi.enable = true;
     };
 
     zfs.enable = true;
