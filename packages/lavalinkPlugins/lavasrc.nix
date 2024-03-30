@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation (
   finalAttrs: {
-    pname = "lavasrc";
+    pname = "lavalink-lavasrc";
     version = "4.0.1";
 
     src = fetchurl {

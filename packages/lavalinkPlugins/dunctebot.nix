@@ -6,7 +6,7 @@
 }:
 stdenvNoCC.mkDerivation (
   finalAttrs: {
-    pname = "dunctebot"; # The name is ambiguous between `dunctebot` and `skybot` - `dunctebot` was chosen because that's what the configuration uses
+    pname = "lavalink-dunctebot"; # The name is ambiguous between `dunctebot` and `skybot` - `dunctebot` was chosen because that's what the configuration uses
     version = "1.6.3";
 
     src = fetchurl {

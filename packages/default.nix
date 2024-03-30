@@ -13,7 +13,8 @@
     in {
       inherit alejandra;
       lavalink = callPackage ./lavalink.nix {};
-      lavalinkPlugins = recurseIntoAttrs (callPackage ./lavalinkPlugins {});
+      lavalinkPluginDunctebot = callPackage ./lavalinkPlugins/dunctebot.nix {};
+      lavalinkPluginLavasrc = callPackage ./lavalinkPlugins/lavasrc.nix {};
       purefmt = callPackage ./purefmt.nix {inherit alejandra;};
       steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
     };
