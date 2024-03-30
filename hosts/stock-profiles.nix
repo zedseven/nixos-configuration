@@ -1,19 +1,17 @@
 # Enables stock profiles from `nixpkgs` based on inputs.
 # https://github.com/NixOS/nixpkgs/tree/master/nixos/modules/profiles
 {
+  lib,
   modulesPath,
   isServer,
   ...
 }: {
   imports = let
     profilePaths = map (profile: (modulesPath + "/profiles/" + profile));
-  in (
-    if isServer
-    then
-      profilePaths [
-        "headless.nix"
-        "minimal.nix"
-      ]
-    else []
-  );
+  in (lib.optionals isServer (
+    profilePaths [
+      "headless.nix"
+      "minimal.nix"
+    ]
+  ));
 }

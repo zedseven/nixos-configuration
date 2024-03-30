@@ -1,6 +1,7 @@
 {
   imports = [
     ./global.nix
+    ./package-overrides.nix
     ./user.nix
     ./desktop
     ./backups
