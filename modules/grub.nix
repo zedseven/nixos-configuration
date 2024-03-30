@@ -25,13 +25,9 @@ in {
       }
       (lib.mkIf cfg.efi.enable (
         lib.mkMerge [
-          {
-            boot.loader = {
-              efi.canTouchEfiVariables = true;
-              grub.efiSupport = true;
-            };
-          }
+          {boot.loader.grub.efiSupport = true;}
           (lib.mkIf cfg.efi.installAsRemovable {boot.loader.grub.efiInstallAsRemovable = true;})
+          (lib.mkIf (!cfg.efi.installAsRemovable) {boot.loader.efi.canTouchEfiVariables = true;})
         ]
       ))
     ]
