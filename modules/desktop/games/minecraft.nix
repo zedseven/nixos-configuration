@@ -21,6 +21,8 @@ in {
       package = mkOption {
         description = "The package to use for the Minecraft server.";
         type = types.package;
+        default = pkgs.minecraft-server;
+        defaultText = lib.literalExpression "pkgs.minecraft-server";
       };
       port = mkOption {
         description = "The port to bind to.";
@@ -81,7 +83,7 @@ in {
           valueToString = v:
             if builtins.isBool v
             then lib.boolToString v
-            else lib.toString v;
+            else builtins.toString v;
           serverPropertiesComplete =
             cfg.server.serverProperties
             // {
@@ -98,11 +100,11 @@ in {
         in
           lib.mkMerge [
             {
-              "${cfg.dataDir}/server.properties".source = serverPropertiesFile;
-              "${cfg.dataDir}/whitelist.json".source = cfg.server.whitelistFile;
+              "${cfg.server.dataDir}/server.properties".source = serverPropertiesFile;
+              "${cfg.server.dataDir}/whitelist.json".source = cfg.server.whitelistFile;
             }
             (lib.mkIf (cfg.server.iconFile != null) {
-              "${cfg.dataDir}/server-icon.png".source = cfg.server.iconFile;
+              "${cfg.server.dataDir}/server-icon.png".source = cfg.server.iconFile;
             })
           ];
 
