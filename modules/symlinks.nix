@@ -54,8 +54,8 @@ in {
             (lib.optionalString link.onlyOnBoot "!")
           ];
           escapeSpaces = text: lib.strings.escapeC [" "] text;
-          escapedTarget = escapeSpaces link.target;
-          escapedSource = escapeSpaces link.source;
+          escapedTarget = escapeSpaces (builtins.toString link.target);
+          escapedSource = escapeSpaces (builtins.toString link.source);
         in "${type} ${escapedTarget} - - - - ${escapedSource}"
       )
       cfg;
