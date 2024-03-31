@@ -74,10 +74,10 @@ in {
         type = types.bool;
         default = cfg.rclone.enable;
       };
-      runAsRoot = mkOption {
-        description = "Whether to run the scheduled backups as `root`. If disabled, they will be run under the main user.";
-        type = types.bool;
-        default = true;
+      serviceUser = mkOption {
+        description = "The user to run the scheduled backups under.";
+        type = types.str;
+        default = "root";
       };
     };
   };
@@ -168,10 +168,7 @@ in {
                 enable = true;
                 description = "run-backup";
                 serviceConfig = {
-                  User =
-                    if cfg.scheduled.runAsRoot
-                    then "root"
-                    else userInfo.username;
+                  User = cfg.scheduled.serviceUser;
                   ExecStart = "${runBackup}/bin/run-backup";
                 };
               }
