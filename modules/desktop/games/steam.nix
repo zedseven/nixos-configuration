@@ -21,6 +21,9 @@ in {
       {
         programs.steam.enable = true;
         hardware.steam-hardware.enable = true;
+
+        # Used for running Proton games with different environment variables
+        home-manager.users.${userInfo.username}.home.packages = with pkgs; [gamemode];
       }
       (lib.mkIf cfg.wrapSteam (
         let
