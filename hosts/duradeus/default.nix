@@ -65,6 +65,7 @@
         };
         minecraft.enable = true;
       };
+      stenography.enable = true;
     };
 
     symlinks = {

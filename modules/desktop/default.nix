@@ -16,6 +16,7 @@ in {
     ./discord
     ./games
     ./calibre.nix
+    ./stenography.nix
   ];
 
   options.custom.desktop = with lib; {
