@@ -287,7 +287,7 @@ in {
             ctt = "cargo tree";
             cttd = "cargo tree --duplicates";
             d = "batdiff";
-            deadnix = "deadnix --hidden";
+            deadnix = "deadnix --hidden --fail";
             diff = "batdiff";
             fmt = "purefmt";
             g = "git";
