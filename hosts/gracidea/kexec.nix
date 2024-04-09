@@ -43,31 +43,40 @@
     };
   };
 
-  boot.initrd.availableKernelModules = [
-    "ata_piix"
-    "uhci_hcd"
-  ];
-  boot.kernelParams = [
-    "panic=30"
-    "boot.panic_on_fail" # reboot the machine upon fatal boot issues
-    "console=ttyS0" # enable serial console
-    "console=tty1"
-  ];
-  boot.kernel.sysctl."vm.overcommit_memory" = "1";
-  boot.supportedFilesystems = ["zfs"];
+  boot = {
+    initrd.availableKernelModules = [
+      "ata_piix"
+      "uhci_hcd"
+    ];
+    kernelParams = [
+      "panic=30"
+      "boot.panic_on_fail" # reboot the machine upon fatal boot issues
+      "console=ttyS0" # enable serial console
+      "console=tty1"
+    ];
+    kernel.sysctl."vm.overcommit_memory" = "1";
 
-  environment.systemPackages = with pkgs; [cryptsetup];
-  environment.variables.GC_INITIAL_HEAP_SIZE = "1M";
+    supportedFilesystems = ["zfs"];
+  };
 
-  networking.hostName = "kexec";
-  networking.hostId = "01234567";
+  environment = {
+    systemPackages = with pkgs; [cryptsetup];
+    variables.GC_INITIAL_HEAP_SIZE = "1M";
+  };
 
-  services.getty.autologinUser = "root";
-  services.openssh = {
-    enable = true;
-    settings = {
-      KbdInteractiveAuthentication = false;
-      PasswordAuthentication = false;
+  networking = {
+    hostName = "kexec";
+    hostId = "01234567"; # For ZFS
+  };
+
+  services = {
+    getty.autologinUser = "root";
+    openssh = {
+      enable = true;
+      settings = {
+        KbdInteractiveAuthentication = false;
+        PasswordAuthentication = false;
+      };
     };
   };
 

@@ -4,7 +4,7 @@
   ...
 }: {
   nixpkgs.overlays = lib.optionals (system == "aarch64-linux") [
-    (self: super: {
+    (_: super: {
       fish = super.fish.overrideAttrs (
         oldAttrs: {
           postPatch =

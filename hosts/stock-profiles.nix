@@ -8,10 +8,11 @@
 }: {
   imports = let
     profilePaths = map (profile: (modulesPath + "/profiles/" + profile));
-  in (lib.optionals isServer (
-    profilePaths [
-      "headless.nix"
-      "minimal.nix"
-    ]
-  ));
+  in
+    lib.optionals isServer (
+      profilePaths [
+        "headless.nix"
+        "minimal.nix"
+      ]
+    );
 }

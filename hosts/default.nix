@@ -1,8 +1,4 @@
-{
-  modulesPath,
-  hostname,
-  ...
-}: {
+{hostname, ...}: {
   imports = [
     ./stock-profiles.nix
     ./${hostname}

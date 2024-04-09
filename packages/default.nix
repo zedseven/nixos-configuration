@@ -5,7 +5,6 @@
 }: let
   packages = system: let
     inherit (inputs.nixpkgs.legacyPackages.${system}) callPackage;
-    inherit (inputs.nixpkgs.lib.attrsets) recurseIntoAttrs;
   in {
     name = system;
     value = let

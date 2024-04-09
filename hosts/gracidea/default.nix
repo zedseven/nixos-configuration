@@ -64,12 +64,10 @@ in {
         whitelistFile = config.age.secrets."minecraft-server-whitelist.json".path;
         iconFile = let
           fileName = "gracidea.png";
-          storePath = (
-            lib.fileset.toSource {
-              root = ./.;
-              fileset = ./. + "/${fileName}";
-            }
-          );
+          storePath = lib.fileset.toSource {
+            root = ./.;
+            fileset = ./. + "/${fileName}";
+          };
         in "${storePath}/${fileName}";
 
         serverProperties = {

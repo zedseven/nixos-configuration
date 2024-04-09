@@ -119,7 +119,7 @@ in {
 
       users.users = lib.attrsets.optionalAttrs (cfg.user == defaultIdentity) {
         ${defaultIdentity} = {
-          group = cfg.group;
+          inherit (cfg) group;
           #uid = config.ids.uids.${defaultIdentity};
           isSystemUser = true;
         };
