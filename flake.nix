@@ -146,6 +146,11 @@
       (builtins.filter (host: host.isServer) hosts)
     );
 
+    checks = import ./checks.nix {
+      inherit inputs;
+      hostSystems = ["x86_64-linux"]; # Only check on the main platform
+    };
+
     formatter = builtins.listToAttrs (
       map
       (system: {
