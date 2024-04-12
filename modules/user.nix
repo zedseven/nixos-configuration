@@ -113,10 +113,10 @@ in {
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
                   nfu = "nix flake update";
-                  nrb = "git diff --quiet && nh os boot --nom --ask"; # `git diff --quiet` is to prevent switching to a dirty configuration
-                  nrs = "git diff --quiet && nh os switch --nom --ask";
-                  nrt = "nh os test --nom --verbose";
-                  nrtd = "nh os test --nom --verbose --dry";
+                  nrb = "git diff --quiet && nh os boot --ask"; # `git diff --quiet` is to prevent switching to a dirty configuration
+                  nrs = "git diff --quiet && nh os switch --ask";
+                  nrt = "nh os test --verbose";
+                  nrtd = "nh os test --verbose --dry";
                   nvim = "hx";
                   poweroff = "systemctl poweroff";
                   procs = "procs --tree";
