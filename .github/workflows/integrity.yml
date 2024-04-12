@@ -17,6 +17,7 @@ jobs:
         with:
           repository: zedseven/nixos-configuration-private
           ssh-key: ${{ secrets.SSH_KEY_NIXOS_CONFIGURATION_PRIVATE }}
+          fetch-depth: 0
           path: nixos-configuration-private
 
       # This could probably also be accomplished with `nix flake check --override-input`
