@@ -1,4 +1,4 @@
-# Until https://github.com/dbrgn/tealdeer/issues/320 is resolved
+# Until https://github.com/dbrgn/tealdeer/pull/322 is included in an official release
 {
   fetchFromGitHub,
   tealdeer,
@@ -7,10 +7,10 @@
 tealdeer.overrideAttrs (
   oldAttrs: let
     src = fetchFromGitHub {
-      owner = "zedseven";
+      owner = "dbrgn";
       repo = "tealdeer";
-      rev = "3cf0e51dda80bf7daa487085cedd295920bbaf55";
-      hash = "sha256-G/GOy0Imdd9peFbcDXqv+IKZc0nYszBY0Dk4DbbULAA=";
+      rev = "ee6d2418f1b0b049d1b8b224b554af77dc9cc65e";
+      hash = "sha256-41buRHyIqFNeWnJeUpcDAs0pelPQFPdx9O2nm/mgUwo=";
     };
   in {
     inherit src;
