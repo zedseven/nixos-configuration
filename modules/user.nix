@@ -64,6 +64,7 @@ in {
             nix-tree
             procs
             ripgrep
+            sd
             tree
           ];
           inherit (cfg) hashedPasswordFile;
