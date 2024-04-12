@@ -19,6 +19,7 @@ jobs:
           ssh-key: ${{ secrets.SSH_KEY_NIXOS_CONFIGURATION_PRIVATE }}
           path: nixos-configuration-private
 
+      # This could probably also be accomplished with `nix flake check --override-input`
       - name: Create a Link for `private`
         run: |
           sudo mkdir -p /etc/nixos
@@ -36,8 +37,5 @@ jobs:
           diagnostic-endpoint: ''
 
       - name: Nix Flake Check
-        uses: DeterminateSystems/flake-checker-action@main
-        with:
-          fail-mode: true
-          check-outdated: false
-          send-statistics: false
+        run: |
+          nix flake check --all-systems --no-use-registries --no-write-lock-file --show-trace
