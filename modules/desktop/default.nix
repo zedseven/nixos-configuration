@@ -118,7 +118,6 @@ in {
         "audio"
         "video"
       ];
-      # GUI packages
       packages = with pkgs;
         [
           dmenu
@@ -127,6 +126,7 @@ in {
           jetbrains.rust-rover
           keepass
           maim
+          miniserve
           mpv
           obsidian
           slstatus

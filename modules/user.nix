@@ -210,7 +210,6 @@ in {
             gcc
             gnumake
             libfaketime
-            miniserve
             nixpkgs-fmt
             nmap
             openssh
