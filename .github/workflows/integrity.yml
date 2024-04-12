@@ -21,8 +21,8 @@ jobs:
 
       - name: Create a Link for `private`
         run: |
-          mkdir -p /etc/nixos
-          ln -s "$GITHUB_WORKSPACE/nixos-configuration-private" "/etc/nixos/private"
+          sudo mkdir -p /etc/nixos
+          sudo ln -s "$GITHUB_WORKSPACE/nixos-configuration-private" "/etc/nixos/private"
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
