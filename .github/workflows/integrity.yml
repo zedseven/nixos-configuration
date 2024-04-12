@@ -1,0 +1,34 @@
+name: Integrity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Checkout `private`
+        uses: actions/checkout@v4
+        with:
+          repository: zedseven/nixos-configuration-private
+          ssh-key: ${{ secrets.SSH_KEY_NIXOS_CONFIGURATION_PRIVATE }}
+          path: nixos-configuration-private
+
+      - name: Create a Link for `private`
+        run: |
+          mkdir -p /etc/nixos
+          ln -s "$GITHUB_WORKSPACE/nixos-configuration-private" "/etc/nixos/private"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+
+      - name: Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      - name: Nix Flake Check
+        uses: DeterminateSystems/flake-checker-action@main
