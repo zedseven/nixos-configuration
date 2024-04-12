@@ -69,8 +69,12 @@
     };
 
     symlinks = {
+      # `agenix` Values
       "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
       "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
+
+      # Private Flakes
+      "/etc/website-ztdp".source = "/home/${userInfo.username}/git/website-ztdp";
     };
 
     grub = {
