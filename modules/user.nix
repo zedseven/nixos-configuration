@@ -205,6 +205,7 @@ in {
           packages = with pkgs; [
             inputs.deploy-rs.packages.${system}.default
             inputs.self.packages.${system}.purefmt
+            inputs.self.packages.${system}.tealdeer
             deadnix
             endlines
             gcc
@@ -217,21 +218,6 @@ in {
             rclone
             restic
             statix
-            (tealdeer.overrideAttrs (
-              drv: rec {
-                src = fetchFromGitHub {
-                  owner = "zedseven"; # Until https://github.com/dbrgn/tealdeer/issues/320 is resolved
-                  repo = "tealdeer";
-                  rev = "3cf0e51dda80bf7daa487085cedd295920bbaf55";
-                  hash = "sha256-G/GOy0Imdd9peFbcDXqv+IKZc0nYszBY0Dk4DbbULAA=";
-                };
-                doCheck = false;
-                cargoDeps = drv.cargoDeps.overrideAttrs {
-                  inherit src;
-                  outputHash = "sha256-ULIBSuCyr5naXhsQVCR2/Z0WY3av5rbbg5l30TCjHDY=";
-                };
-              }
-            ))
             viu
             yt-dlp
 

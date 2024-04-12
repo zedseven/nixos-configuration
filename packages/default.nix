@@ -16,6 +16,7 @@
       lavalinkPlugin-lavasrc = callPackage ./lavalinkPlugins/lavasrc.nix {};
       purefmt = callPackage ./purefmt.nix {inherit alejandra;};
       steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
+      tealdeer = callPackage ./tealdeer.nix {};
     };
   };
 in
