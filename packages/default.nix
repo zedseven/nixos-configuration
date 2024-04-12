@@ -12,8 +12,8 @@
     in {
       inherit alejandra;
       lavalink = callPackage ./lavalink.nix {};
-      lavalinkPluginDunctebot = callPackage ./lavalinkPlugins/dunctebot.nix {};
-      lavalinkPluginLavasrc = callPackage ./lavalinkPlugins/lavasrc.nix {};
+      lavalinkPlugin-dunctebot = callPackage ./lavalinkPlugins/dunctebot.nix {};
+      lavalinkPlugin-lavasrc = callPackage ./lavalinkPlugins/lavasrc.nix {};
       purefmt = callPackage ./purefmt.nix {inherit alejandra;};
       steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
     };
