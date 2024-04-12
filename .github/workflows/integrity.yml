@@ -20,11 +20,20 @@ jobs:
           fetch-depth: 0
           path: nixos-configuration-private
 
+      - name: Checkout `website-ztdp`
+        uses: actions/checkout@v4
+        with:
+          repository: zedseven/website-ztdp
+          ssh-key: ${{ secrets.SSH_KEY_WEBSITE_ZTDP }}
+          fetch-depth: 0
+          path: website-ztdp
+
       # This could probably also be accomplished with `nix flake check --override-input`
-      - name: Create a Link for `private`
+      - name: Create Private Flake Links
         run: |
           sudo mkdir -p /etc/nixos
           sudo ln -s "$GITHUB_WORKSPACE/nixos-configuration-private" "/etc/nixos/private"
+          sudo ln -s "$GITHUB_WORKSPACE/website-ztdp" "/etc/website-ztdp"
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
