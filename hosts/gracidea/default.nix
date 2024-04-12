@@ -17,7 +17,6 @@ in {
 
   custom = {
     user.type = "minimal";
-    global.configurationPath = "/persist/etc/nixos";
 
     backups = {
       enable = true;
