@@ -300,6 +300,7 @@ in {
             gf = "git fetch --all";
             gg = "git merge --no-ff";
             gh = "git cherry-pick -x --edit";
+            git-chmod = "git update-index --chmod=+x";
             gl = "git log --show-signature --graph";
             gm = "git remote";
             go = "git clone";
@@ -309,6 +310,7 @@ in {
             grao = "git remote add origin";
             gs = "batdiff && git status";
             gu = "git pull";
+            gx = "git update-index --chmod=+x";
             gy = "git apply";
             m = "batman";
             man = "batman";
