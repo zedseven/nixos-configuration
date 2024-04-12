@@ -26,9 +26,18 @@ jobs:
 
       - name: Install Nix
         uses: DeterminateSystems/nix-installer-action@main
+        with:
+          diagnostic-endpoint: ''
 
       - name: Nix Cache
         uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          use-flakehub: false
+          diagnostic-endpoint: ''
 
       - name: Nix Flake Check
         uses: DeterminateSystems/flake-checker-action@main
+        with:
+          fail-mode: true
+          check-outdated: false
+          send-statistics: false
