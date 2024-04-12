@@ -260,7 +260,7 @@
         "rev": "7724c93f52618c03b8b03bd11f4b61a9d192d87d",
         "revCount": 14,
         "type": "git",
-        "url": "file:///home/zacc/git/website-ztdp"
+        "url": "file:///etc/website-ztdp"
       },
       "original": {
         "id": "website-ztdp",

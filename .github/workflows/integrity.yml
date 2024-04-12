@@ -1,0 +1,51 @@
+name: Integrity
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  checks:
+    name: Checks
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Checkout `private`
+        uses: actions/checkout@v4
+        with:
+          repository: zedseven/nixos-configuration-private
+          ssh-key: ${{ secrets.SSH_KEY_NIXOS_CONFIGURATION_PRIVATE }}
+          fetch-depth: 0
+          path: nixos-configuration-private
+
+      - name: Checkout `website-ztdp`
+        uses: actions/checkout@v4
+        with:
+          repository: zedseven/website-ztdp
+          ssh-key: ${{ secrets.SSH_KEY_WEBSITE_ZTDP }}
+          fetch-depth: 0
+          path: website-ztdp
+
+      # This could probably also be accomplished with `nix flake check --override-input`
+      - name: Create Private Flake Links
+        run: |
+          sudo mkdir -p /etc/nixos
+          sudo ln -s "$GITHUB_WORKSPACE/nixos-configuration-private" "/etc/nixos/private"
+          sudo ln -s "$GITHUB_WORKSPACE/website-ztdp" "/etc/website-ztdp"
+
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
+        with:
+          diagnostic-endpoint: ''
+
+      - name: Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+        with:
+          use-flakehub: false
+          diagnostic-endpoint: ''
+
+      - name: Nix Flake Check
+        run: |
+          nix flake check --all-systems --no-use-registries --no-write-lock-file --show-trace
