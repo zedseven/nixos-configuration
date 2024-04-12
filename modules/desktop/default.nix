@@ -31,13 +31,6 @@ in {
         enable = true;
         libinput.enable = true;
         windowManager.dwm.enable = true;
-        displayManager = {
-          defaultSession = "none+dwm";
-          autoLogin = {
-            enable = true;
-            user = userInfo.username;
-          };
-        };
         desktopManager.wallpaper.mode = "fill";
         dpi = lib.mkDefault 96;
         extraConfig = ''
@@ -47,6 +40,14 @@ in {
           	Option "DontZap"      "True"
           EndSection
         '';
+      };
+
+      displayManager = {
+        defaultSession = "none+dwm";
+        autoLogin = {
+          enable = true;
+          user = userInfo.username;
+        };
       };
 
       pcscd.enable = true;
