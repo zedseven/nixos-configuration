@@ -7,10 +7,8 @@
     inherit (inputs.nixpkgs.legacyPackages.${system}) callPackage;
   in {
     name = system;
-    value = let
+    value = rec {
       alejandra = callPackage ./alejandra {};
-    in {
-      inherit alejandra;
       lavalink = callPackage ./lavalink.nix {};
       lavalinkPlugin-dunctebot = callPackage ./lavalinkPlugins/dunctebot.nix {};
       lavalinkPlugin-lavasrc = callPackage ./lavalinkPlugins/lavasrc.nix {};
