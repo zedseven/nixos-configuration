@@ -43,6 +43,14 @@
         utils.follows = "flake-utils";
       };
     };
+    breeze = {
+      url = "github:zedseven/breeze";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        crane.follows = "crane";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
 
     # Add the flakes to the registry with: `nix registry add flake:<NAME> git+file:///path/to/local/repo`
     private = {
@@ -59,10 +67,21 @@
 
     # The below inputs aren't used directly, but they're included here so that the other dependencies all
     # use the same versions of them
+    crane = {
+      url = "github:ipetkov/crane";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     flake-compat.url = "github:edolstra/flake-compat";
     flake-utils = {
       url = "github:numtide/flake-utils";
       inputs.systems.follows = "systems";
+    };
+    rust-overlay = {
+      url = "github:oxalica/rust-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-utils.follows = "flake-utils";
+      };
     };
     systems.url = "github:nix-systems/default";
   };
@@ -113,8 +132,7 @@
       };
     in
       builtins.listToAttrs (
-        map
-        (host: {
+        map (host: {
           name = host.hostname;
           value = nixpkgs.lib.nixosSystem {
             inherit (host) system;
@@ -130,8 +148,7 @@
       );
 
     deploy.nodes = builtins.listToAttrs (
-      map
-      (host: {
+      map (host: {
         name = host.hostname;
         value = {
           inherit (host) hostname;
@@ -142,8 +159,7 @@
             path = deploy-rs.lib.${host.system}.activate.nixos self.nixosConfigurations.${host.hostname};
           };
         };
-      })
-      (builtins.filter (host: host.isServer) hosts)
+      }) (builtins.filter (host: host.isServer) hosts)
     );
 
     checks = import ./checks.nix {
@@ -152,8 +168,7 @@
     };
 
     formatter = builtins.listToAttrs (
-      map
-      (system: {
+      map (system: {
         name = system;
         value = self.packages.${system}.purefmt;
       })

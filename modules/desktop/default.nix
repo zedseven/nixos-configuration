@@ -2,7 +2,9 @@
   config,
   pkgs,
   lib,
+  inputs,
   userInfo,
+  system,
   ...
 }: let
   cfg = config.custom.desktop;
@@ -121,6 +123,7 @@ in {
       ];
       packages = with pkgs;
         [
+          inputs.breeze.packages.${system}.default
           dmenu
           firefox-devedition
           jetbrains.clion
