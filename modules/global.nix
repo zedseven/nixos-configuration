@@ -65,8 +65,8 @@ in {
         };
         gc = {
           automatic = true;
-          dates = "daily";
-          options = "--delete-older-than 14d";
+          dates = "monthly";
+          options = "--delete-older-than 31d";
         };
         settings.nix-path = nixPath; # https://github.com/NixOS/nix/issues/8890#issuecomment-1703988345
       };
