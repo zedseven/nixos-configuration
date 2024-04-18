@@ -61,6 +61,7 @@ in {
         port = inputs.private.unencryptedValues.serverPorts.${hostname}.minecraft;
 
         whitelistFile = config.age.secrets."minecraft-server-whitelist.json".path;
+        operatorsFile = config.age.secrets."minecraft-server-ops.json".path;
         iconFile = let
           fileName = "gracidea.png";
           storePath = lib.fileset.toSource {

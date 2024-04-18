@@ -48,8 +48,12 @@ in {
         description = "The path to the file that contains the user whitelist.";
         type = types.path;
       };
+      operatorsFile = mkOption {
+        description = "The path to the file that contains the operator list.";
+        type = types.path;
+      };
       iconFile = mkOption {
-        description = "The path to the icon PNG file to display.";
+        description = "The path to the icon PNG file to display. It must be 64×64px in size.";
         type = types.nullOr types.path;
         default = null;
       };
@@ -102,6 +106,7 @@ in {
             {
               "${cfg.server.dataDir}/server.properties".source = serverPropertiesFile;
               "${cfg.server.dataDir}/whitelist.json".source = cfg.server.whitelistFile;
+              "${cfg.server.dataDir}/ops.json".source = cfg.server.operatorsFile;
             }
             (lib.mkIf (cfg.server.iconFile != null) {
               "${cfg.server.dataDir}/server-icon.png".source = cfg.server.iconFile;
