@@ -21,8 +21,8 @@
         tealdeer = callPackage ./tealdeer.nix {};
       }
       // {
-        lavalinkPlugin-dunctebot = callPackage ./lavalinkPlugins/dunctebot.nix {};
-        lavalinkPlugin-lavasrc = callPackage ./lavalinkPlugins/lavasrc.nix {};
+        lavalinkPlugin-dunctebot = callPackage ./lavalink-plugins/dunctebot.nix {};
+        lavalinkPlugin-lavasrc = callPackage ./lavalink-plugins/lavasrc.nix {};
       };
   };
 in
