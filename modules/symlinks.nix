@@ -45,8 +45,7 @@ in {
   # https://www.freedesktop.org/software/systemd/man/latest/tmpfiles.d.html
   config = {
     systemd.tmpfiles.rules =
-      lib.attrsets.mapAttrsToList
-      (
+      lib.attrsets.mapAttrsToList (
         _: link: let
           type = lib.concatStrings [
             "L"

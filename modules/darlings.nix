@@ -55,8 +55,7 @@ in {
         boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
 
         custom.symlinks = builtins.listToAttrs (
-          map
-          (path: {
+          map (path: {
             name = path;
             value = {
               source = cfg.persist.mirrorRoot + path;

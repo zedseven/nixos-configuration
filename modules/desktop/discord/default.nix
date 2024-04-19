@@ -20,21 +20,18 @@ in {
 
   config = lib.mkIf cfg.enable (
     let
-      krispPatcher =
-        pkgs.writers.writePython3Bin "discord-krisp-patcher"
-        {
-          libraries = with pkgs.python3Packages; [
-            pyelftools
-            capstone
-          ];
-          flakeIgnore = [
-            "E265" # from nix-shell shebang
-            "E501" # line too long (82 > 79 characters)
-            "F403" # `from module import *` used; unable to detect undefined names
-            "F405" # name may be undefined, or defined from star imports: module
-          ];
-        }
-        (builtins.readFile ./krisp-patcher.py);
+      krispPatcher = pkgs.writers.writePython3Bin "discord-krisp-patcher" {
+        libraries = with pkgs.python3Packages; [
+          pyelftools
+          capstone
+        ];
+        flakeIgnore = [
+          "E265" # from nix-shell shebang
+          "E501" # line too long (82 > 79 characters)
+          "F403" # `from module import *` used; unable to detect undefined names
+          "F405" # name may be undefined, or defined from star imports: module
+        ];
+      } (builtins.readFile ./krisp-patcher.py);
 
       # The bin name must be something other than `discord` because `betterdiscordctl` will kill all processes
       # by that name as part of the `uninstall` command
