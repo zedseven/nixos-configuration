@@ -5,6 +5,7 @@
   lib,
   inputs,
   hostname,
+  system,
   ...
 }: let
   minecraftDir = "/var/lib/minecraft";
@@ -56,6 +57,8 @@ in {
       enable = true;
       server = {
         enable = true;
+
+        package = inputs.self.packages.${system}.minecraft-server-fabric;
         dataDir = "/persist" + minecraftDir;
         jvmOpts = "-Xms512M -Xmx${builtins.toString ((24 * 1024) - 512)}M";
         port = inputs.private.unencryptedValues.serverPorts.${hostname}.minecraft;
