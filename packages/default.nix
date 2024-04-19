@@ -4,7 +4,11 @@
   ...
 }: let
   packages = system: let
-    inherit (inputs.nixpkgs.legacyPackages.${system}) callPackage;
+    pkgs = import inputs.nixpkgs {
+      inherit system;
+      config.allowUnfree = true;
+    };
+    inherit (pkgs) callPackage;
   in {
     name = system;
     value = rec {
