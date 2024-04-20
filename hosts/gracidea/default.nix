@@ -131,6 +131,27 @@ in {
           view-distance = 12;
           white-list = true;
         };
+
+        mods = builtins.attrValues {
+          inherit
+            (inputs.self.legacyPackages.${system}.minecraftFabricMods)
+            appleskin
+            c2me
+            carpet
+            carpet-extra
+            carpet-fixes
+            clumps
+            fabric-api
+            ferrite-core
+            krypton
+            let-me-despawn
+            lithium
+            memory-leak-fix
+            mixin-trace
+            noisium
+            stitched-snow
+            ;
+        };
       };
     };
   };
