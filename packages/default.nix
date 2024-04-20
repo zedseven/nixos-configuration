@@ -11,19 +11,14 @@
     inherit (pkgs) callPackage;
   in {
     name = system;
-    value =
-      rec {
-        alejandra = callPackage ./alejandra {};
-        lavalink = callPackage ./lavalink.nix {};
-        minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
-        purefmt = callPackage ./purefmt.nix {inherit alejandra;};
-        steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
-        tealdeer = callPackage ./tealdeer.nix {};
-      }
-      // {
-        lavalinkPlugin-dunctebot = callPackage ./lavalink-plugins/dunctebot.nix {};
-        lavalinkPlugin-lavasrc = callPackage ./lavalink-plugins/lavasrc.nix {};
-      };
+    value = rec {
+      alejandra = callPackage ./alejandra {};
+      lavalink = callPackage ./lavalink.nix {};
+      minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
+      purefmt = callPackage ./purefmt.nix {inherit alejandra;};
+      steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
+      tealdeer = callPackage ./tealdeer.nix {};
+    };
   };
 in
   builtins.listToAttrs (map packages hostSystems)

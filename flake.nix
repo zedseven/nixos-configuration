@@ -122,6 +122,7 @@
     hostSystems = nixpkgs.lib.lists.unique (map (host: host.system) hosts);
   in {
     packages = import ./packages {inherit inputs hostSystems;};
+    legacyPackages = import ./legacyPackages {inherit inputs hostSystems;};
 
     nixosConfigurations = let
       userInfo = {

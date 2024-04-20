@@ -5,7 +5,7 @@
   ...
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "lavalink-plugin-dunctebot"; # The name is ambiguous between `dunctebot` and `skybot` - `dunctebot` was chosen because that's what the configuration uses
+  pname = "dunctebot"; # The name is ambiguous between `dunctebot` and `skybot` - `dunctebot` was chosen because that's what the configuration uses
   version = "1.6.3";
 
   src = fetchurl {
