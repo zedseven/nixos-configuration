@@ -7,7 +7,7 @@
   stdenvNoCC,
   runtimeShell,
   jre_headless,
-  minecraft-server,
+  minecraftServers,
 }: let
   lock = import ./lock.nix;
   loader = callPackage ./generate-loader.nix {};
@@ -21,7 +21,14 @@
   in "${storePath}/${fileName}";
 
   # This is so that all JARs use the same JRE, since the `minecraft-server` package uses a different version by default
-  vanillaServer = minecraft-server.override {inherit jre_headless;};
+  escapeVersion = builtins.replaceStrings ["."] ["-"];
+  vanillaMinorVersion = lib.concatStringsSep "." (
+    lib.lists.take 2 (lib.strings.splitString "." lock.minecraftVersion)
+  );
+  escapedVanillaMinorVersion = escapeVersion vanillaMinorVersion;
+  vanillaServer = minecraftServers."vanilla-${escapedVanillaMinorVersion}".override {
+    inherit jre_headless;
+  };
 
   # https://github.com/FabricMC/fabric-loader/blob/63840270caa7f7e0a660354577afe19d133bff77/src/main/java/net/fabricmc/loader/impl/launch/server/FabricServerLauncher.java#L52
   launcherProperties = writeText "fabric-server-launcher.properties" ''
