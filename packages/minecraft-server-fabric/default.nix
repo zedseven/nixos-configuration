@@ -12,15 +12,7 @@
   lock = import ./lock.nix;
   loader = callPackage ./generate-loader.nix {};
 
-  log4jConfiguration = let
-    fileName = "log4j.xml";
-    storePath = lib.fileset.toSource {
-      root = ./.;
-      fileset = ./. + "/${fileName}";
-    };
-  in "${storePath}/${fileName}";
-
-  # This is so that all JARs use the same JRE, since the `minecraft-server` package uses a different version by default
+  # This uses the same vanilla server version as in the lockfile, and uses the same JRE version for the vanilla and Fabric JARs
   escapeVersion = builtins.replaceStrings ["."] ["-"];
   vanillaMinorVersion = lib.concatStringsSep "." (
     lib.lists.take 2 (lib.strings.splitString "." lock.minecraftVersion)
@@ -29,6 +21,14 @@
   vanillaServer = minecraftServers."vanilla-${escapedVanillaMinorVersion}".override {
     inherit jre_headless;
   };
+
+  log4jConfiguration = let
+    fileName = "log4j.xml";
+    storePath = lib.fileset.toSource {
+      root = ./.;
+      fileset = ./. + "/${fileName}";
+    };
+  in "${storePath}/${fileName}";
 
   # https://github.com/FabricMC/fabric-loader/blob/63840270caa7f7e0a660354577afe19d133bff77/src/main/java/net/fabricmc/loader/impl/launch/server/FabricServerLauncher.java#L52
   launcherProperties = writeText "fabric-server-launcher.properties" ''
