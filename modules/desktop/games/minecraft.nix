@@ -13,7 +13,6 @@ in {
     ../../symlinks.nix
   ];
 
-  # TODO: Mods?
   options.custom.desktop.games.minecraft = with lib; {
     enable = mkEnableOption "Minecraft";
     server = {
@@ -62,6 +61,11 @@ in {
         type = types.separatedString " ";
         default = "-Xms512M -Xmx2048M";
       };
+      mods = mkOption {
+        description = "The mods to load. All mod packages are expected to have a structure like: `$out/mods/<MOD>.jar`";
+        type = types.listOf types.package;
+        default = [];
+      };
     };
   };
 
@@ -101,12 +105,18 @@ in {
               lib.mapAttrsToList (n: v: "${n}=${valueToString v}") serverPropertiesComplete
             )
           );
+
+          modsDirectory = pkgs.symlinkJoin {
+            name = "minecraft-server-mods";
+            paths = cfg.server.mods;
+          };
         in
           lib.mkMerge [
             {
               "${cfg.server.dataDir}/server.properties".source = serverPropertiesFile;
               "${cfg.server.dataDir}/whitelist.json".source = cfg.server.whitelistFile;
               "${cfg.server.dataDir}/ops.json".source = cfg.server.operatorsFile;
+              "${cfg.server.dataDir}/mods".source = "${modsDirectory}/mods";
             }
             (lib.mkIf (cfg.server.iconFile != null) {
               "${cfg.server.dataDir}/server-icon.png".source = cfg.server.iconFile;

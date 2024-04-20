@@ -52,7 +52,7 @@ in {
       default = "/var/log/lavalink";
     };
     plugins = mkOption {
-      description = "The set of plugins to run with.";
+      description = "The set of plugins to run with. All plugin packages are expected to have a structure like: `$out/plugins/<PLUGIN>.jar`";
       type = types.listOf types.package;
       default = [];
     };
@@ -89,7 +89,6 @@ in {
           destination = "/${fileName}";
         };
       # This merges the directory structure of the configuration and plugins
-      # All plugins are expected to have a structure like: `$out/plugins/plugin.jar`
       completeConfiguration = pkgs.symlinkJoin {
         name = "lavalink-service-configuration";
         paths = [configurationFile] ++ cfg.plugins;
