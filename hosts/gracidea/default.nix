@@ -60,7 +60,8 @@ in {
 
         package = inputs.self.packages.${system}.minecraft-server-fabric;
         dataDir = "/persist" + minecraftDir;
-        jvmOpts = "-Xms512M -Xmx${builtins.toString ((24 * 1024) - 512)}M";
+        memoryAllocatedGigabytes = 23;
+        aikarsFlags = true;
         port = inputs.private.unencryptedValues.serverPorts.${hostname}.minecraft;
 
         whitelistFile = config.age.secrets."minecraft-server-whitelist.json".path;

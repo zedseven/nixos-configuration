@@ -56,10 +56,20 @@ in {
         type = types.nullOr types.path;
         default = null;
       };
-      jvmOpts = mkOption {
-        description = "JVM options for the Minecraft server.";
+      memoryAllocatedGigabytes = mkOption {
+        description = "The amount of RAM to allocate for the server.";
+        type = types.int;
+        default = 4;
+      };
+      aikarsFlags = mkOption {
+        description = "Whether to include Aikar's flags in the JVM options for increased garbage collector performance.";
+        type = types.bool;
+        default = false;
+      };
+      extraJvmOpts = mkOption {
+        description = "Extra JVM options for the Minecraft server.";
         type = types.separatedString " ";
-        default = "-Xms512M -Xmx2048M";
+        default = "";
       };
       mods = mkOption {
         description = "The mods to load. All mod packages are expected to have a structure like: `$out/mods/<MOD>.jar`";
@@ -79,9 +89,26 @@ in {
       # Server installation
       (lib.mkIf cfg.server.enable {
         services.minecraft-server = {
-          inherit (cfg.server) dataDir jvmOpts package;
+          inherit (cfg.server) dataDir package;
           enable = true;
           eula = true;
+          jvmOpts = let
+            memoryAllocatedGigabytes = builtins.toString cfg.server.memoryAllocatedGigabytes;
+          in
+            "-Xms${memoryAllocatedGigabytes}G -Xmx${memoryAllocatedGigabytes}G ${cfg.server.extraJvmOpts}"
+            + (
+              # https://docs.papermc.io/paper/aikars-flags
+              # https://flags.sh/
+              lib.optionalString cfg.server.aikarsFlags
+              " -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200
+                -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
+                -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M
+                -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4
+                -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90
+                -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem
+                -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs
+                -Daikars.new.flags=true"
+            );
         };
 
         # The whitelist and server properties are generated & symlinked manually instead of using the provided
