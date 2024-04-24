@@ -116,6 +116,10 @@ in {
       allowedTCPPorts = [8080];
     };
 
+    fonts.packages = builtins.attrValues {
+      inherit (inputs.self.packages.${system}) dank-mono pragmatapro;
+    };
+
     users.users.${userInfo.username} = {
       extraGroups = [
         "audio"
@@ -142,6 +146,7 @@ in {
           '')
         ];
     };
+
     home-manager.users.${userInfo.username} = {
       xsession = {
         enable = true;
