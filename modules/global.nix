@@ -130,7 +130,7 @@ in {
     }
     (lib.mkIf (cfg.configurationPath != null) {
       # Required by `nh`, allowing rebuilds without providing the path every time
-      environment.variables.FLAKE = cfg.configurationPath;
+      environment.sessionVariables.FLAKE = cfg.configurationPath;
     })
     (lib.mkIf (cfg.configurationPath != null && cfg.configurationPath != defaultConfigurationPath) {
       # Set up a symlink to make the non-standard configuration path accessible from the default location

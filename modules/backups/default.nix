@@ -187,7 +187,7 @@ in {
           };
         })
         (lib.mkIf cfg.setEnvironmentVariables {
-          environment.variables = lib.mkMerge [
+          environment.sessionVariables = lib.mkMerge [
             {RESTIC_PASSWORD_FILE = cfg.passwordFile;}
             (lib.mkIf cfg.rclone.enable {RCLONE_CONFIG = cfg.rclone.configPath;})
           ];
