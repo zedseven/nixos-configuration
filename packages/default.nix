@@ -20,9 +20,10 @@
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         tealdeer = callPackage ./tealdeer.nix {};
       }
-      # Re-export packages from the `private` flake
+      # Re-export packages from other flakes
       // {
         inherit (inputs.private.packages.${system}) dank-mono pragmatapro;
+        breeze = inputs.breeze.packages.${system}.default;
       };
   };
 in

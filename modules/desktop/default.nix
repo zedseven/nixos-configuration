@@ -127,7 +127,7 @@ in {
       ];
       packages = with pkgs;
         [
-          inputs.breeze.packages.${system}.default
+          inputs.self.packages.${system}.breeze
           dmenu
           firefox-devedition
           jetbrains.clion
