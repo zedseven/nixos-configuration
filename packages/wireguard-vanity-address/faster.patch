@@ -1,0 +1,15 @@
+diff --git a/Cargo.toml b/Cargo.toml
+index 696c44e..4924399 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -15,6 +15,11 @@ exclude = [
+     ".gitignore",
+ ]
+ 
++[profile.release]
++codegen-units = 1
++lto = "fat"
++panic = "abort"
++
+ [badges]
+ travis-ci = { repository = "warner/wireguard-vanity-address" }

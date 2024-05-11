@@ -206,6 +206,7 @@ in {
             inputs.deploy-rs.packages.${system}.default
             inputs.self.packages.${system}.purefmt
             inputs.self.packages.${system}.tealdeer
+            inputs.self.packages.${system}.wireguard-vanity-address
             deadnix
             endlines
             gcc

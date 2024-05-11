@@ -19,6 +19,7 @@
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         tealdeer = callPackage ./tealdeer.nix {};
+        wireguard-vanity-address = callPackage ./wireguard-vanity-address {};
       }
       # Re-export packages from other flakes
       // {
