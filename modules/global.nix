@@ -90,13 +90,12 @@ in {
 
       environment = {
         systemPackages = with pkgs; [
-          (inputs.agenix.packages.${system}.default.override {ageBin = "${rage}/bin/rage";})
+          inputs.agenix.packages.${system}.default
           inputs.nh.packages.${system}.default
           killall
           lshw
           lsof
           pciutils
-          rage
           unzip
           wget
         ];
