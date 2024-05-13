@@ -71,9 +71,6 @@ in {
         settings.nix-path = nixPath; # https://github.com/NixOS/nix/issues/8890#issuecomment-1703988345
       };
 
-      # Disable documentation on servers
-      documentation.enable = !isServer;
-
       # Prevent users and groups from being modified at runtime
       users = {
         mutableUsers = false;
