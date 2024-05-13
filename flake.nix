@@ -114,6 +114,11 @@
         isServer = true;
       }
       {
+        hostname = "nexys";
+        system = "x86_64-linux";
+        isServer = true;
+      }
+      {
         hostname = "wraith";
         system = "x86_64-linux";
         isServer = false;
