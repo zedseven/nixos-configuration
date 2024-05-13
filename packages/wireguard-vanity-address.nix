@@ -6,10 +6,10 @@
 wireguard-vanity-address.overrideAttrs (
   oldAttrs: let
     src = fetchFromGitHub {
-      owner = "warner";
+      owner = "zedseven";
       repo = "wireguard-vanity-address";
-      rev = "803e4c5606f16cc81de44b968ef4cd11acc1a8c4"; # 12-count-scalars branch, Significantly faster
-      hash = "sha256-n9iLktJt8YoLtABK0xmzsA4RL7cZoz5umol85KS0u5w=";
+      rev = "5a5fcf4f8fd25c83c1db5e6437b54eb89b342318";
+      hash = "sha256-HRJUdZ+C6TcQACv0Bv1hvq7u61D3qbNFcN16SgFHCyE=";
     };
   in {
     inherit src;
@@ -19,8 +19,7 @@ wireguard-vanity-address.overrideAttrs (
       outputHash = "sha256-xbbHrQ5Lsr0kNWdUrI6hP9Gf1b8rYkv+P3COaQM80wo=";
     };
 
-    # Make the compiled binary even faster
+    # Make the compiled binary even faster - from my testing, this speeds it up by about 25%
     RUSTFLAGS = "-C target-cpu=native";
-    patches = oldAttrs.patches ++ [./faster.patch];
   }
 )
