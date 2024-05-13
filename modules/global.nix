@@ -75,7 +75,10 @@ in {
       documentation.enable = !isServer;
 
       # Prevent users and groups from being modified at runtime
-      users.mutableUsers = false;
+      users = {
+        mutableUsers = false;
+        users.root.hashedPassword = inputs.private.unencryptedValues.users.root.hashedPassword;
+      };
 
       # Set your time zone.
       time.timeZone = "America/Toronto";
