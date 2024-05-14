@@ -17,6 +17,7 @@
         lavalink = callPackage ./lavalink.nix {};
         minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
+        qemu-guest = callPackage ./qemu-guest.nix {};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         tealdeer = callPackage ./tealdeer.nix {};
         wireguard-vanity-address = callPackage ./wireguard-vanity-address.nix {};

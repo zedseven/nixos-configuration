@@ -1,12 +1,16 @@
 {
   lib,
+  inputs,
   modulesPath,
   system,
   ...
 }: {
   imports = [(modulesPath + "/profiles/qemu-guest.nix")];
 
-  services.qemuGuest.enable = true;
+  services.qemuGuest = {
+    enable = true;
+    package = inputs.self.packages.${system}.qemu-guest;
+  };
 
   boot = {
     initrd = {
