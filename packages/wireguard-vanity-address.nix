@@ -1,6 +1,8 @@
 {
+  lib,
   fetchFromGitHub,
   wireguard-vanity-address,
+  optimiseForNativeCpu ? true,
   ...
 }:
 wireguard-vanity-address.overrideAttrs (
@@ -20,6 +22,7 @@ wireguard-vanity-address.overrideAttrs (
     };
 
     # Make the compiled binary even faster - from my testing, this speeds it up by about 25%
-    RUSTFLAGS = "-C target-cpu=native";
+    # This breaks builds that are run on systems other than the one they were compiled for
+    RUSTFLAGS = lib.optionalString optimiseForNativeCpu "-C target-cpu=native";
   }
 )
