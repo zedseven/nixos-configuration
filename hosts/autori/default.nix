@@ -44,12 +44,27 @@
     zfs.enable = true;
   };
 
-  networking = {
+  networking = let
+    interface = "ens3";
+    hetzner = import ../../constants/hetzner.nix;
+  in {
     hostId = "0824a9c7";
     firewall.allowedTCPPorts = [
       80
       443
     ];
+
+    # This is required due to a known IPv6 issue with Hetzner
+    # https://docs.hetzner.com/cloud/servers/static-configuration/
+    # https://docs.hetzner.com/cloud/servers/primary-ips/primary-ip-configuration/
+    # https://discourse.nixos.org/t/nixos-on-hetzner-cloud-servers-ipv6/221/3
+    interfaces.${interface} = {
+      ipv6.addresses = [inputs.private.unencryptedValues.serverAddresses.${hostname}.ipv6];
+    };
+    defaultGateway6 = {
+      inherit interface;
+      address = hetzner.gatewayAddresses.ipv6;
+    };
   };
 
   services = {
