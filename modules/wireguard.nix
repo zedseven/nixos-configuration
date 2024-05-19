@@ -16,6 +16,11 @@ in {
       type = types.str;
       default = "wg0";
     };
+    trustInterface = mkOption {
+      description = "Whether to trust all traffic coming in from the Wireguard interface.";
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = let
@@ -70,7 +75,10 @@ in {
       lib.mkMerge [
         {
           networking = {
-            firewall.allowedUDPPorts = [wireguardConfig.listenPort];
+            firewall = {
+              allowedUDPPorts = [wireguardConfig.listenPort];
+              trustedInterfaces = lib.optionals cfg.trustInterface [cfg.interface];
+            };
 
             wg-quick.interfaces.${cfg.interface} =
               {
