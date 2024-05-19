@@ -115,8 +115,8 @@ in {
                   nfu = "nix flake update";
                   nrb = "git diff --quiet && nh os boot --ask"; # `git diff --quiet` is to prevent switching to a dirty configuration
                   nrs = "git diff --quiet && nh os switch --ask";
-                  nrt = "nh os test --verbose";
-                  nrtd = "nh os test --verbose --dry";
+                  nrt = "nh os test --verbose -- --show-trace";
+                  nrtd = "nh os test --verbose --dry -- --show-trace";
                   nvim = "hx";
                   poweroff = "systemctl poweroff";
                   procs = "procs --tree";
