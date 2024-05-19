@@ -82,6 +82,7 @@
       efi.enable = true;
     };
 
+    wireguard.enable = true;
     zfs.enable = true;
     qmk.enable = true;
   };

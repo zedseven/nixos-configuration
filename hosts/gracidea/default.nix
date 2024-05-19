@@ -51,6 +51,7 @@ in {
       };
     };
 
+    wireguard.enable = true;
     zfs.enable = true;
 
     desktop.games.minecraft = {

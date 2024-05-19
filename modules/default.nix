@@ -12,6 +12,7 @@
     ./qmk.nix
     ./wsl.nix
     ./lavalink.nix
+    ./wireguard.nix
     ./wireguard-vanity-addresses.nix
   ];
 }

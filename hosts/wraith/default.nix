@@ -68,6 +68,11 @@
       efi.enable = true;
     };
 
+    wireguard = {
+      enable = true;
+      enableMullvad = true;
+    };
+
     zfs.enable = true;
   };
 

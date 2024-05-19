@@ -41,6 +41,7 @@
     };
 
     grub.enable = true;
+    wireguard.enable = true;
     zfs.enable = true;
   };
 
