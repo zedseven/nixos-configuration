@@ -32,6 +32,7 @@ in {
         presharedKeyFile
         ;
     };
+    removeAddressSubnetPrefix = address: builtins.head (lib.strings.splitString "/" address);
 
     wireguardConfig = inputs.private.unencryptedValues.wireguard;
     interfaceConfig =
@@ -53,11 +54,17 @@ in {
           // peerConfig
       )
       wireguardConfig.peers;
-    peers = map preparePeerConfig (
+    filteredPeerList =
       if interfaceConfig.isRouter
       then builtins.filter (peer: peer.name != hostname) unfilteredPeerList
-      else builtins.filter (peer: peer.isRouter && peer.name != hostname) unfilteredPeerList
+      else builtins.filter (peer: peer.isRouter && peer.name != hostname) unfilteredPeerList;
+
+    endpointPeers = builtins.filter (peer: peer.endpoint != null) filteredPeerList;
+    endpointPeerAddresses = lib.lists.flatten (
+      map (peer: map removeAddressSubnetPrefix peer.address) endpointPeers
     );
+
+    peers = map preparePeerConfig filteredPeerList;
   in
     lib.mkIf cfg.enable (
       lib.mkMerge [
@@ -71,6 +78,14 @@ in {
                 inherit peers;
 
                 privateKeyFile = config.age.secrets."wireguard-private-key-${hostname}".path;
+
+                # Ping each peer that has a known endpoint on startup, to establish a connection
+                # If they aren't available, continue anyway
+                postUp =
+                  map (
+                    peerAddress: "${pkgs.iputils}/bin/ping -c1 -q ${peerAddress} > /dev/null 2>&1 || true"
+                  )
+                  endpointPeerAddresses;
               }
               // (prepareInterfaceConfig interfaceConfig);
           };
@@ -105,7 +120,7 @@ in {
             '';
           in {
             preUp = ["${pkgs.nftables}/bin/nft -f ${excludeTable}"];
-            preDown = ["${pkgs.nftables}/bin/nft delete table ${excludeTableName} 2>/dev/null || true"];
+            preDown = ["${pkgs.nftables}/bin/nft delete table ${excludeTableName} > /dev/null 2>&1 || true"];
           };
         })
       ]
