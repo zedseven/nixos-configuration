@@ -104,10 +104,7 @@ in {
               }
             '';
           in {
-            preUp = [
-              "${pkgs.procps}/bin/sysctl -q -w net.ipv4.conf.all.src_valid_mark=1"
-              "${pkgs.nftables}/bin/nft -f ${excludeTable}"
-            ];
+            preUp = ["${pkgs.nftables}/bin/nft -f ${excludeTable}"];
             preDown = ["${pkgs.nftables}/bin/nft delete table ${excludeTableName} 2>/dev/null || true"];
           };
         })
