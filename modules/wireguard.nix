@@ -27,16 +27,17 @@ in {
     presharedKeyFile = config.age.secrets."wireguard-pre-shared-key".path;
 
     prepareInterfaceConfig = interfaceConfig: {inherit (interfaceConfig) address;};
-    preparePeerConfig = peerConfig: {
-      inherit
-        (peerConfig)
-        publicKey
-        endpoint
-        allowedIPs
-        persistentKeepalive
-        presharedKeyFile
-        ;
-    };
+    preparePeerConfig = isRouter: peerConfig:
+      {
+        inherit
+          (peerConfig)
+          publicKey
+          endpoint
+          allowedIPs
+          presharedKeyFile
+          ;
+      }
+      // lib.attrsets.optionalAttrs isRouter {inherit (peerConfig) persistentKeepalive;};
     removeAddressSubnetPrefix = address: builtins.head (lib.strings.splitString "/" address);
 
     wireguardConfig = inputs.private.unencryptedValues.wireguard;
@@ -59,17 +60,14 @@ in {
           // peerConfig
       )
       wireguardConfig.peers;
-    filteredPeerList =
-      if interfaceConfig.isRouter
-      then builtins.filter (peer: peer.name != hostname) unfilteredPeerList
-      else builtins.filter (peer: peer.isRouter && peer.name != hostname) unfilteredPeerList;
+    filteredPeerList = builtins.filter (peer: peer.name != hostname) unfilteredPeerList;
 
     endpointPeers = builtins.filter (peer: peer.endpoint != null) filteredPeerList;
     endpointPeerAddresses = lib.lists.flatten (
       map (peer: map removeAddressSubnetPrefix peer.address) endpointPeers
     );
 
-    peers = map preparePeerConfig filteredPeerList;
+    peers = map (preparePeerConfig interfaceConfig.isRouter) filteredPeerList;
   in
     lib.mkIf cfg.enable (
       lib.mkMerge [
