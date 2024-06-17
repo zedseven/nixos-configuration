@@ -21,6 +21,11 @@ in {
       type = types.bool;
       default = true;
     };
+    topLevelDomain = mkOption {
+      description = "The TLD to use for the host domains in the network.";
+      type = types.str;
+      default = "local";
+    };
   };
 
   config = let
@@ -93,6 +98,23 @@ in {
                   peerAddresses;
               }
               // (prepareInterfaceConfig interfaceConfig);
+
+            # Add host entries for each peer
+            extraHosts = lib.concatStringsSep "\n" (
+              map (entry: "${entry.address} ${entry.name}.${cfg.topLevelDomain}") (
+                lib.flatten (
+                  lib.mapAttrsToList (
+                    name: peerConfig:
+                      map (address: {
+                        inherit name;
+                        address = removeAddressSubnetPrefix address;
+                      })
+                      peerConfig.address
+                  )
+                  wireguardConfig.peers
+                )
+              )
+            );
           };
         }
         # "Routers" need to be set up with IP Forwarding
