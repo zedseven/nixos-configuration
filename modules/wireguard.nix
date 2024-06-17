@@ -62,9 +62,8 @@ in {
       wireguardConfig.peers;
     filteredPeerList = builtins.filter (peer: peer.name != hostname) unfilteredPeerList;
 
-    endpointPeers = builtins.filter (peer: peer.endpoint != null) filteredPeerList;
-    endpointPeerAddresses = lib.lists.flatten (
-      map (peer: map removeAddressSubnetPrefix peer.address) endpointPeers
+    peerAddresses = lib.lists.flatten (
+      map (peer: map removeAddressSubnetPrefix peer.address) filteredPeerList
     );
 
     peers = map (preparePeerConfig interfaceConfig.isRouter) filteredPeerList;
@@ -85,13 +84,13 @@ in {
 
                 privateKeyFile = config.age.secrets."wireguard-private-key-${hostname}".path;
 
-                # Ping each peer that has a known endpoint on startup, to establish a connection
+                # Ping each peer on startup to establish a connection
                 # If they aren't available, continue anyway
                 postUp =
                   map (
                     peerAddress: "${pkgs.iputils}/bin/ping -c1 -q ${peerAddress} > /dev/null 2>&1 || true"
                   )
-                  endpointPeerAddresses;
+                  peerAddresses;
               }
               // (prepareInterfaceConfig interfaceConfig);
           };
