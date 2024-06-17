@@ -5,7 +5,9 @@
   hostname,
   system,
   ...
-}: {
+}: let
+  forgejoDir = "/var/lib/forgejo";
+in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
@@ -35,6 +37,7 @@
       persist.paths = [
         "/etc/machine-id"
         "/etc/ssh"
+        forgejoDir
       ];
     };
 
@@ -62,9 +65,16 @@
     };
   };
 
-  services.openssh = {
-    openFirewall = true;
-    ports = [inputs.private.unencryptedValues.serverPorts.${hostname}.ssh];
+  services = {
+    openssh = {
+      openFirewall = true;
+      ports = [inputs.private.unencryptedValues.serverPorts.${hostname}.ssh];
+    };
+
+    forgejo = {
+      enable = true;
+      stateDir = "/persist" + forgejoDir;
+    };
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever
