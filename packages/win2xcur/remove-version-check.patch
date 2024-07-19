@@ -1,0 +1,14 @@
+diff --git a/win2xcur/parser/xcursor.py b/win2xcur/parser/xcursor.py
+index e84998e..3ac55b6 100644
+--- a/win2xcur/parser/xcursor.py
++++ b/win2xcur/parser/xcursor.py
+@@ -31,9 +31,6 @@ class XCursorParser(BaseParser):
+         magic, header_size, version, toc_size = self._unpack(self.FILE_HEADER, 0)
+         assert magic == self.MAGIC
+ 
+-        if version != self.VERSION:
+-            raise ValueError(f'Unsupported Xcursor version 0x{version:08x}')
+-
+         offset = self.FILE_HEADER.size
+         chunks: List[Tuple[int, int, int]] = []
+         for i in range(toc_size):

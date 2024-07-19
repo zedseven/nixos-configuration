@@ -20,6 +20,7 @@
         qemu-guest = callPackage ./qemu-guest.nix {};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         tealdeer = callPackage ./tealdeer.nix {};
+        win2xcur = callPackage ./win2xcur {};
         wireguard-vanity-address = callPackage ./wireguard-vanity-address.nix {};
       }
       # Re-export packages from other flakes
