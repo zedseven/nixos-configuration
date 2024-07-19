@@ -8,13 +8,13 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "steam-no-whats-new";
-  version = "0.1.3";
+  version = "1.1.0";
 
   src = fetchFromGitHub {
     owner = "mchangrh";
     repo = "NoWhatsNew";
     rev = "v${finalAttrs.version}";
-    hash = "sha256-yh2RTnEzezoB1K+Yb0z97Impzkhx055vmxHVyumOPJg=";
+    hash = "sha256-RZ4fw1nQE9Y6YRowvPWnCAZDR+zZY/lOolxSRvc8GaM=";
   };
 
   postPatch = ''
