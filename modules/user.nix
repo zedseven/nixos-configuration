@@ -109,6 +109,7 @@ in {
                   libtree = "libtree -v --path";
                   ll = "eza -lag --group-directories-first --git";
                   ls = "eza --group-directories-first --git";
+                  mv = "mv --interactive";
                   n = "nix run nixpkgs#";
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
