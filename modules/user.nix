@@ -95,6 +95,7 @@ in {
                 shellAbbrs = {
                   bottom = "btm --regex";
                   btm = "btm --regex";
+                  cp = "cp --interactive";
                   du = "dust";
                   e = "exit";
                   h = "hx";
