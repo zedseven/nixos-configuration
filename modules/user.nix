@@ -365,6 +365,7 @@ in {
               checkout.defaultRemote = "origin";
               commit.gpgSign = true;
               core = {
+                abbrev = 8;
                 autocrlf = "input";
                 fileMode = false;
                 editor = "nvim";
