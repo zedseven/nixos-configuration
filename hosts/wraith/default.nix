@@ -46,6 +46,26 @@
 
     desktop = {
       enable = true;
+
+      displays = {
+        fingerprints = {
+          "eDP-1" = "00ffffffffffff0006afeb3000000000251b0104a5221378020925a5564f9b270c50540000000101010101010101010101010101010152d000a0f0703e803020350058c11000001852d000a0f07095843020350025a51000001800000000000000000000000000000000000000000002001430ff123caa8f0e29aa202020003e";
+        };
+
+        config = {
+          "eDP-1" = {
+            enable = true;
+            primary = true;
+            positionX = 0;
+            positionY = 0;
+            resolutionX = 3840;
+            resolutionY = 2160;
+            rate = 60;
+            dpi = 192;
+          };
+        };
+      };
+
       displayDriver = "nvidia";
       is4k = true;
       audio.persistentSettings = {
@@ -86,25 +106,6 @@
 
     intelBusId = "PCI:0:2:0";
     nvidiaBusId = "PCI:59@0:0:0";
-  };
-
-  home-manager.users.${userInfo.username}.programs.autorandr.profiles = {
-    "home" = {
-      # The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`
-      fingerprint = {
-        "eDP-1" = "00ffffffffffff0006afeb3000000000251b0104a5221378020925a5564f9b270c50540000000101010101010101010101010101010152d000a0f0703e803020350058c11000001852d000a0f07095843020350025a51000001800000000000000000000000000000000000000000002001430ff123caa8f0e29aa202020003e";
-      };
-      config = {
-        "eDP-1" = {
-          enable = true;
-          primary = true;
-          position = "0x0";
-          mode = "3840x2160";
-          rate = "60.00";
-          dpi = 192;
-        };
-      };
-    };
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever

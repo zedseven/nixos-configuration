@@ -23,6 +23,170 @@ in {
 
   options.custom.desktop = with lib; {
     enable = mkEnableOption "customisations for desktop devices";
+    displays = {
+      fingerprints = mkOption {
+        description = ''
+          Output name to EDID mapping.
+          The easiest way to obtain the fingerprints is to run `autorandr --fingerprint`.
+        '';
+        type = types.attrsOf types.str;
+      };
+
+      config = let
+        # Mostly ripped from https://github.com/nix-community/home-manager/blob/b3d5ea65d88d67d4ec578ed11d4d2d51e3de525e/modules/programs/autorandr.nix#L50
+        configModule = types.submodule {
+          options = {
+            enable = mkOption {
+              type = types.bool;
+              description = "Whether to enable the output.";
+              default = true;
+            };
+
+            crtc = mkOption {
+              type = types.nullOr types.ints.unsigned;
+              description = "Output video display controller.";
+              default = null;
+              example = 0;
+            };
+
+            primary = mkOption {
+              type = types.bool;
+              description = "Whether output should be marked as primary.";
+              default = false;
+            };
+
+            positionX = mkOption {
+              type = types.int;
+              description = "Output position on the X-axis.";
+              example = "5760";
+            };
+
+            positionY = mkOption {
+              type = types.int;
+              description = "Output position on the Y-axis.";
+              example = "0";
+            };
+
+            resolutionX = mkOption {
+              type = types.ints.unsigned;
+              description = "Output resolution on the X-axis.";
+              example = "3840";
+            };
+
+            resolutionY = mkOption {
+              type = types.ints.unsigned;
+              description = "Output resolution on the Y-axis.";
+              example = "2160";
+            };
+
+            rate = mkOption {
+              type = types.ints.unsigned;
+              description = "Output framerate.";
+              example = "60";
+            };
+
+            gamma = mkOption {
+              type = types.str;
+              description = "Output gamma configuration.";
+              default = "";
+              example = "1.0:0.909:0.833";
+            };
+
+            rotate = mkOption {
+              type = types.nullOr (
+                types.enum [
+                  "normal"
+                  "left"
+                  "right"
+                  "inverted"
+                ]
+              );
+              description = "Output rotate configuration.";
+              default = null;
+              example = "left";
+            };
+
+            dpi = mkOption {
+              type = types.nullOr types.ints.positive;
+              description = "Output DPI configuration.";
+              default = null;
+              example = 96;
+            };
+
+            scale = mkOption {
+              type = types.nullOr (
+                types.submodule {
+                  options = {
+                    method = mkOption {
+                      type = types.enum [
+                        "factor"
+                        "pixel"
+                      ];
+                      description = "Output scaling method.";
+                      default = "factor";
+                      example = "pixel";
+                    };
+
+                    x = mkOption {
+                      type = types.either types.float types.ints.positive;
+                      description = "Horizontal scaling factor/pixels.";
+                    };
+
+                    y = mkOption {
+                      type = types.either types.float types.ints.positive;
+                      description = "Vertical scaling factor/pixels.";
+                    };
+                  };
+                }
+              );
+              description = ''
+                Output scale configuration.
+
+                Either configure by pixels or a scaling factor. When using pixel method the
+                {manpage}`xrandr(1)`
+                option
+                `--scale-from`
+                will be used; when using factor method the option
+                `--scale`
+                will be used.
+
+                This option is a shortcut version of the transform option and they are mutually
+                exclusive.
+              '';
+              default = null;
+              example = literalExpression ''
+                {
+                  x = 1.25;
+                  y = 1.25;
+                }
+              '';
+            };
+
+            filter = mkOption {
+              type = types.nullOr (
+                types.enum [
+                  "bilinear"
+                  "nearest"
+                ]
+              );
+              description = "Interpolation method to be used for scaling the output.";
+              default = null;
+              example = "nearest";
+            };
+
+            adaptiveSync = mkOption {
+              type = types.bool;
+              description = "Whether Adaptive Sync (G-Sync or FreeSync) should be enabled for the display.";
+              default = false;
+            };
+          };
+        };
+      in
+        mkOption {
+          description = "Per-output profile configuration.";
+          type = types.attrsOf configModule;
+        };
+    };
   };
 
   config = lib.mkIf cfg.enable {
@@ -169,7 +333,35 @@ in {
 
       xresources.properties = lib.mkDefault {"Xft.dpi" = 96;};
 
-      programs.autorandr.enable = true;
+      programs.autorandr = {
+        enable = true;
+
+        profiles = {
+          "home" = {
+            fingerprint = cfg.displays.fingerprints;
+
+            config =
+              builtins.mapAttrs (output: config: {
+                inherit
+                  (config)
+                  enable
+                  crtc
+                  primary
+                  gamma
+                  rotate
+                  dpi
+                  scale
+                  filter
+                  ;
+
+                position = "${(builtins.toString config.positionX)}x${(builtins.toString config.positionY)}";
+                mode = "${(builtins.toString config.resolutionX)}x${(builtins.toString config.resolutionY)}";
+                rate = "${(builtins.toString config.rate)}.00";
+              })
+              cfg.displays.config;
+          };
+        };
+      };
 
       services = {
         autorandr.enable = true;
