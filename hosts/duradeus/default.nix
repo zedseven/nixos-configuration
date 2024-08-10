@@ -121,6 +121,12 @@
     };
   };
 
+  # Enable adaptive sync
+  # TODO: Combine with the monitor configuration above
+  services.xserver.screenSection = ''
+    Option "metamodes" "DP-2: 3840x2160_240 +0+0 {AllowGSYNCCompatible=On}, DP-4: 3840x2160_240 +3840+0 {AllowGSYNCCompatible=On}"
+  '';
+
   # To allow cross-compilation for other architectures
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 
