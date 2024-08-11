@@ -341,7 +341,7 @@ in {
             fingerprint = cfg.displays.fingerprints;
 
             config =
-              builtins.mapAttrs (output: config: {
+              builtins.mapAttrs (_: config: {
                 inherit
                   (config)
                   enable
