@@ -65,8 +65,7 @@ static const char unknown_str[] = "∅";
  */
 static const struct arg args[] = {
 	/* function format          argument */
-//	{ vol_perc,     "Audio: %s%% ",   "/dev/mixer" },
-	{ run_command,  "Audio: %s%% ",   "bash -c \"amixer get Master | tail -n1 | grep -Po '\\[\\K[^%]*' | head -n1\"" },
+	{ run_command,  "Audio: %s ",     "bash -c \"pactl get-sink-volume @DEFAULT_SINK@ | grep -Po '[0-9]+%' | head -n1\"" },
 	{ cpu_perc,     "CPU: %s%% ",     "" },
 	{ temp,         "%s°C ",          "/sys/class/hwmon/hwmon3/temp1_input" },
 	{ ram_perc,     "RAM: %s%% ",     "" },
