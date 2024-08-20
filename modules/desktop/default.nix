@@ -301,6 +301,9 @@ in {
           (pkgs.writeShellScriptBin "shutdown-now" ''
             shutdown -h now
           '')
+          (pkgs.writeShellScriptBin "autorandr-change" ''
+            autorandr --change
+          '')
         ];
     };
 
