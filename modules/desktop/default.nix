@@ -195,7 +195,6 @@ in {
     services = {
       xserver = {
         enable = true;
-        libinput.enable = true;
         windowManager.dwm.enable = true;
         desktopManager.wallpaper.mode = "fill";
         dpi = lib.mkDefault 96;
@@ -207,6 +206,8 @@ in {
           EndSection
         '';
       };
+
+      libinput.enable = true;
 
       displayManager = {
         defaultSession = "none+dwm";
@@ -237,9 +238,9 @@ in {
     };
 
     hardware = {
-      opengl = {
+      graphics = {
         enable = true;
-        driSupport32Bit = true;
+        enable32Bit = true;
       };
       pulseaudio = {
         enable = true;
