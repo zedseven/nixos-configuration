@@ -239,18 +239,12 @@ in {
     hardware = {
       opengl = {
         enable = true;
-        driSupport = true;
         driSupport32Bit = true;
       };
       pulseaudio = {
         enable = true;
         support32Bit = true;
       };
-    };
-
-    sound = {
-      enable = true;
-      enableOSSEmulation = true; # Allows for `/dev/mixer`
     };
 
     programs = {
@@ -276,9 +270,7 @@ in {
     '';
 
     # To allow file sharing over HTTP via `miniserve`
-    networking.firewall = {
-      allowedTCPPorts = [8080];
-    };
+    networking.firewall.allowedTCPPorts = [8080];
 
     fonts.packages = builtins.attrValues {
       inherit (inputs.self.packages.${system}) dank-mono pragmatapro;
