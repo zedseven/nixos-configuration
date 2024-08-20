@@ -277,9 +277,7 @@ in {
             ctr = "cargo test --release";
             ctt = "cargo tree";
             cttd = "cargo tree --duplicates";
-            d = "batdiff";
             deadnix = "deadnix --hidden --fail";
-            diff = "batdiff";
             fmt = "purefmt";
             g = "git";
             ga = "git add";
@@ -298,7 +296,7 @@ in {
             gpu = "git push --set-upstream";
             gr = "git reset";
             grao = "git remote add origin";
-            gs = "batdiff && git status";
+            gs = "git diff && git status";
             gu = "git pull";
             gx = "git update-index --chmod=+x";
             gy = "git apply";
@@ -316,10 +314,7 @@ in {
 
           bat = {
             enable = true;
-            extraPackages = with pkgs.bat-extras; [
-              (batdiff.override {withDelta = true;})
-              batman
-            ];
+            extraPackages = with pkgs.bat-extras; [batman];
           };
 
           direnv = {
@@ -382,6 +377,7 @@ in {
               push.gpgSign = "if-asked";
               tag.gpgSign = true;
             };
+            delta.enable = true;
           };
 
           git-cliff.enable = true;
