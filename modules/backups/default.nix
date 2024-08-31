@@ -31,6 +31,11 @@ in {
       type = types.listOf types.str;
       default = [];
     };
+    extraExcludeEntriesAreCaseSensitive = mkOption {
+      description = "Whether the extra exclude entries are case-sensitive.";
+      type = types.bool;
+      default = true;
+    };
     setEnvironmentVariables = mkOption {
       description = mdDoc ''
         Whether to set the environment variables `RESTIC_PASSWORD_FILE` and (if `rclone` is enabled) `RCLONE_CONFIG` so
@@ -85,10 +90,12 @@ in {
   config = lib.mkIf cfg.enable (
     let
       repository = (lib.optionalString cfg.rclone.enable "rclone:") + cfg.repository;
-      excludeFile = pkgs.writeText "exclude.txt" ''
-        ${builtins.readFile ./exclude.global.txt}
-        ${lib.concatLines cfg.extraExcludeEntries}
-      '';
+      excludeFileGlobal = ./exclude.global.txt;
+      excludeFileExtra = pkgs.writeText "exclude.txt" (lib.concatLines cfg.extraExcludeEntries);
+      extraExcludeCommandOption =
+        if cfg.extraExcludeEntriesAreCaseSensitive
+        then "exclude-file"
+        else "iexclude-file";
       backupSpecs =
         lib.concatMapStrings (
           backupPath: let
@@ -111,7 +118,8 @@ in {
       runBackup = pkgs.writeShellScriptBin "run-backup" ''
         # Constants
         TREES_DIR="$(mktemp -d)"
-        RESTIC_EXCLUDE_FILE="${excludeFile}"
+        RESTIC_EXCLUDE_FILE_GLOBAL="${excludeFileGlobal}"
+        RESTIC_EXCLUDE_FILE_EXTRA="${excludeFileExtra}"
         RESTIC_HOSTNAME="${hostname}"
 
         # Environment Variables
@@ -154,7 +162,7 @@ in {
         BACKUP_DIRS+=("$TREES_DIR")
 
         # Backup the directories
-        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
+        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE_GLOBAL" --${extraExcludeCommandOption}="$RESTIC_EXCLUDE_FILE_EXTRA" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
 
         # Delete the temporary tree file directory
         rm -rf "$TREES_DIR"
