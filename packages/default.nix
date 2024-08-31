@@ -16,6 +16,7 @@
         alejandra = callPackage ./alejandra {};
         lavalink = callPackage ./lavalink.nix {};
         minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
+        ndsplus = callPackage ./ndsplus.nix {};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         qemu-guest = callPackage ./qemu-guest.nix {};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
