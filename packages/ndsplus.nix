@@ -1,4 +1,4 @@
-# Third-party Linux software for the product: http://www.hkems.com/product/nintendo/0907.htm
+# Third-party Linux software for the EMS NDS Adapter+: http://www.hkems.com/product/nintendo/0907.htm
 {
   lib,
   stdenv,
@@ -22,7 +22,7 @@ stdenv.mkDerivation {
 
   installPhase = ''
     mkdir -p $out/bin
-    cp ./ndsplus $out/bin/ndsplus
+    cp ./ndsplus $out/bin/
   '';
 
   meta = {
