@@ -126,16 +126,14 @@ in {
         export RESTIC_REPOSITORY="${repository}"
         export RESTIC_COMPRESSION="max"
         export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
-        ${
-          lib.optionalString cfg.rclone.enable (
-            lib.optionalString (cfg.rclone.configPath != null) ''
-              export RCLONE_CONFIG="${cfg.rclone.configPath}"
-            ''
-          )
+        ${lib.optionalString cfg.rclone.enable (
+          (lib.optionalString (cfg.rclone.configPath != null) ''
+            export RCLONE_CONFIG="${cfg.rclone.configPath}"
+          '')
           + ''
             PATH="${cfg.rclone.package}/bin''${PATH:+:''${PATH}}"
           ''
-        }
+        )}
 
         # Directories to Backup
         declare -a BACKUP_SPECS=(
