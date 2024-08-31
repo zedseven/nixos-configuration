@@ -80,6 +80,31 @@
       fsType = "zfs";
       neededForBoot = true; # Required because this is where the secret decryption key is stored
     };
+
+    # Old Windows Drives
+    "/windows/f" = {
+      device = "/dev/disk/by-uuid/14C8BCDDC8BCBDF4";
+      fsType = "ntfs";
+      options = ["ro"];
+    };
+
+    "/windows/g" = {
+      device = "/dev/disk/by-uuid/FA16C3F616C3B245";
+      fsType = "ntfs";
+      options = ["ro"];
+    };
+
+    "/windows/y" = {
+      device = "/dev/disk/by-uuid/804C9CD74C9CC974";
+      fsType = "ntfs";
+      options = ["ro"];
+    };
+
+    "/windows/z" = {
+      device = "/dev/disk/by-uuid/FEFAC026FABFD95B";
+      fsType = "ntfs";
+      options = ["ro"];
+    };
   };
 
   swapDevices = [{device = "/dev/disk/by-uuid/2db9cbb4-6936-4788-8a35-8936c5b8d688";}];
