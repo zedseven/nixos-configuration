@@ -37,6 +37,7 @@ in {
     darlings.persist.paths = [
       "/etc/machine-id"
       "/etc/ssh"
+      "/root/.cache/restic"
       "/var/log"
       minecraftDir
     ];

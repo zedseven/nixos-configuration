@@ -39,6 +39,7 @@
       "/etc/machine-id"
       "/etc/mullvad-vpn"
       "/etc/ssh"
+      "/root/.cache/restic"
       "/var/log"
     ];
 

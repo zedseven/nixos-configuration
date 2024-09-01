@@ -34,6 +34,7 @@
     darlings.persist.paths = [
       "/etc/machine-id"
       "/etc/ssh"
+      "/root/.cache/restic"
       "/var/lib/acme"
       "/var/log"
     ];
