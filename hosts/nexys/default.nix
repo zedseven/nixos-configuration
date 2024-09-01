@@ -32,15 +32,12 @@ in {
       scheduled.onCalendar = "*-*-* 01:30:00";
     };
 
-    darlings = {
-      enable = true;
-      persist.paths = [
-        "/etc/machine-id"
-        "/etc/ssh"
-        "/var/log"
-        forgejoDir
-      ];
-    };
+    darlings.persist.paths = [
+      "/etc/machine-id"
+      "/etc/ssh"
+      "/var/log"
+      forgejoDir
+    ];
 
     grub.enable = true;
     wireguard.enable = true;

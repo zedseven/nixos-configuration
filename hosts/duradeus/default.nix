@@ -103,16 +103,13 @@
       setEnvironmentVariables = true;
     };
 
-    darlings = {
-      enable = true;
-      persist.paths = [
-        "/etc/machine-id"
-        "/etc/mullvad-vpn"
-        "/etc/ssh"
-        "/var/lib/bluetooth"
-        "/var/log"
-      ];
-    };
+    darlings.persist.paths = [
+      "/etc/machine-id"
+      "/etc/mullvad-vpn"
+      "/etc/ssh"
+      "/var/lib/bluetooth"
+      "/var/log"
+    ];
 
     desktop = {
       enable = true;

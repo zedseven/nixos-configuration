@@ -31,15 +31,12 @@
       scheduled.onCalendar = "*-*-* 01:00:00";
     };
 
-    darlings = {
-      enable = true;
-      persist.paths = [
-        "/etc/machine-id"
-        "/etc/ssh"
-        "/var/lib/acme"
-        "/var/log"
-      ];
-    };
+    darlings.persist.paths = [
+      "/etc/machine-id"
+      "/etc/ssh"
+      "/var/lib/acme"
+      "/var/log"
+    ];
 
     grub.enable = true;
     wireguard.enable = true;

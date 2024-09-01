@@ -34,15 +34,12 @@ in {
       scheduled.onCalendar = "*-*-* 02:00:00";
     };
 
-    darlings = {
-      enable = true;
-      persist.paths = [
-        "/etc/machine-id"
-        "/etc/ssh"
-        "/var/log"
-        minecraftDir
-      ];
-    };
+    darlings.persist.paths = [
+      "/etc/machine-id"
+      "/etc/ssh"
+      "/var/log"
+      minecraftDir
+    ];
 
     grub = {
       enable = true;
