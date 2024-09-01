@@ -49,26 +49,23 @@ in {
     };
   };
 
-  config = lib.mkIf cfg.enable (
-    lib.mkMerge [
-      {
-        boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;
-
-        custom.symlinks = builtins.listToAttrs (
-          map (path: {
-            name = path;
-            value = {
-              source = cfg.persist.mirrorRoot + path;
-            };
-          })
-          cfg.persist.paths
-        );
-      }
-      (lib.mkIf cfg.persist.ageIdentityPaths.enable {
-        # Required because on boot, the root partition is wiped and the symlinks seem to be set up after `agenix` runs
-        # This is merged with the default values that `agenix` provides
-        age.identityPaths = lib.mkOptionDefault cfg.persist.ageIdentityPaths.identityPaths;
-      })
-    ]
-  );
+  config = lib.mkMerge [
+    {
+      custom.symlinks = builtins.listToAttrs (
+        map (path: {
+          name = path;
+          value = {
+            source = cfg.persist.mirrorRoot + path;
+          };
+        })
+        cfg.persist.paths
+      );
+    }
+    (lib.mkIf cfg.enable {boot.initrd.postDeviceCommands = lib.mkAfter cfg.wipeCommand;})
+    (lib.mkIf cfg.persist.ageIdentityPaths.enable {
+      # Required because on boot, the root partition is wiped and the symlinks seem to be set up after `agenix` runs
+      # This is merged with the default values that `agenix` provides
+      age.identityPaths = lib.mkOptionDefault cfg.persist.ageIdentityPaths.identityPaths;
+    })
+  ];
 }
