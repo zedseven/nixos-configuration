@@ -33,8 +33,13 @@
 
   fileSystems = {
     "/" = {
-      device = "rpool/local/root";
-      fsType = "zfs";
+      device = "none";
+      fsType = "tmpfs";
+      options = [
+        "defaults"
+        "size=2G"
+        "mode=755"
+      ];
     };
 
     "/boot" = {
