@@ -41,6 +41,7 @@
         "/etc/machine-id"
         "/etc/mullvad-vpn"
         "/etc/ssh"
+        "/var/log"
       ];
     };
 

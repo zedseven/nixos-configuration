@@ -39,6 +39,7 @@ in {
       persist.paths = [
         "/etc/machine-id"
         "/etc/ssh"
+        "/var/log"
         minecraftDir
       ];
     };

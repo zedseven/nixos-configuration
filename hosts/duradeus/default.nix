@@ -110,6 +110,7 @@
         "/etc/mullvad-vpn"
         "/etc/ssh"
         "/var/lib/bluetooth"
+        "/var/log"
       ];
     };
 

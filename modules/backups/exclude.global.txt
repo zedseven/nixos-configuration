@@ -29,3 +29,7 @@
 
 # Windows Recycle Bin
 **/$RECYCLE.BIN/
+
+# Log files
+/persist/var/log
+/var/log

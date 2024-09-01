@@ -37,6 +37,7 @@
         "/etc/machine-id"
         "/etc/ssh"
         "/var/lib/acme"
+        "/var/log"
       ];
     };
 
