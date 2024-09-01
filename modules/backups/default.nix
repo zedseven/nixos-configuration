@@ -150,7 +150,7 @@ in {
           TREE_FILE="''${SPLIT[1]}"
 
           # Generate the tree file to archive the list of all files and their locations
-          ${pkgs.tree}/bin/tree --dirsfirst -F -a "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
+          ${pkgs.eza}/bin/eza --tree --all --group-directories-first --classify=always --colour=never "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
 
           # Append the directory to the arguments list
           BACKUP_DIRS+=("$BACKUP_DIR")

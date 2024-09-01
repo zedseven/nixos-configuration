@@ -65,7 +65,6 @@ in {
             procs
             ripgrep
             sd
-            tree
           ];
           inherit (cfg) hashedPasswordFile;
           shell = pkgs.fish;
