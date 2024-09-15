@@ -23,7 +23,7 @@
         "/persist"
 
         # Old Windows Drives
-        "/windows"
+        "/old/windows"
       ];
       extraExcludeEntries =
         [
@@ -34,64 +34,64 @@
         # Old Windows Directories
         [
           # Game installs
-          "/windows/c/Program Files (x86)/Steam/steamapps/common/"
-          "/windows/f/SteamLibrary/"
-          "/windows/f/SteamGameExtraData/"
-          "/windows/f/UPlayLibrary/"
-          "/windows/f/Twitch/Games Library/"
+          "/old/windows/c/Program Files (x86)/Steam/steamapps/common/"
+          "/old/windows/f/SteamLibrary/"
+          "/old/windows/f/SteamGameExtraData/"
+          "/old/windows/f/UPlayLibrary/"
+          "/old/windows/f/Twitch/Games Library/"
 
           # mod.io
           "**/mod.io/"
 
           # Windows stuff
-          "/windows/c/Windows/"
-          "/windows/c/*.sys"
-          "/windows/f/Windows.old/"
+          "/old/windows/c/Windows/"
+          "/old/windows/c/*.sys"
+          "/old/windows/f/Windows.old/"
 
           # Program installs
-          "/windows/c/ProgramData/"
-          "/windows/c/Program Files (x86)/"
-          "/windows/c/Program Files/"
-          "/windows/f/WindowsApps/"
+          "/old/windows/c/ProgramData/"
+          "/old/windows/c/Program Files (x86)/"
+          "/old/windows/c/Program Files/"
+          "/old/windows/f/WindowsApps/"
 
           # vcpkg
-          "/windows/c/vcpkg/"
+          "/old/windows/c/vcpkg/"
 
           # Compilation artifacts
-          "/windows/f/Android/**/build/"
+          "/old/windows/f/Android/**/build/"
 
           # Rust toolchains
-          "/windows/c/Users/Zacc/.rustup/toolchains/"
+          "/old/windows/c/Users/Zacc/.rustup/toolchains/"
 
           # Torrents
-          "/windows/z/Torrents/Complete/"
+          "/old/windows/z/Torrents/Complete/"
 
           # Backblaze working backup directory
           "**/bzbackup/"
 
           # Large directories within AppData
-          "/windows/c/Users/Zacc/AppData/Local/JetBrains/"
-          "/windows/c/Users/Zacc/AppData/Local/Spotify/"
-          "/windows/c/Users/Zacc/AppData/Local/Programs/"
-          "/windows/c/Users/Zacc/AppData/Roaming/Thunderbird/"
-          "/windows/c/Users/Zacc/AppData/Roaming/Adobe/"
+          "/old/windows/c/Users/Zacc/AppData/Local/JetBrains/"
+          "/old/windows/c/Users/Zacc/AppData/Local/Spotify/"
+          "/old/windows/c/Users/Zacc/AppData/Local/Programs/"
+          "/old/windows/c/Users/Zacc/AppData/Roaming/Thunderbird/"
+          "/old/windows/c/Users/Zacc/AppData/Roaming/Adobe/"
 
           # Various toolchain installs
-          "/windows/c/Users/Zacc/.debug/"
-          "/windows/c/Users/Zacc/.cargo/"
-          "/windows/c/Users/Zacc/.rustup/"
-          "/windows/c/Users/Zacc/.p2/"
-          "/windows/c/Users/Zacc/.gradle/"
-          "/windows/c/Users/Zacc/.jdks/"
-          "/windows/c/Users/Zacc/.local/share/"
-          "/windows/c/Users/Zacc/.nuget/packages/"
-          "/windows/c/Users/Zacc/AppData/Local/Android/Sdk/"
+          "/old/windows/c/Users/Zacc/.debug/"
+          "/old/windows/c/Users/Zacc/.cargo/"
+          "/old/windows/c/Users/Zacc/.rustup/"
+          "/old/windows/c/Users/Zacc/.p2/"
+          "/old/windows/c/Users/Zacc/.gradle/"
+          "/old/windows/c/Users/Zacc/.jdks/"
+          "/old/windows/c/Users/Zacc/.local/share/"
+          "/old/windows/c/Users/Zacc/.nuget/packages/"
+          "/old/windows/c/Users/Zacc/AppData/Local/Android/Sdk/"
 
           # Ableton factory packs
-          "/windows/f/Documents/Documents5/Ableton/Factory Packs"
+          "/old/windows/f/Documents/Documents5/Ableton/Factory Packs"
 
           # Wasteful encrypted backup
-          "/windows/g/General Backups/Sunshine.7z"
+          "/old/windows/g/General Backups/Sunshine.7z"
         ];
       extraExcludeEntriesAreCaseSensitive = false;
       passwordFile = config.age.secrets."restic-repository-password".path;

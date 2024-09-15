@@ -81,8 +81,8 @@
       neededForBoot = true; # Required because this is where the secret decryption key is stored
     };
 
-    # Old Windows Drives
-    "/windows/f" = {
+    # Old Drives
+    "/old/windows/f" = {
       device = "/dev/disk/by-uuid/14C8BCDDC8BCBDF4";
       fsType = "ntfs";
       options = [
@@ -91,7 +91,7 @@
       ];
     };
 
-    "/windows/g" = {
+    "/old/windows/g" = {
       device = "/dev/disk/by-uuid/FA16C3F616C3B245";
       fsType = "ntfs";
       options = [
@@ -100,7 +100,7 @@
       ];
     };
 
-    "/windows/y" = {
+    "/old/windows/y" = {
       device = "/dev/disk/by-uuid/804C9CD74C9CC974";
       fsType = "ntfs";
       options = [
@@ -109,7 +109,7 @@
       ];
     };
 
-    "/windows/z" = {
+    "/old/windows/z" = {
       device = "/dev/disk/by-uuid/FEFAC026FABFD95B";
       fsType = "ntfs";
       options = [
