@@ -82,6 +82,15 @@
     };
 
     # Old Drives
+    "/old/linux/main" = {
+      device = "/dev/disk/by-uuid/027fff2c-391e-42c0-96b9-7c2c92374fa9";
+      fsType = "ext4";
+      options = [
+        "nofail"
+        "ro"
+      ];
+    };
+
     "/old/windows/f" = {
       device = "/dev/disk/by-uuid/14C8BCDDC8BCBDF4";
       fsType = "ntfs";
