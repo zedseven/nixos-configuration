@@ -85,25 +85,37 @@
     "/windows/f" = {
       device = "/dev/disk/by-uuid/14C8BCDDC8BCBDF4";
       fsType = "ntfs";
-      options = ["ro"];
+      options = [
+        "nofail"
+        "ro"
+      ];
     };
 
     "/windows/g" = {
       device = "/dev/disk/by-uuid/FA16C3F616C3B245";
       fsType = "ntfs";
-      options = ["ro"];
+      options = [
+        "nofail"
+        "ro"
+      ];
     };
 
     "/windows/y" = {
       device = "/dev/disk/by-uuid/804C9CD74C9CC974";
       fsType = "ntfs";
-      options = ["ro"];
+      options = [
+        "nofail"
+        "ro"
+      ];
     };
 
     "/windows/z" = {
       device = "/dev/disk/by-uuid/FEFAC026FABFD95B";
       fsType = "ntfs";
-      options = ["ro"];
+      options = [
+        "nofail"
+        "ro"
+      ];
     };
   };
 
