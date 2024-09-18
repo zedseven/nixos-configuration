@@ -91,6 +91,15 @@
       ];
     };
 
+    "/old/windows/c" = {
+      device = "/dev/disk/by-uuid/DE08254D0825264D";
+      fsType = "ntfs";
+      options = [
+        "nofail"
+        "ro"
+      ];
+    };
+
     "/old/windows/f" = {
       device = "/dev/disk/by-uuid/14C8BCDDC8BCBDF4";
       fsType = "ntfs";
