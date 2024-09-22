@@ -289,7 +289,21 @@ in {
           firefox-devedition
           jetbrains.clion
           jetbrains.rust-rover
-          keepass
+          (keepass.override {
+            plugins =
+              [
+                keepass-keepassrpc
+                keepass-keetraytotp
+              ]
+              ++ (builtins.attrValues {
+                inherit
+                  (inputs.self.legacyPackages.${system}.keepassPlugins)
+                  keetheme
+                  patternpass
+                  yet-another-favicon-downloader
+                  ;
+              });
+          })
           maim
           miniserve
           mpv

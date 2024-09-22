@@ -19,6 +19,12 @@
   in {
     name = system;
     value = {
+      keepassPlugins = includePackages ./keepass-plugins [
+        "app-id-linker"
+        "keetheme"
+        "patternpass"
+        "yet-another-favicon-downloader"
+      ];
       lavalinkPlugins = includePackages ./lavalink-plugins [
         "dunctebot"
         "lavasrc"
