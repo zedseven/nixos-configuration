@@ -27,7 +27,9 @@
       # Re-export packages from other flakes
       // {
         inherit (inputs.private.packages.${system}) dank-mono pragmatapro;
+
         breeze = inputs.breeze.packages.${system}.default;
+        radium = inputs.radium.packages.${system}.default;
       };
   };
 in

@@ -285,6 +285,36 @@
         "type": "github"
       }
     },
+    "radium": {
+      "inputs": {
+        "crane": [
+          "crane"
+        ],
+        "flake-parts": [
+          "flake-parts"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ],
+        "rust-overlay": [
+          "rust-overlay"
+        ]
+      },
+      "locked": {
+        "lastModified": 1727055405,
+        "narHash": "sha256-n/7pwOgq0UWgI0xCpIGBOOb6/KyvwuWvV5sqU604cfg=",
+        "owner": "zedseven",
+        "repo": "radium",
+        "rev": "1f86101e98e275a477b5fd053482791c70242497",
+        "type": "github"
+      },
+      "original": {
+        "owner": "zedseven",
+        "ref": "dev",
+        "repo": "radium",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -300,6 +330,7 @@
         "nixpkgs": "nixpkgs",
         "private": "private",
         "programs-db": "programs-db",
+        "radium": "radium",
         "rust-overlay": "rust-overlay",
         "systems": "systems",
         "website-ztdp": "website-ztdp"

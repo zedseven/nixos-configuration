@@ -52,6 +52,15 @@
         rust-overlay.follows = "rust-overlay";
       };
     };
+    radium = {
+      url = "github:zedseven/radium?ref=dev";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-parts.follows = "flake-parts";
+        crane.follows = "crane";
+        rust-overlay.follows = "rust-overlay";
+      };
+    };
 
     # Add the flakes to the registry with: `nix registry add flake:<NAME> git+file:///path/to/local/repo`
     private = {
