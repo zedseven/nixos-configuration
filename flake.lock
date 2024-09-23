@@ -32,6 +32,9 @@
         "crane": [
           "crane"
         ],
+        "flake-parts": [
+          "flake-parts"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ],
@@ -40,11 +43,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1713045847,
-        "narHash": "sha256-PZXBFDCawEnIIlSq4QMv8UoqvCF/9TOgbaun/Iaqz38=",
+        "lastModified": 1727055948,
+        "narHash": "sha256-RQlu5deL4txsqewojOOkO5gHPTyUHvD6CYLC/frYXx4=",
         "owner": "zedseven",
         "repo": "breeze",
-        "rev": "fd73411d7b4041b898810714129d0e1a2f494223",
+        "rev": "a0d37019d52f8d2dd3a74535f1a486ae901cad94",
         "type": "github"
       },
       "original": {
@@ -111,6 +114,26 @@
       "original": {
         "owner": "edolstra",
         "repo": "flake-compat",
+        "type": "github"
+      }
+    },
+    "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1726153070,
+        "narHash": "sha256-HO4zgY0ekfwO5bX0QH/3kJ/h4KvUDFZg8YpkNwIbg1U=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "bcef6817a8b2aa20a5a6dbb19b43e63c5bf8619a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
         "type": "github"
       }
     },
@@ -269,6 +292,7 @@
         "crane": "crane",
         "deploy-rs": "deploy-rs",
         "flake-compat": "flake-compat",
+        "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "nh": "nh",
