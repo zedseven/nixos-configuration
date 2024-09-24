@@ -6,7 +6,9 @@
   userInfo,
   system,
   ...
-}: {
+}: let
+  radiumWorkingDirectory = "/var/run/radium";
+in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
@@ -37,11 +39,70 @@
       "/root/.cache/restic"
       "/var/lib/acme"
       "/var/log"
+      radiumWorkingDirectory
     ];
+
+    symlinks."${radiumWorkingDirectory}/.env".source = config.age.secrets."radium.env".path;
 
     grub.enable = true;
     wireguard.enable = true;
     zfs.enable = true;
+
+    lavalink = {
+      enable = true;
+      password = inputs.private.unencryptedValues.passwords.lavalink;
+      plugins = with inputs.self.legacyPackages.${system}.lavalinkPlugins; [
+        dunctebot
+        lavasrc
+        youtube-source
+      ];
+      extraConfig = {
+        lavalink.server.sources.youtube = false; # Because `youtube-source` is used instead
+        plugins = {
+          youtube = {
+            enabled = true;
+            allowSearch = true;
+            allowDirectVideoIds = true;
+            allowDirectPlaylistIds = true;
+            clients = [
+              "MUSIC"
+              "ANDROID_TESTSUITE"
+              "WEB"
+              "TVHTML5EMBEDDED"
+            ];
+          };
+          lavasrc = {
+            providers = [
+              "ytsearch:\"%ISRC%\"" # Will be ignored if track does not have an ISRC. See https://en.wikipedia.org/wiki/International_Standard_Recording_Code
+              "ytsearch:%QUERY%" # Will be used if track has no ISRC or no track could be found for the ISRC
+              #"scsearch:%QUERY%" # you can add multiple other fallback sources here
+            ];
+            sources = {
+              spotify = true; # Enable Spotify source
+              applemusic = false; # Enable Apple Music source
+            };
+            spotify = {
+              inherit (inputs.private.unencryptedValues.passwords.spotify) clientId clientSecret;
+
+              countryCode = "CA"; # the country code you want to use for filtering the artists top tracks. See https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+            };
+          };
+          dunctebot = {
+            ttsLanguage = "en-CA"; # language of the TTS engine
+            sources = {
+              # true = source enabled, false = source disabled
+              getyarn = true; # www.getyarn.io
+              clypit = true; # www.clyp.it
+              tts = true; # speak:Words to speak
+              reddit = true; # should be self-explanatory
+              ocremix = true; # www.ocremix.org
+              tiktok = true; # tiktok.com
+              mixcloud = true; # mixcloud.com
+            };
+          };
+        };
+      };
+    };
   };
 
   networking = let
@@ -86,6 +147,33 @@
   security.acme = {
     acceptTerms = true;
     defaults.email = userInfo.email;
+  };
+
+  systemd.services."radium" = {
+    enable = true;
+    description = "Radium";
+    after = [
+      "network.target"
+      "lavalink.service"
+    ];
+    wants = ["lavalink.service"];
+    serviceConfig = {
+      ExecStart = "${inputs.self.packages.${system}.radium}/bin/radium";
+      WorkingDirectory = radiumWorkingDirectory;
+      Restart = "on-failure";
+      RestartSec = "5s";
+      User = "radium";
+      Group = "radium";
+    };
+    wantedBy = ["multi-user.target"];
+  };
+
+  users = {
+    users.radium = {
+      isSystemUser = true;
+      group = "radium";
+    };
+    groups.radium = {};
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever

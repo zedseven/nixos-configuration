@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lavasrc";
-  version = "4.0.1";
+  version = "4.2.0";
 
   src = fetchurl {
     url = "https://github.com/topi314/LavaSrc/releases/download/${finalAttrs.version}/lavasrc-plugin-${finalAttrs.version}.jar";
-    hash = "sha256-JpUEpLGrRkC5ODgx57xCO4vyeILFkpKtnYTmvcSs84o=";
+    hash = "sha256-NoyRphbDPWLnu7LO90NMqECUnm3/h/kiQHnQNZiMofU=";
   };
 
   buildCommand = ''

@@ -28,6 +28,7 @@
       lavalinkPlugins = includePackages ./lavalink-plugins [
         "dunctebot"
         "lavasrc"
+        "youtube-source"
       ];
       minecraftFabricMods = includePackages ./minecraft-fabric-mods [
         "appleskin"

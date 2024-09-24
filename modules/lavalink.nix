@@ -69,7 +69,7 @@ in {
       # - https://lavalink.dev/configuration/#example-applicationyml
       # - https://github.com/lavalink-devs/Lavalink/blob/ae3deb1ad61ea31f040ddaa4a283a38c298f326f/LavalinkServer/application.yml.example
       configurationContents = lib.generators.toYAML {} (
-        {
+        lib.recursiveUpdate {
           server = {
             inherit (cfg) address port;
           };
@@ -78,7 +78,7 @@ in {
           };
           logging.file.path = cfg.logDirectory;
         }
-        // cfg.extraConfig
+        cfg.extraConfig
       );
       configurationFile = let
         fileName = "application.yml";
@@ -116,17 +116,18 @@ in {
         wantedBy = ["multi-user.target"];
       };
 
-      users.users = lib.attrsets.optionalAttrs (cfg.user == defaultIdentity) {
-        ${defaultIdentity} = {
-          inherit (cfg) group;
-          #uid = config.ids.uids.${defaultIdentity};
-          isSystemUser = true;
+      users = {
+        users = lib.attrsets.optionalAttrs (cfg.user == defaultIdentity) {
+          ${defaultIdentity} = {
+            inherit (cfg) group;
+            #uid = config.ids.uids.${defaultIdentity};
+            isSystemUser = true;
+          };
         };
-      };
-
-      users.groups = lib.attrsets.optionalAttrs (cfg.group == defaultIdentity) {
-        ${defaultIdentity} = {
-          #gid = config.ids.gids.${defaultIdentity};
+        groups = lib.attrsets.optionalAttrs (cfg.group == defaultIdentity) {
+          ${defaultIdentity} = {
+            #gid = config.ids.gids.${defaultIdentity};
+          };
         };
       };
     }

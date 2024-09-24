@@ -8,11 +8,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lavalink";
-  version = "4.0.3";
+  version = "4.0.7";
 
   src = fetchurl {
     url = "https://github.com/lavalink-devs/Lavalink/releases/download/${finalAttrs.version}/Lavalink.jar";
-    hash = "sha256-wdL1mKr+cC5k3Yw69Xz2C7yGQUQvlAjEhkfnl4fkIRE=";
+    hash = "sha256-HX9gxAM0hRaujulgjK8+8CvOjZSMCeuNAst59MPn1ZM=";
   };
 
   nativeBuildInputs = [makeWrapper];
