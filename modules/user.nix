@@ -217,6 +217,7 @@ in {
             nixpkgs-fmt
             nmap
             openssh
+            p7zip
             plantuml
             rclone
             restic
