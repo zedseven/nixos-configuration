@@ -21,79 +21,11 @@
       backupPaths = [
         "/home"
         "/persist"
-
-        # Old Windows Drives
-        "/old/windows"
       ];
-      extraExcludeEntries =
-        [
-          "/home/${userInfo.username}/torrents/artifacts/"
-          "/home/${userInfo.username}/git/nixpkgs"
-        ]
-        ++
-        # Old Windows Directories
-        [
-          # Game installs
-          "/old/windows/c/Program Files (x86)/Steam/steamapps/common/"
-          "/old/windows/f/SteamLibrary/"
-          "/old/windows/f/SteamGameExtraData/"
-          "/old/windows/f/UPlayLibrary/"
-          "/old/windows/f/Twitch/Games Library/"
-
-          # mod.io
-          "**/mod.io/"
-
-          # Windows stuff
-          "/old/windows/c/Windows/"
-          "/old/windows/c/*.sys"
-          "/old/windows/f/Windows.old/"
-
-          # Program installs
-          "/old/windows/c/ProgramData/"
-          "/old/windows/c/Program Files (x86)/"
-          "/old/windows/c/Program Files/"
-          "/old/windows/f/WindowsApps/"
-
-          # vcpkg
-          "/old/windows/c/vcpkg/"
-
-          # Compilation artifacts
-          "/old/windows/f/Android/**/build/"
-
-          # Rust toolchains
-          "/old/windows/c/Users/Zacc/.rustup/toolchains/"
-
-          # Torrents
-          "/old/windows/z/Torrents/Complete/"
-
-          # Backblaze working backup directory
-          "**/bzbackup/"
-
-          # Large directories within AppData
-          "/old/windows/c/Users/Zacc/AppData/Local/JetBrains/"
-          "/old/windows/c/Users/Zacc/AppData/Local/Spotify/"
-          "/old/windows/c/Users/Zacc/AppData/Local/Programs/"
-          "/old/windows/c/Users/Zacc/AppData/Roaming/Thunderbird/"
-          "/old/windows/c/Users/Zacc/AppData/Roaming/Adobe/"
-
-          # Various toolchain installs
-          "/old/windows/c/Users/Zacc/.debug/"
-          "/old/windows/c/Users/Zacc/.cargo/"
-          "/old/windows/c/Users/Zacc/.rustup/"
-          "/old/windows/c/Users/Zacc/.p2/"
-          "/old/windows/c/Users/Zacc/.gradle/"
-          "/old/windows/c/Users/Zacc/.jdks/"
-          "/old/windows/c/Users/Zacc/.local/share/"
-          "/old/windows/c/Users/Zacc/.nuget/packages/"
-          "/old/windows/c/Users/Zacc/AppData/Local/Android/Sdk/"
-
-          # Ableton factory packs
-          "/old/windows/f/Documents/Documents5/Ableton/Factory Packs"
-
-          # Wasteful encrypted backup
-          "/old/windows/g/General Backups/Sunshine.7z"
-        ];
-      extraExcludeEntriesAreCaseSensitive = false;
+      extraExcludeEntries = [
+        "/home/${userInfo.username}/torrents/artifacts/"
+        "/home/${userInfo.username}/git/nixpkgs"
+      ];
       passwordFile = config.age.secrets."restic-repository-password".path;
       rclone = {
         enable = true;
