@@ -96,6 +96,7 @@
           wrapSteam = true;
         };
         minecraft.enable = true;
+        ndsplus.enable = true;
       };
       stenography.enable = true;
     };

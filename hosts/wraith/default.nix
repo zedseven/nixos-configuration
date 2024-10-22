@@ -75,6 +75,7 @@
         enable = true;
         wrapDiscord = true;
       };
+      games.ndsplus.enable = true;
     };
 
     symlinks = {

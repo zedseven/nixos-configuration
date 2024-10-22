@@ -1,6 +1,7 @@
 {...}: {
   imports = [
-    ./steam.nix
     ./minecraft.nix
+    ./ndsplus.nix
+    ./steam.nix
   ];
 }
