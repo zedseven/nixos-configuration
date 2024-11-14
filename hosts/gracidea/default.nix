@@ -88,6 +88,7 @@ in {
         mods = builtins.attrValues {
           inherit
             (inputs.self.legacyPackages.${system}.minecraftFabricMods)
+            aether
             appleskin
             c2me
             carpet
@@ -100,6 +101,7 @@ in {
             memory-leak-fix
             mixin-trace
             noisium
+            owo-lib
             ;
         };
       };

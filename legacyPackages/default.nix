@@ -31,6 +31,7 @@
         "youtube-source"
       ];
       minecraftFabricMods = includePackages ./minecraft-fabric-mods [
+        "aether"
         "appleskin"
         "c2me"
         "carpet"
@@ -45,6 +46,7 @@
         "memory-leak-fix"
         "mixin-trace"
         "noisium"
+        "owo-lib"
         "stitched-snow"
       ];
     };
