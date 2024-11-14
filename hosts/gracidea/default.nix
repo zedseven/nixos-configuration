@@ -92,17 +92,14 @@ in {
             c2me
             carpet
             carpet-extra
-            carpet-fixes
             clumps
             fabric-api
             ferrite-core
             krypton
-            let-me-despawn
             lithium
             memory-leak-fix
             mixin-trace
             noisium
-            stitched-snow
             ;
         };
       };

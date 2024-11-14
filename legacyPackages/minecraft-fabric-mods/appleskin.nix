@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "appleskin";
-  version = "2.5.1+1.20.3";
+  version = "3.0.6+1.21";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/EsAfCjCV/versions/pmFyu3Sz/appleskin-fabric-mc1.20.3-2.5.1.jar";
-    hash = "sha256-5N7wQUHhbiG91NOSGY7bf4ZbawmafS1ykq0FScbIZks=";
+    url = "https://cdn.modrinth.com/data/EsAfCjCV/versions/b5ZiCjAr/appleskin-fabric-mc1.21-3.0.6.jar";
+    hash = "sha256-mhnOwSlLG8cIOSoI5pJty4XXN47FrZCaS2/Li8O/6qI=";
   };
 
   buildCommand = ''

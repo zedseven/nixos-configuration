@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "carpet";
-  version = "1.4.128";
+  version = "1.4.147";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/TQTTVgYE/versions/yYzR60Xd/fabric-carpet-1.20.3-1.4.128+v231205.jar";
-    hash = "sha256-2OXPIYSEj9eNSC8jVU7YFNsglKzTf6ti2M5zedO6Aso=";
+    url = "https://cdn.modrinth.com/data/TQTTVgYE/versions/f2mvlGrg/fabric-carpet-1.21-1.4.147%2Bv240613.jar";
+    hash = "sha256-B5/IpOBz6ySwEP/MWI5Z+TuYQUPhfY7xn7sLav8PGdk=";
   };
 
   buildCommand = ''

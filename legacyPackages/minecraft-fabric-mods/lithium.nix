@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "lithium";
-  version = "0.12.1+1.20.4";
+  version = "0.13.1+1.21.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/nMhjKWVE/lithium-fabric-mc1.20.4-0.12.1.jar";
-    hash = "sha256-as1JWV7mnhJkz8eYmPVpRS5BvWaYVGf8s40oBBka880=";
+    url = "https://cdn.modrinth.com/data/gvQqBUqZ/versions/9x0igjLz/lithium-fabric-mc1.21.1-0.13.1.jar";
+    hash = "sha256-H0OFqO4sBORv2s36P3UdF/U9H0wjMviJQjCObcK2lPY=";
   };
 
   buildCommand = ''

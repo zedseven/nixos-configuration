@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "carpet-extra";
-  version = "1.4.128";
+  version = "1.4.148";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/VX3TgwQh/versions/APnGg1O6/carpet-extra-1.20.3-1.4.128.jar";
-    hash = "sha256-3VyUCdt+OkFkqNPQTEaNyt/kX86W9glibsWD7FWpvD8=";
+    url = "https://cdn.modrinth.com/data/VX3TgwQh/versions/8gEVsK18/carpet-extra-1.21-1.4.148.jar";
+    hash = "sha256-2EJfekuE+8hX30hhhD/1EfvxwcRFL+m7HrRuBFjY2Ps=";
   };
 
   buildCommand = ''

@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "noisium";
-  version = "2.0.2+1.20.2";
+  version = "2.3.0+1.21.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/KuNKN7d2/versions/ZgEmwDsG/noisium-fabric-2.0.2+mc1.20.2-1.20.4.jar";
-    hash = "sha256-jgHufA17qz1ZrlEi8isr7NWQX+kH0ZRQcjM3x1volF8=";
+    url = "https://cdn.modrinth.com/data/KuNKN7d2/versions/4sGQgiu2/noisium-fabric-2.3.0%2Bmc1.21-1.21.1.jar";
+    hash = "sha256-wywWOGHpNrd4aZXr4SCet6TG57tJPnzHV0fdrDNAz4U=";
   };
 
   buildCommand = ''

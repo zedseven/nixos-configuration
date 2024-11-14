@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "ferrite-core";
-  version = "6.0.3";
+  version = "7.0.2";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/uXXizFIs/versions/pguEMpy9/ferritecore-6.0.3-fabric.jar";
-    hash = "sha256-ZphO6VxKsFqDxDew3QRWikosjn8hm3SYYE4llSxMwSU=";
+    url = "https://cdn.modrinth.com/data/uXXizFIs/versions/bwKMSBhn/ferritecore-7.0.2-hotfix-fabric.jar";
+    hash = "sha256-4/ro4yFHSjXpT5uwnq/QRAzg/pj0rrvAZ+OSiJcApPo=";
   };
 
   buildCommand = ''

@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "clumps";
-  version = "15.0.0.2";
+  version = "19.0.0.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/Wnxd13zP/versions/jdeTwq6v/Clumps-fabric-1.20.4-15.0.0.2.jar";
-    hash = "sha256-O52XsJp7Ta4v16xqoMBuSL5xs7PlmmmjD714oMVQoD8=";
+    url = "https://cdn.modrinth.com/data/Wnxd13zP/versions/3ene3W1l/Clumps-fabric-1.21.1-19.0.0.1.jar";
+    hash = "sha256-SeQGyyhy4kotLb5GG5PwyPvuF0jRTCqUHlT3heOh4ac=";
   };
 
   buildCommand = ''
