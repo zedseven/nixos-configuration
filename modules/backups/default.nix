@@ -165,9 +165,59 @@ in {
         # Delete the temporary tree file directory
         rm -rf "$TREES_DIR"
       '';
+      runBackupExternal = pkgs.writeShellScriptBin "run-backup-external" ''
+        # Input arguments
+        RESTIC_HOSTNAME="$1"
+        BACKUP_DIR="$2"
+
+        # Input validation
+        if [[ -z "$RESTIC_HOSTNAME" ]]; then
+          echo "USAGE: ''${BASH_SOURCE[0]} <RESTIC_HOSTNAME> <BACKUP_DIR>"
+          >&2 echo "ERROR: Please provide the hostname to use for the external drive."
+          exit 1
+        fi
+        if [[ -z "$BACKUP_DIR" ]]; then
+          >&2 echo "ERROR: Please provide the backup path."
+          exit 1
+        fi
+
+        # Constants
+        TREES_DIR="$(mktemp -d)"
+        RESTIC_EXCLUDE_FILE_GLOBAL="${excludeFileGlobal}"
+
+        # Environment Variables
+        export RESTIC_REPOSITORY="${repository}"
+        export RESTIC_COMPRESSION="max"
+        export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
+        ${lib.optionalString cfg.rclone.enable (
+          (lib.optionalString (cfg.rclone.configPath != null) ''
+            export RCLONE_CONFIG="${cfg.rclone.configPath}"
+          '')
+          + ''
+            PATH="${cfg.rclone.package}/bin''${PATH:+:''${PATH}}"
+          ''
+        )}
+
+        # Generate the tree file name
+        TREE_FILE="$RESTIC_HOSTNAME.txt"
+
+        # Generate the tree file to archive the list of all files and their locations
+        ${pkgs.eza}/bin/eza --tree --all --group-directories-first --classify=always --colour=never "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
+
+        # Backup the directory
+        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE_GLOBAL" --host="$RESTIC_HOSTNAME" "$BACKUP_DIR" "$TREES_DIR/$TREE_FILE"
+
+        # Delete the temporary tree file directory
+        rm -rf "$TREES_DIR"
+      '';
     in
       lib.mkMerge [
-        {users.users.${userInfo.username}.packages = [runBackup];}
+        {
+          users.users.${userInfo.username}.packages = [
+            runBackup
+            runBackupExternal
+          ];
+        }
         (lib.mkIf cfg.scheduled.enable {
           systemd = {
             services."run-backup" = lib.mkMerge [
