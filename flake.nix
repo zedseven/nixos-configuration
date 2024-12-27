@@ -43,6 +43,14 @@
         utils.follows = "flake-utils";
       };
     };
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs = {
+        nixpkgs-stable.follows = "nixpkgs";
+        nixpkgs-unstable.follows = "nixpkgs";
+        zig.follows = "zig";
+      };
+    };
     breeze = {
       url = "github:zedseven/breeze";
       inputs = {
@@ -93,6 +101,14 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    zig = {
+      url = "github:mitchellh/zig-overlay";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        flake-compat.follows = "flake-compat";
+        flake-utils.follows = "flake-utils";
+      };
     };
     systems.url = "github:nix-systems/default";
   };

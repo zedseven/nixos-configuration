@@ -310,6 +310,7 @@ in {
           obsidian
           slstatus
           st
+          inputs.ghostty.packages.${system}.default
         ]
         ++ [
           (pkgs.writeShellScriptBin "shutdown-now" ''
