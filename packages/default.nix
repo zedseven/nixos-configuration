@@ -20,6 +20,7 @@
         ndsplus = callPackage ./ndsplus.nix {};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         qemu-guest = callPackage ./qemu-guest.nix {};
+        sharpii = callPackage ./sharpii.nix {}; # Technically, it will only work on x86_64 at the moment
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         tealdeer = callPackage ./tealdeer.nix {};
         win2xcur = callPackage ./win2xcur {};
