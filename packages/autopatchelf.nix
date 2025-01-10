@@ -2,7 +2,6 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  coreutils,
   file,
   getopt,
   patchelf,
