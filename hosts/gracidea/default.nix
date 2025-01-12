@@ -96,12 +96,15 @@ in {
             clumps
             fabric-api
             ferrite-core
+            immersive-portals
             krypton
+            let-me-despawn
             lithium
             memory-leak-fix
             mixin-trace
             noisium
             owo-lib
+            stitched-snow
             ;
         };
       };
