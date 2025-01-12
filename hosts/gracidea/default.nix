@@ -89,6 +89,7 @@ in {
           inherit
             (inputs.self.legacyPackages.${system}.minecraftFabricMods)
             aether
+            almanac
             appleskin
             c2me
             carpet

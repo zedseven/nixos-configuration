@@ -32,6 +32,7 @@
       ];
       minecraftFabricMods = includePackages ./minecraft-fabric-mods [
         "aether"
+        "almanac"
         "appleskin"
         "c2me"
         "carpet"
