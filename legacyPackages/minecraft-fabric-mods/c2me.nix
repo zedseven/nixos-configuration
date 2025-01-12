@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "c2me";
-  version = "0.3.0+alpha.0.295+1.21.1";
+  version = "0.3.0+alpha.0.310+1.21.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/VSNURh3q/versions/4Dtxhzpd/c2me-fabric-mc1.21.1-0.3.0%2Balpha.0.295.jar";
-    hash = "sha256-CroOUi/YnPz5kXSy6dX6Y5BOlAdN0g5+zLbMTpUMISM=";
+    url = "https://cdn.modrinth.com/data/VSNURh3q/versions/H5YtgA2t/c2me-fabric-mc1.21.1-0.3.0%2Balpha.0.310.jar";
+    hash = "sha256-zwR0Q/Kksc9R2rtx1SXcChXx/8b4bXX8gx6q7oyhqWE=";
   };
 
   buildCommand = ''

@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "fabric-api";
-  version = "0.107.0+1.21.1";
+  version = "0.114.0+1.21.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/thGkUOxt/fabric-api-0.107.0%2B1.21.1.jar";
-    hash = "sha256-szXsIL59eocof3/Qs/b+H/SOHXqHaSd0kyJc3fOYaWQ=";
+    url = "https://cdn.modrinth.com/data/P7dR8mSH/versions/biIRIp2X/fabric-api-0.114.0%2B1.21.1.jar";
+    hash = "sha256-4wPOj0vdo72Io/Wx39Vo8GHAjxCbOh/Q96CiDFd6Gp8=";
   };
 
   buildCommand = ''

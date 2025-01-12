@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "aether";
-  version = "1.5.2+1.21.1";
+  version = "1.5.3+1.21.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/YhmgMVyu/versions/6spHgcDS/aether-1.21.1-1.5.2-fabric.jar";
-    hash = "sha256-I5AMnWWm+a27f0589+9GLm+ol17dj9leJOYUJqIPkQE=";
+    url = "https://cdn.modrinth.com/data/YhmgMVyu/versions/l4xzX4rK/aether-1.21.1-1.5.3-fabric.jar";
+    hash = "sha256-++zTzZcBUXuEatNpoVpdGJCayWFUZdYE2/0+UVhEVAY=";
   };
 
   buildCommand = ''

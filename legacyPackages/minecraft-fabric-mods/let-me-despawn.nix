@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "let-me-despawn";
-  version = "1.2.0";
+  version = "1.4.4";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/vE2FN5qn/versions/qpC0XlcW/letmedespawn-fabric-1.20.x-1.2.0.jar";
-    hash = "sha256-RxUtKz4ocNcAYNaiKIEp4UjZ01whfyrrJvSRVsCzGno=";
+    url = "https://cdn.modrinth.com/data/vE2FN5qn/versions/e0AXgTFp/letmedespawn-1.21.x-fabric-1.4.4.jar";
+    hash = "sha256-TTXnoq5R6EX7zBUscbMtonOBYO3zSvDtDg/XqWGkZMg=";
   };
 
   buildCommand = ''

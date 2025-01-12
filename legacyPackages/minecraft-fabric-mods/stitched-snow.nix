@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "stitched-snow";
-  version = "1.1.0";
+  version = "1.1.1";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/I095Mbn8/versions/ADwVDvSJ/stitched-snow-1.1.0.jar";
-    hash = "sha256-rZUr6uPT9LRDIm46JdJKGpo6JFq/ndDhmUn6tZ/q2Ks=";
+    url = "https://cdn.modrinth.com/data/I095Mbn8/versions/vr0yDDFc/stitched-snow-1.1.1.jar";
+    hash = "sha256-ks7MRYM4P6IZu9zDfWxysMnmNUebga/w3jiXyreeGKg=";
   };
 
   buildCommand = ''
