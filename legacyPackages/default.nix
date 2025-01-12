@@ -40,6 +40,7 @@
         "clumps"
         "fabric-api"
         "ferrite-core"
+        "immersive-portals"
         "krypton"
         "let-me-despawn"
         "lithium"
