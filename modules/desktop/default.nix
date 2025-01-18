@@ -273,9 +273,9 @@ in {
     # To allow file sharing over HTTP via `miniserve`
     networking.firewall.allowedTCPPorts = [8080];
 
-    fonts.packages = builtins.attrValues {
-      inherit (inputs.self.packages.${system}) dank-mono pragmatapro;
-    };
+    fonts.packages = with pkgs;
+      [intel-one-mono]
+      ++ (builtins.attrValues {inherit (inputs.self.packages.${system}) dank-mono pragmatapro;});
 
     users.users.${userInfo.username} = {
       extraGroups = [
