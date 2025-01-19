@@ -53,6 +53,7 @@ in {
           ];
           # CLI packages
           packages = with pkgs; [
+            inputs.self.packages.${system}.neovim
             bottom
             du-dust
             eza
@@ -97,8 +98,6 @@ in {
                   cp = "cp --interactive";
                   du = "dust";
                   e = "exit";
-                  h = "hx";
-                  helix = "hx";
                   hibernate = "systemctl hibernate";
                   ifconfig = "ip addr";
                   ipconfig = "ip addr";
@@ -118,7 +117,6 @@ in {
                   nrs = "git diff --quiet && nh os switch --ask";
                   nrt = "nh os test --verbose -- --show-trace";
                   nrtd = "nh os test --verbose --dry -- --show-trace";
-                  nvim = "hx";
                   poweroff = "systemctl poweroff";
                   procs = "procs --tree";
                   ps = "procs --tree";
@@ -127,19 +125,14 @@ in {
                   s = "sudo";
                   shutdown = "shutdown -h now";
                   top = "btm --regex";
-                  vi = "hx";
-                  vim = "hx";
+                  vi = "nvim";
+                  vim = "nvim";
                   w = "clear";
                   y = "yazi";
                 };
                 interactiveShellInit = ''
                   set fish_greeting
                 '';
-              };
-
-              helix = {
-                enable = true;
-                defaultEditor = true;
               };
 
               starship = {

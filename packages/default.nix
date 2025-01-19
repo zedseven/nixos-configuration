@@ -18,6 +18,7 @@
         lavalink = callPackage ./lavalink.nix {};
         minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
         ndsplus = callPackage ./ndsplus.nix {};
+        neovim = callPackage ./neovim {inherit inputs purefmt;};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         qemu-guest = callPackage ./qemu-guest.nix {};
         sharpii = callPackage ./sharpii.nix {}; # Technically, it will only work on x86_64 at the moment

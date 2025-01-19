@@ -360,6 +360,7 @@
         "radium": "radium",
         "rust-overlay": "rust-overlay",
         "systems": "systems",
+        "tolerable": "tolerable",
         "website-ztdp": "website-ztdp",
         "zig": "zig"
       }
@@ -396,6 +397,27 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "tolerable": {
+      "inputs": {
+        "nightly": [],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737252868,
+        "narHash": "sha256-+alb/UUwiWyBF4oxLq5r8N5qPOqQftgWhy6y0bE4TnY=",
+        "owner": "wires-org",
+        "repo": "tolerable-nvim-nix",
+        "rev": "730e54a275ba5439cfbf012a5bae23e5d498f0f9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "wires-org",
+        "repo": "tolerable-nvim-nix",
         "type": "github"
       }
     },

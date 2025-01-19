@@ -43,6 +43,13 @@
         utils.follows = "flake-utils";
       };
     };
+    tolerable = {
+      url = "github:wires-org/tolerable-nvim-nix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        nightly.follows = "";
+      };
+    };
     ghostty = {
       url = "github:ghostty-org/ghostty";
       inputs = {
@@ -51,6 +58,8 @@
         zig.follows = "zig";
       };
     };
+
+    # Other personal tools that are imported
     breeze = {
       url = "github:zedseven/breeze";
       inputs = {
