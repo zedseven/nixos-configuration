@@ -394,6 +394,51 @@ in {
             };
           };
         };
+
+        custom.desktop.suckless = let
+          font-family = "PragmataPro Mono";
+          colour-schemes = (import ./desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
+        in
+          lib.mkDefault {
+            dwm = {
+              masterAreaSizePercentage = 0.5;
+              respectResizeHints = true;
+              font = {
+                family = font-family;
+                pixelSize = 12;
+              };
+              colours = colour-schemes.dwm.catppuccin.mocha;
+              highPriorityPrograms = [
+                "slock"
+                "shutdown-now"
+                "reboot"
+                "autorandr-change"
+                "firefox-devedition"
+                "discord-better"
+                "keepass"
+                "obsidian"
+                "steam"
+                "mullvad-vpn"
+                "blender"
+                "calibre"
+                "clion"
+                "rider"
+                "webstorm"
+                "jetbrains-toolbox"
+              ];
+            };
+            st = {
+              font = {
+                family = font-family;
+                pixelSize = 24;
+                characterTweaks = {
+                  heightScale = 14.0 / 15.0;
+                  yOffset = -1;
+                };
+              };
+              colourSchemeText = colour-schemes.st.catppuccin.mocha;
+            };
+          };
       })
     ];
 }
