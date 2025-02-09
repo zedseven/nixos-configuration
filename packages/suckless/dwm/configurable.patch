@@ -58,7 +58,7 @@ index daca1732..ebd2a908 100644
  static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 -static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 -static const char *termcmd[]  = { "st", NULL };
-+static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-hp", "@HIGH_PRIORITY_PROGRAMS@", NULL };
++static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-hp", "@HIGH_PRIORITY_PROGRAMS@", NULL };
 +static const char *termcmd[]  = { "@TERMINAL_PROGRAM@", NULL };
  
  static const Key keys[] = {
