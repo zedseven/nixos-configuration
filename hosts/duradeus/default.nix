@@ -79,19 +79,47 @@
         };
       };
 
-      suckless.st = {
-        font = {
-          family = "PragmataPro Mono";
-          pixelSize = 24;
-          characterTweaks = {
-            heightScale = 14.0 / 15.0;
-            yOffset = -1;
+      suckless = let
+        colour-schemes = (import ../../modules/desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
+      in {
+        dwm = {
+          masterAreaSizePercentage = 0.5;
+          respectResizeHints = true;
+          font = {
+            family = "PragmataPro Mono";
+            pixelSize = 12;
           };
+          colours = colour-schemes.dwm.catppuccin.mocha;
+          highPriorityPrograms = [
+            "slock"
+            "shutdown-now"
+            "reboot"
+            "autorandr-change"
+            "firefox-devedition"
+            "discord-better"
+            "keepass"
+            "obsidian"
+            "steam"
+            "mullvad-vpn"
+            "blender"
+            "calibre"
+            "clion"
+            "rider"
+            "webstorm"
+            "jetbrains-toolbox"
+          ];
         };
-        colourSchemeText = let
-          colour-schemes = (import ../../modules/desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
-        in
-          colour-schemes.st.catppuccin.mocha;
+        st = {
+          font = {
+            family = "PragmataPro Mono";
+            pixelSize = 24;
+            characterTweaks = {
+              heightScale = 14.0 / 15.0;
+              yOffset = -1;
+            };
+          };
+          colourSchemeText = colour-schemes.st.catppuccin.mocha;
+        };
       };
 
       displayDriver = "nvidia";
