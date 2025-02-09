@@ -157,32 +157,6 @@
         "type": "github"
       }
     },
-    "ghostty": {
-      "inputs": {
-        "nixpkgs-stable": [
-          "nixpkgs"
-        ],
-        "nixpkgs-unstable": [
-          "nixpkgs"
-        ],
-        "zig": [
-          "zig"
-        ]
-      },
-      "locked": {
-        "lastModified": 1735255310,
-        "narHash": "sha256-iAKNXAEfX+f+ETIgNPxCoNtmFpQsdEG3YYGhEPvohHI=",
-        "owner": "ghostty-org",
-        "repo": "ghostty",
-        "rev": "35b9ceee2116331b83c0c86269394e2545070b0f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "ghostty-org",
-        "repo": "ghostty",
-        "type": "github"
-      }
-    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -350,7 +324,6 @@
         "flake-compat": "flake-compat",
         "flake-parts": "flake-parts",
         "flake-utils": "flake-utils",
-        "ghostty": "ghostty",
         "home-manager": "home-manager",
         "nh": "nh",
         "nixos-wsl": "nixos-wsl",
@@ -361,8 +334,7 @@
         "rust-overlay": "rust-overlay",
         "systems": "systems",
         "tolerable": "tolerable",
-        "website-ztdp": "website-ztdp",
-        "zig": "zig"
+        "website-ztdp": "website-ztdp"
       }
     },
     "rust-overlay": {
@@ -439,32 +411,6 @@
       "original": {
         "id": "website-ztdp",
         "type": "indirect"
-      }
-    },
-    "zig": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "flake-utils": [
-          "flake-utils"
-        ],
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1735259380,
-        "narHash": "sha256-renCvX/Eqbqujn3UtP5UDoh2Tyu1xvtEBEU/BTDKZ9o=",
-        "owner": "mitchellh",
-        "repo": "zig-overlay",
-        "rev": "668674c8d34593b3a86512b5bb8f34c398927431",
-        "type": "github"
-      },
-      "original": {
-        "owner": "mitchellh",
-        "repo": "zig-overlay",
-        "type": "github"
       }
     }
   },
