@@ -89,9 +89,9 @@
           };
         };
         colourSchemeText = let
-          catppuccin-st = (import ../../constants/catppuccin-st.nix) pkgs.fetchFromGitHub;
+          colour-schemes = (import ../../modules/desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
         in
-          catppuccin-st.mocha;
+          colour-schemes.st.catppuccin.mocha;
       };
 
       displayDriver = "nvidia";
