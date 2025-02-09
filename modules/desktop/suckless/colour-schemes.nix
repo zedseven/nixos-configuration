@@ -13,28 +13,28 @@ in {
       grey2 = "#414559"; # Surface0
       grey3 = "#626880"; # Surface2
       grey4 = "#c6d0f5"; # Text
-      active = "#99d1db"; # Sky
+      active = "#85c1dc"; # Sapphire
     };
     latte = {
       grey1 = "#eff1f5"; # Base
       grey2 = "#ccd0da"; # Surface0
       grey3 = "#acb0be"; # Surface2
       grey4 = "#4c4f69"; # Text
-      active = "#04a5e5"; # Sky
+      active = "#209fb5"; # Sapphire
     };
     macchiato = {
       grey1 = "#24273a"; # Base
       grey2 = "#363a4f"; # Surface0
       grey3 = "#5b6078"; # Surface2
       grey4 = "#cad3f5"; # Text
-      active = "#91d7e3"; # Sky
+      active = "#7dc4e4"; # Sapphire
     };
     mocha = {
       grey1 = "#1e1e2e"; # Base
       grey2 = "#313244"; # Surface0
       grey3 = "#585b70"; # Surface2
       grey4 = "#cdd6f4"; # Text
-      active = "#89dceb"; # Sky
+      active = "#74c7ec"; # Sapphire
     };
   };
   st.catppuccin = {
