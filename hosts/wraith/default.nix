@@ -1,6 +1,7 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
 {
   config,
+  pkgs,
   inputs,
   userInfo,
   ...
@@ -74,47 +75,10 @@
             yOffset = -1;
           };
         };
-        colourSchemeText = ''
-          /* Terminal colors (first 16 used in escape sequence) */
-          static const char *colorname[] = {
-          		/* 8 normal colors */
-          		"#303030", /* black   */
-          		"#a43261", /* red     */
-          		"#66cc99", /* green   */
-          		"#006ca5", /* yellow  */
-          		"#6751a6", /* blue    */
-          		"#913e88", /* magenta */
-          		"#0061b1", /* cyan    */
-          		"#c6c6c6", /* white   */
-
-          		/* 8 bright colors */
-          		"#5e5e5e", /* black   */
-          		"#ff9fc9", /* red     */
-          		"#99ffcc", /* green   */
-          		"#3bd6ff", /* yellow  */
-          		"#d5b8ff", /* blue    */
-          		"#ffa7f6", /* magenta */
-          		"#93c9ff", /* cyan    */
-          		"#ffffff", /* white   */
-
-          		[255] = 0,
-
-          		/* special colors */
-          		"#cccccc",
-          		"#555555",
-          		"gray90", /* default foreground colour */
-          		"black", /* default background colour */
-          };
-
-          /*
-           * Default colors (colorname index)
-           * foreground, background, cursor, reverse cursor
-           */
-          unsigned int defaultfg = 258;
-          unsigned int defaultbg = 259;
-          unsigned int defaultcs = 256;
-          static unsigned int defaultrcs = 257;
-        '';
+        colourSchemeText = let
+          catppuccin-st = (import ../../constants/catppuccin-st.nix) pkgs.fetchFromGitHub;
+        in
+          catppuccin-st.mocha;
       };
 
       displayDriver = "nvidia";
