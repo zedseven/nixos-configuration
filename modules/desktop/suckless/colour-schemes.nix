@@ -37,6 +37,53 @@ in {
       active = "#74c7ec"; # Sapphire
     };
   };
+  dmenu.catppuccin = {
+    # Based on https://github.com/catppuccin/dmenu
+    frappe = {
+      normalForeground = "#c6d0f5"; # Text
+      normalBackground = "#303446"; # Base
+      selectedForeground = "#303446"; # Base
+      selectedBackground = "#85c1dc"; # Sapphire
+      outForeground = "#000000";
+      outBackground = "#85c1dc"; # Sapphire
+      highlightForeground = "#e78284"; # Red
+      highPriorityForeground = "#c6d0f5"; # Text
+      highPriorityBackground = "#414559"; # Surface0
+    };
+    latte = {
+      normalForeground = "#4c4f69"; # Text
+      normalBackground = "#eff1f5"; # Base
+      selectedForeground = "#eff1f5"; # Base
+      selectedBackground = "#209fb5"; # Sapphire
+      outForeground = "#000000";
+      outBackground = "#209fb5"; # Sapphire
+      highlightForeground = "#d20f39"; # Red
+      highPriorityForeground = "#4c4f69"; # Text
+      highPriorityBackground = "#ccd0da"; # Surface0
+    };
+    macchiato = {
+      normalForeground = "#cad3f5"; # Text
+      normalBackground = "#24273a"; # Base
+      selectedForeground = "#24273a"; # Base
+      selectedBackground = "#7dc4e4"; # Sapphire
+      outForeground = "#000000";
+      outBackground = "#7dc4e4"; # Sapphire
+      highlightForeground = "#ed8796"; # Red
+      highPriorityForeground = "#cad3f5"; # Text
+      highPriorityBackground = "#363a4f"; # Surface0
+    };
+    mocha = {
+      normalForeground = "#cdd6f4"; # Text
+      normalBackground = "#1e1e2e"; # Base
+      selectedForeground = "#1e1e2e"; # Base
+      selectedBackground = "#74c7ec"; # Sapphire
+      outForeground = "#000000";
+      outBackground = "#74c7ec"; # Sapphire
+      highlightForeground = "#f38ba8"; # Red
+      highPriorityForeground = "#cdd6f4"; # Text
+      highPriorityBackground = "#313244"; # Surface0
+    };
+  };
   st.catppuccin = {
     frappe = builtins.readFile "${catppuccin-st}/themes/frappe.h";
     latte = builtins.readFile "${catppuccin-st}/themes/latte.h";

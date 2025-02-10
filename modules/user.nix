@@ -427,6 +427,14 @@ in {
                 "jetbrains-toolbox"
               ];
             };
+            dmenu = {
+              prompt = "launch ";
+              font = {
+                family = font-family;
+                pixelSize = 12;
+              };
+              colours = colour-schemes.dmenu.catppuccin.mocha;
+            };
             st = {
               font = {
                 family = font-family;

@@ -70,6 +70,87 @@ in {
         default = [];
       };
     };
+    dmenu = {
+      prompt = mkOption {
+        description = "The prompt to display next to the input area.";
+        type = types.nullOr types.str;
+        default = null;
+      };
+      displayOnScreenTop = mkOption {
+        description = "Whether to display `dmenu` on the top of the screen instead of the bottom.";
+        type = types.bool;
+        default = true;
+      };
+      listLinesCount = mkOption {
+        description = "The number of lines of options to display. A value of `0` shows the options horizontally right of the input area.";
+        type = types.ints.unsigned;
+        default = 0;
+      };
+      wordDelimiters = mkOption {
+        description = "Characters not considered part of a word when deleting words.";
+        type = types.str;
+        default = " ";
+      };
+      font = {
+        family = mkOption {
+          description = "The font family to use.";
+          type = types.str;
+          default = "monospace";
+        };
+        pixelSize = mkOption {
+          description = "The font pixel size.";
+          type = types.ints.unsigned;
+          default = 10;
+        };
+      };
+      colours = {
+        normalForeground = mkOption {
+          description = "Normal foreground.";
+          type = types.str;
+          default = "#bbbbbb";
+        };
+        normalBackground = mkOption {
+          description = "Normal background.";
+          type = types.str;
+          default = "#222222";
+        };
+        selectedForeground = mkOption {
+          description = "Selected foreground.";
+          type = types.str;
+          default = "#eeeeee";
+        };
+        selectedBackground = mkOption {
+          description = "Selected background.";
+          type = types.str;
+          default = "#005577";
+        };
+        outForeground = mkOption {
+          description = "Out foreground.";
+          type = types.str;
+          default = "#000000";
+        };
+        outBackground = mkOption {
+          description = "Out background.";
+          type = types.str;
+          default = "#00ffff";
+        };
+        highlightForeground = mkOption {
+          description = "Highlight foreground.";
+          type = types.str;
+          default = "#ffc978";
+        };
+        highPriorityForeground = mkOption {
+          description = "High-priority foreground.";
+          type = types.str;
+          default = "#bbbbbb";
+        };
+        highPriorityBackground = mkOption {
+          description = "High-priority background.";
+          type = types.str;
+          default = "#333333";
+        };
+      };
+    };
     st = {
       shell = mkOption {
         description = "The shell to execute on startup.";
@@ -160,20 +241,7 @@ in {
 
   config = {
     nixpkgs.config.packageOverrides = pkgs: {
-      dmenu = pkgs.dmenu.overrideAttrs (oldAttrs: {
-        src = pkgs.fetchFromGitHub {
-          owner = "zedseven";
-          repo = "dmenu";
-          rev = "b823f73f2b477796ff95f48edbe1f740d800986e";
-          hash = "sha256-nxodcOXYhW5HPTWDyUot6lEIQDF2fnzWQFH+Xjq7ZSQ=";
-        };
-        # For `dmenu`, `conf` can't be used because the derivation doesn't support it
-        postPatch =
-          oldAttrs.postPatch
-          + ''
-            cp ${pkgs.writeText "config.dmenu.h" (builtins.readFile ./config.dmenu.h)} config.h
-          '';
-      });
+      dmenu = inputs.self.packages.${system}.dmenu.override {conf = cfg.dmenu;};
 
       dwm = inputs.self.packages.${system}.dwm.override {conf = cfg.dwm;};
 

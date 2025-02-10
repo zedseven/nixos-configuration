@@ -15,6 +15,7 @@
       rec {
         alejandra = callPackage ./alejandra {};
         autopatchelf = callPackage ./autopatchelf.nix {};
+        dmenu = callPackage ./suckless/dmenu {};
         dwm = callPackage ./suckless/dwm {};
         lavalink = callPackage ./lavalink.nix {};
         minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
