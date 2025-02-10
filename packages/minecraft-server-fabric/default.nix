@@ -6,7 +6,7 @@
   writeText,
   stdenvNoCC,
   runtimeShell,
-  jdk22_headless,
+  jdk23_headless,
   minecraftServers,
 }: let
   lock = import ./lock.nix;
@@ -19,7 +19,7 @@
   );
   escapedVanillaMinorVersion = escapeVersion vanillaMinorVersion;
   vanillaServer = minecraftServers."vanilla-${escapedVanillaMinorVersion}".override {
-    jre_headless = jdk22_headless;
+    jre_headless = jdk23_headless;
   };
 
   log4jConfiguration = let
@@ -53,7 +53,7 @@ in
       ln -sf ${launcherProperties} fabric-server-launcher.properties
 
       # Execute
-      exec ${jdk22_headless}/bin/java -Dlog4j.configurationFile=${log4jConfiguration} \$@ -jar ${loader} nogui
+      exec ${jdk23_headless}/bin/java -Dlog4j.configurationFile=${log4jConfiguration} \$@ -jar ${loader} nogui
       EOF
 
 
