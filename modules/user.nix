@@ -77,27 +77,15 @@ in {
           ];
         };
 
-        catppuccin = {
-          enable = true;
-          flavor = "mocha";
-        };
-
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${userInfo.username} = {
-            imports = [inputs.catppuccin.homeManagerModules.catppuccin];
-
             home = {
               inherit (userInfo) username;
               inherit homeDirectory;
               stateVersion = "22.11"; # Don't touch this, ever
               language.base = config.i18n.defaultLocale;
-            };
-
-            catppuccin = {
-              enable = true;
-              flavor = "mocha";
             };
 
             programs = {
@@ -243,167 +231,181 @@ in {
           ];
         };
 
-        home-manager.users.${userInfo.username}.programs = {
-          fish.shellAbbrs = {
-            alejandra = "purefmt";
-            b = "bat";
-            bm = "batman";
-            c = "cargo";
-            cat = "bat";
-            cb = "cargo build";
-            cbr = "cargo build --release";
-            cc = "cargo clippy";
-            cd = "z";
-            cdd = "cargo doc";
-            cdda = "cargo doc --all-features";
-            cddar = "cargo doc --all-features --release";
-            cddars = "cargo doc --all-features --release --open";
-            cddas = "cargo doc --all-features --open";
-            cddr = "cargo doc --release";
-            cddrs = "cargo doc --release --open";
-            cdds = "cargo doc --open";
-            ce = "cargo expand --color=always --theme=OneHalfDark";
-            cf = "cargo fmt --all";
-            cfc = "cargo fmt --all --check";
-            cl = "cargo clean";
-            cm = "cargo miri";
-            cmr = "cargo miri run";
-            cmrr = "cargo miri ruh --release";
-            cmt = "cargo miri test";
-            cmtr = "cargo miri test --release";
-            cn = "cargo generate";
-            cng = "cargo generate general --define username=zedseven --name";
-            cql = "cargo license --color=always";
-            cqla = "cargo license --color=always --authors";
-            cqo = "cargo outdated --color=always --root-deps-only";
-            cqof = "cargo outdated --color=always";
-            cqu = "cargo update --color=always";
-            cr = "cargo run";
-            crr = "cargo run --release";
-            ct = "cargo test";
-            ctd = "cargo test --doc";
-            ctns = "cargo nono check && cargo build --target wasm32-unknown-unknown";
-            ctr = "cargo test --release";
-            ctt = "cargo tree";
-            cttd = "cargo tree --duplicates";
-            deadnix = "deadnix --hidden --fail";
-            fmt = "purefmt";
-            g = "git";
-            ga = "git add";
-            gb = "git branch";
-            gc = "git commit --gpg-sign --message";
-            ge = "git checkout";
-            geb = "git checkout -b";
-            gf = "git fetch --all";
-            gg = "git merge --no-ff";
-            gh = "git cherry-pick -x --edit";
-            git-chmod = "git update-index --chmod=+x";
-            gl = "git log --show-signature --graph";
-            gm = "git remote";
-            go = "git clone";
-            gp = "git push";
-            gpu = "git push --set-upstream";
-            gr = "git reset";
-            grao = "git remote add origin";
-            gs = "git diff && git status";
-            gu = "git pull";
-            gx = "git update-index --chmod=+x";
-            gy = "git apply";
-            m = "batman";
-            man = "batman";
-            sc = "maim";
-            scs = "maim --select";
-            t = "tldr";
-            tealdeer = "tldr";
-            tracert = "traceroute";
-            youtube-dl = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
-            yt-dlp = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
-            ytd = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
+        catppuccin = {
+          enable = true;
+          flavor = "mocha";
+        };
+
+        home-manager.users.${userInfo.username} = {
+          imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+
+          catppuccin = {
+            enable = true;
+            flavor = "mocha";
           };
 
-          bat = {
-            enable = true;
-            extraPackages = with pkgs.bat-extras; [batman];
-          };
-
-          direnv = {
-            enable = true;
-            nix-direnv.enable = true;
-          };
-
-          yazi = {
-            enable = true;
-            enableFishIntegration = true;
-            settings = {
-              manager = {
-                show_hidden = true;
-                sort_dir_first = true;
-              };
+          programs = {
+            fish.shellAbbrs = {
+              alejandra = "purefmt";
+              b = "bat";
+              bm = "batman";
+              c = "cargo";
+              cat = "bat";
+              cb = "cargo build";
+              cbr = "cargo build --release";
+              cc = "cargo clippy";
+              cd = "z";
+              cdd = "cargo doc";
+              cdda = "cargo doc --all-features";
+              cddar = "cargo doc --all-features --release";
+              cddars = "cargo doc --all-features --release --open";
+              cddas = "cargo doc --all-features --open";
+              cddr = "cargo doc --release";
+              cddrs = "cargo doc --release --open";
+              cdds = "cargo doc --open";
+              ce = "cargo expand --color=always --theme=OneHalfDark";
+              cf = "cargo fmt --all";
+              cfc = "cargo fmt --all --check";
+              cl = "cargo clean";
+              cm = "cargo miri";
+              cmr = "cargo miri run";
+              cmrr = "cargo miri ruh --release";
+              cmt = "cargo miri test";
+              cmtr = "cargo miri test --release";
+              cn = "cargo generate";
+              cng = "cargo generate general --define username=zedseven --name";
+              cql = "cargo license --color=always";
+              cqla = "cargo license --color=always --authors";
+              cqo = "cargo outdated --color=always --root-deps-only";
+              cqof = "cargo outdated --color=always";
+              cqu = "cargo update --color=always";
+              cr = "cargo run";
+              crr = "cargo run --release";
+              ct = "cargo test";
+              ctd = "cargo test --doc";
+              ctns = "cargo nono check && cargo build --target wasm32-unknown-unknown";
+              ctr = "cargo test --release";
+              ctt = "cargo tree";
+              cttd = "cargo tree --duplicates";
+              deadnix = "deadnix --hidden --fail";
+              fmt = "purefmt";
+              g = "git";
+              ga = "git add";
+              gb = "git branch";
+              gc = "git commit --gpg-sign --message";
+              ge = "git checkout";
+              geb = "git checkout -b";
+              gf = "git fetch --all";
+              gg = "git merge --no-ff";
+              gh = "git cherry-pick -x --edit";
+              git-chmod = "git update-index --chmod=+x";
+              gl = "git log --show-signature --graph";
+              gm = "git remote";
+              go = "git clone";
+              gp = "git push";
+              gpu = "git push --set-upstream";
+              gr = "git reset";
+              grao = "git remote add origin";
+              gs = "git diff && git status";
+              gu = "git pull";
+              gx = "git update-index --chmod=+x";
+              gy = "git apply";
+              m = "batman";
+              man = "batman";
+              sc = "maim";
+              scs = "maim --select";
+              t = "tldr";
+              tealdeer = "tldr";
+              tracert = "traceroute";
+              youtube-dl = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
+              yt-dlp = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
+              ytd = "yt-dlp --format bestvideo+bestaudio/best --live-from-start --embed-metadata --embed-chapters --embed-subs --sub-langs all --embed-thumbnail --no-embed-info-json";
             };
-          };
 
-          gpg.enable = true;
-
-          git = let
-            exitWithConflicts = pkgs.writeShellScriptBin "git-merge-exit-with-conflicts" ''
-              # https://stackoverflow.com/questions/5074452/git-how-to-force-merge-conflict-and-manual-merge-on-selected-file
-              # https://git-scm.com/docs/gitattributes#_defining_a_custom_merge_driver
-              ANCESTOR="$1"
-              CURRENT="$2"
-              OTHER="$3"
-              CONFLICT_MARKER_SIZE="$4"
-              RESULT_PATH="$5"
-              ${pkgs.git}/bin/git merge-file "$CURRENT" "$ANCESTOR" "$OTHER"
-              exit 1 # Always exit indicating a conflict
-            '';
-          in {
-            enable = true;
-            userName = userInfo.name;
-            userEmail = userInfo.email;
-            signing = {
-              key = userInfo.gpgKeyId;
-              signByDefault = true;
+            bat = {
+              enable = true;
+              extraPackages = with pkgs.bat-extras; [batman];
             };
-            extraConfig = {
-              # https://git-scm.com/docs/git-config
-              checkout.defaultRemote = "origin";
-              commit.gpgSign = true;
-              core = {
-                abbrev = 8;
-                autocrlf = "input";
-                fileMode = false;
-                editor = "nvim";
-              };
-              credential.helper = "store";
-              init.defaultBranch = "main";
-              merge = {
-                conflictStyle = "diff3";
-                "exit-with-conflicts" = {
-                  name = "Exit With Conflicts";
-                  driver = "${exitWithConflicts}/bin/git-merge-exit-with-conflicts %O %A %B %L %P";
+
+            direnv = {
+              enable = true;
+              nix-direnv.enable = true;
+            };
+
+            yazi = {
+              enable = true;
+              enableFishIntegration = true;
+              settings = {
+                manager = {
+                  show_hidden = true;
+                  sort_dir_first = true;
                 };
               };
-              push.gpgSign = "if-asked";
-              tag.gpgSign = true;
             };
-            delta.enable = true;
-          };
 
-          git-cliff.enable = true;
+            gpg.enable = true;
 
-          tealdeer = {
-            enable = true;
-            settings = {
-              display = {
-                compact = true;
-                use_pager = false;
+            git = let
+              exitWithConflicts = pkgs.writeShellScriptBin "git-merge-exit-with-conflicts" ''
+                # https://stackoverflow.com/questions/5074452/git-how-to-force-merge-conflict-and-manual-merge-on-selected-file
+                # https://git-scm.com/docs/gitattributes#_defining_a_custom_merge_driver
+                ANCESTOR="$1"
+                CURRENT="$2"
+                OTHER="$3"
+                CONFLICT_MARKER_SIZE="$4"
+                RESULT_PATH="$5"
+                ${pkgs.git}/bin/git merge-file "$CURRENT" "$ANCESTOR" "$OTHER"
+                exit 1 # Always exit indicating a conflict
+              '';
+            in {
+              enable = true;
+              userName = userInfo.name;
+              userEmail = userInfo.email;
+              signing = {
+                key = userInfo.gpgKeyId;
+                signByDefault = true;
               };
-              updates = {
-                auto_update = true;
-                auto_update_interval_hours = 720;
+              extraConfig = {
+                # https://git-scm.com/docs/git-config
+                checkout.defaultRemote = "origin";
+                commit.gpgSign = true;
+                core = {
+                  abbrev = 8;
+                  autocrlf = "input";
+                  fileMode = false;
+                  editor = "nvim";
+                };
+                credential.helper = "store";
+                init.defaultBranch = "main";
+                merge = {
+                  conflictStyle = "diff3";
+                  "exit-with-conflicts" = {
+                    name = "Exit With Conflicts";
+                    driver = "${exitWithConflicts}/bin/git-merge-exit-with-conflicts %O %A %B %L %P";
+                  };
+                };
+                push.gpgSign = "if-asked";
+                tag.gpgSign = true;
               };
-              directories = {
-                custom_pages_dir = "${homeDirectory}/tealdeer";
+              delta.enable = true;
+            };
+
+            git-cliff.enable = true;
+
+            tealdeer = {
+              enable = true;
+              settings = {
+                display = {
+                  compact = true;
+                  use_pager = false;
+                };
+                updates = {
+                  auto_update = true;
+                  auto_update_interval_hours = 720;
+                };
+                directories = {
+                  custom_pages_dir = "${homeDirectory}/tealdeer";
+                };
               };
             };
           };
