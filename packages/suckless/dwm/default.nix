@@ -6,7 +6,23 @@
   libXinerama,
   libXft,
   libXcursor,
-  conf ? {},
+  conf ? {
+    masterAreaSizePercentage = 0.55;
+    respectResizeHints = false;
+    font = {
+      family = "monospace";
+      pixelSize = 10;
+    };
+    colours = {
+      grey1 = "#222222";
+      grey2 = "#444444";
+      grey3 = "#bbbbbb";
+      grey4 = "#eeeeee";
+      active = "#005577";
+    };
+    terminalProgram = "st";
+    highPriorityPrograms = [];
+  },
   extraConfigText ? "",
   extraLibs ? [],
 }:

@@ -8,7 +8,27 @@
   libXinerama,
   libXft,
   zlib,
-  conf ? {},
+  conf ? {
+    prompt = null;
+    displayOnScreenTop = true;
+    listLinesCount = 0;
+    wordDelimiters = " ";
+    font = {
+      family = "monospace";
+      pixelSize = 10;
+    };
+    colours = {
+      normalForeground = "#bbbbbb";
+      normalBackground = "#222222";
+      selectedForeground = "#eeeeee";
+      selectedBackground = "#005577";
+      outForeground = "#000000";
+      outBackground = "#00ffff";
+      highlightForeground = "#ffc978";
+      highPriorityForeground = "#bbbbbb";
+      highPriorityBackground = "#333333";
+    };
+  },
   extraConfigText ? "",
   extraLibs ? [],
 }:
