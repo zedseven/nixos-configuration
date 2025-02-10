@@ -7,7 +7,6 @@
   libX11,
   libXinerama,
   libXft,
-  libXcursor,
   zlib,
   conf ? {},
   extraConfigText ? "",

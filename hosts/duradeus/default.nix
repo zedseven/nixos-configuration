@@ -1,7 +1,6 @@
 # My main PC.
 {
   config,
-  pkgs,
   inputs,
   userInfo,
   ...

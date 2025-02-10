@@ -8,19 +8,20 @@
 (
   let
     configName = "main";
-  in (inputs.tolerable.makeNeovimConfig configName {
-    inherit pkgs;
-    src = lib.fileset.toSource {
-      root = ./.;
-      fileset = ./. + "/${configName}";
-    };
-    config = {
-      plugins = with pkgs.vimPlugins; [
-        catppuccin-nvim
-        which-key-nvim
-      ];
-    };
-  })
+  in
+    inputs.tolerable.makeNeovimConfig configName {
+      inherit pkgs;
+      src = lib.fileset.toSource {
+        root = ./.;
+        fileset = ./. + "/${configName}";
+      };
+      config = {
+        plugins = with pkgs.vimPlugins; [
+          catppuccin-nvim
+          which-key-nvim
+        ];
+      };
+    }
 )
 .overrideAttrs
 (oldAttrs: {

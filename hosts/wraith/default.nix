@@ -1,7 +1,6 @@
 # An HP Spectre x360 Laptop - 5FP19UA.
 {
   config,
-  pkgs,
   inputs,
   userInfo,
   ...
