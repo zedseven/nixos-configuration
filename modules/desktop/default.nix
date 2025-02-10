@@ -209,6 +209,16 @@ in {
 
       libinput.enable = true;
 
+      pipewire = {
+        enable = true;
+        alsa = {
+          enable = true;
+          support32Bit = true;
+        };
+        pulse.enable = true;
+        jack.enable = true;
+      };
+
       displayManager = {
         defaultSession = "none+dwm";
         autoLogin = {
@@ -241,10 +251,6 @@ in {
       graphics = {
         enable = true;
         enable32Bit = true;
-      };
-      pulseaudio = {
-        enable = true;
-        support32Bit = true;
       };
     };
 
