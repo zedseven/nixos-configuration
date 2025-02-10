@@ -103,9 +103,7 @@ in {
       };
 
       # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
-      custom.symlinks.${programsDbRedirectionPath}.source = "${
-        inputs.programs-db.packages.${system}.programs-sqlite
-      }";
+      custom.symlinks.${programsDbRedirectionPath}.source = "${inputs.programs-db.packages.${system}.programs-sqlite}";
 
       programs = {
         command-not-found.dbPath = programsDbRedirectionPath;
@@ -129,7 +127,7 @@ in {
     }
     (lib.mkIf (cfg.configurationPath != null) {
       # Required by `nh`, allowing rebuilds without providing the path every time
-      environment.sessionVariables.FLAKE = cfg.configurationPath;
+      environment.sessionVariables.NH_FLAKE = cfg.configurationPath;
     })
     (lib.mkIf (cfg.configurationPath != null && cfg.configurationPath != defaultConfigurationPath) {
       # Set up a symlink to make the non-standard configuration path accessible from the default location
