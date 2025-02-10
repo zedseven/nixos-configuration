@@ -11,6 +11,7 @@
 in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
+    inputs.catppuccin.nixosModules.catppuccin
     ./symlinks.nix
   ];
 
@@ -76,15 +77,27 @@ in {
           ];
         };
 
+        catppuccin = {
+          enable = true;
+          flavor = "mocha";
+        };
+
         home-manager = {
           useGlobalPkgs = true;
           useUserPackages = true;
           users.${userInfo.username} = {
+            imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+
             home = {
               inherit (userInfo) username;
               inherit homeDirectory;
               stateVersion = "22.11"; # Don't touch this, ever
               language.base = config.i18n.defaultLocale;
+            };
+
+            catppuccin = {
+              enable = true;
+              flavor = "mocha";
             };
 
             programs = {

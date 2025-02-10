@@ -56,6 +56,26 @@
         "type": "github"
       }
     },
+    "catppuccin": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1739094937,
+        "narHash": "sha256-LemSQ5AZHwl4ZVlirdpAytDWgS96OZsct7Akx/REdGA=",
+        "owner": "catppuccin",
+        "repo": "nix",
+        "rev": "aee0cec463e62702751adaeb9f4fc00f2f72879b",
+        "type": "github"
+      },
+      "original": {
+        "owner": "catppuccin",
+        "repo": "nix",
+        "type": "github"
+      }
+    },
     "crane": {
       "locked": {
         "lastModified": 1739053031,
@@ -311,6 +331,7 @@
       "inputs": {
         "agenix": "agenix",
         "breeze": "breeze",
+        "catppuccin": "catppuccin",
         "crane": "crane",
         "deploy-rs": "deploy-rs",
         "flake-compat": "flake-compat",

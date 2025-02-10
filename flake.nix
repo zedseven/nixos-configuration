@@ -49,6 +49,10 @@
         nightly.follows = "";
       };
     };
+    catppuccin = {
+      url = "github:catppuccin/nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # Other personal tools that are imported
     breeze = {
