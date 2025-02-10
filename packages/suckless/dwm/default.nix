@@ -21,11 +21,6 @@ stdenv.mkDerivation {
     hash = "sha256-Ka+qrJMsPlRM6/JZWNQApR6g7lNQtXJiQkvAkAArYAA=";
   };
 
-  outputs = [
-    "out"
-    "terminfo"
-  ];
-
   strictDeps = true;
 
   buildInputs =
@@ -65,12 +60,6 @@ stdenv.mkDerivation {
 
     echo "" >> config.h
     echo '''${extraConfigText}''' >> config.h
-  '';
-
-  preInstall = ''
-    export TERMINFO=$terminfo/share/terminfo
-    mkdir -p $TERMINFO $out/nix-support
-    echo "$terminfo" >> $out/nix-support/propagated-user-env-packages
   '';
 
   meta = {
