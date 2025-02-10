@@ -40,7 +40,7 @@
       "/etc/mullvad-vpn"
       "/etc/ssh"
       "/root/.cache/restic"
-      "/var/lib/bluetooth"
+      "/var/lib" # Required instead of `/var/lib/bluetooth` because of https://github.com/systemd/systemd/issues/25097
       "/var/log"
     ];
 
