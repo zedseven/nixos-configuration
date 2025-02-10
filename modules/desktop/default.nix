@@ -316,6 +316,7 @@ in {
           obsidian
           slstatus
           st
+          pulseaudio # To get `pactl` despite using PipeWire
         ]
         ++ [
           (pkgs.writeShellScriptBin "shutdown-now" ''
