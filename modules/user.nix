@@ -202,7 +202,6 @@ in {
           packages = with pkgs; [
             inputs.deploy-rs.packages.${system}.default
             inputs.self.packages.${system}.purefmt
-            inputs.self.packages.${system}.tealdeer
             inputs.self.packages.${system}.wireguard-vanity-address
             deadnix
             dnsutils
@@ -218,6 +217,7 @@ in {
             rclone
             restic
             statix
+            tealdeer
             traceroute
             viu
             yt-dlp

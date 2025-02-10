@@ -5,10 +5,7 @@
   ...
 }: {
   nixpkgs.overlays =
-    [
-      # Required because `home-manager` doesn't provide an option for package overrides for `tealdeer`
-      (_: _: {inherit (inputs.self.packages.${system}) tealdeer;})
-    ]
+    []
     ++ (lib.optionals (system == "aarch64-linux") [
       (_: super: {
         fish = super.fish.overrideAttrs (oldAttrs: {
