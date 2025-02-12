@@ -190,7 +190,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    security.protectKernelImage = false; # To allow for hibernation
+    security = {
+      protectKernelImage = false; # To allow for hibernation
+      rtkit.enable = true; # Used by PipeWire to acquire realtime priority
+    };
 
     services = {
       xserver = {
