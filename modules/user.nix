@@ -413,7 +413,7 @@ in {
         };
 
         custom.desktop.suckless = let
-          fontFamily = "PragmataPro Mono";
+          fontFamily = "PragmataPro Mono Liga";
           colourSchemes = (import ./desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
         in
           lib.mkDefault {
