@@ -323,10 +323,10 @@ in {
         ]
         ++ [
           (pkgs.writeShellScriptBin "shutdown-now" ''
-            shutdown -h now
+            ${pkgs.systemd}/bin/shutdown -h now
           '')
           (pkgs.writeShellScriptBin "autorandr-change" ''
-            autorandr --change
+            ${pkgs.autorandr}/bin/autorandr --change
           '')
         ];
     };
@@ -335,8 +335,8 @@ in {
       xsession = {
         enable = true;
         profileExtra = ''
-          slstatus &
-          slock &
+          ${inputs.self.packages.${system}.slstatus}/bin/slstatus &
+          ${inputs.self.packages.${system}.slock}/bin/slock &
         '';
       };
 
@@ -389,11 +389,11 @@ in {
         sxhkd = {
           enable = true;
           keybindings = {
-            "XF86AudioRaiseVolume" = "pactl set-sink-volume @DEFAULT_SINK@ +2%";
-            "XF86AudioLowerVolume" = "pactl set-sink-volume @DEFAULT_SINK@ -2%";
-            "XF86AudioMute" = "pactl set-sink-mute @DEFAULT_SINK@ toggle";
-            "XF86MonBrightnessUp" = "light -A 5";
-            "XF86MonBrightnessDown" = "light -U 5";
+            "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +2%";
+            "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -2%";
+            "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+            "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
+            "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
           };
         };
       };
