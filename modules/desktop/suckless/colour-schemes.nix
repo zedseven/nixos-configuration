@@ -120,6 +120,12 @@ fetchFromGitHub: let
     rev = "37c73559b8ce3da2d7bbcd1538daddbbe45c289d";
     hash = "sha256-r+Dll1Ma3CS7CxwkU3L5gvIRM0BJTHhVeTa5iRsigo0=";
   };
+  schemeForCatppuccinPalettes = schemeFromPalette: {
+    frappe = schemeFromPalette "frappe";
+    latte = schemeFromPalette "latte";
+    macchiato = schemeFromPalette "macchiato";
+    mocha = schemeFromPalette "mocha";
+  };
 in {
   dwm.catppuccin = let
     dwmFromPalette = palette: {
@@ -129,12 +135,8 @@ in {
       grey4 = catppuccinPalettes.${palette}.text;
       active = catppuccinPalettes.${palette}.sapphire;
     };
-  in {
-    frappe = dwmFromPalette "frappe";
-    latte = dwmFromPalette "latte";
-    macchiato = dwmFromPalette "macchiato";
-    mocha = dwmFromPalette "mocha";
-  };
+  in
+    schemeForCatppuccinPalettes dwmFromPalette;
   dmenu.catppuccin = let
     # Based on https://github.com/catppuccin/dmenu
     dmenuFromPalette = palette: {
@@ -148,18 +150,10 @@ in {
       highPriorityForeground = catppuccinPalettes.${palette}.text;
       highPriorityBackground = catppuccinPalettes.${palette}.surface0;
     };
-  in {
-    frappe = dmenuFromPalette "frappe";
-    latte = dmenuFromPalette "latte";
-    macchiato = dmenuFromPalette "macchiato";
-    mocha = dmenuFromPalette "mocha";
-  };
+  in
+    schemeForCatppuccinPalettes dmenuFromPalette;
   st.catppuccin = let
     stFromPalette = palette: builtins.readFile "${catppuccin-st}/themes/${palette}.h";
-  in {
-    frappe = stFromPalette "frappe";
-    latte = stFromPalette "latte";
-    macchiato = stFromPalette "macchiato";
-    mocha = stFromPalette "mocha";
-  };
+  in
+    schemeForCatppuccinPalettes stFromPalette;
 }
