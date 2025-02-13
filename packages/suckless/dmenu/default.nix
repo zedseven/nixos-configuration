@@ -34,7 +34,7 @@
 }:
 stdenv.mkDerivation {
   pname = "dmenu";
-  version = "5.2";
+  version = "5.2-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";

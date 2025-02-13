@@ -28,7 +28,7 @@
 }:
 stdenv.mkDerivation {
   pname = "dwm";
-  version = "6.4";
+  version = "6.4-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";

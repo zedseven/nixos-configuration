@@ -69,7 +69,7 @@
 }:
 stdenv.mkDerivation {
   pname = "st";
-  version = "0.9";
+  version = "0.9-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";

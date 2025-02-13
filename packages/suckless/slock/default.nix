@@ -30,7 +30,7 @@
 }:
 stdenv.mkDerivation {
   pname = "slock";
-  version = "1.5";
+  version = "1.5-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";
