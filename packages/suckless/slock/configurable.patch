@@ -1,0 +1,47 @@
+diff --git a/config.def.h b/config.def.h
+index fcd67d8c..f7105a9a 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,30 +1,30 @@
+ /* user and group to drop privileges to */
+-static const char *user  = "nobody";
+-static const char *group = "nobody";
++static const char *user  = "@USER@";
++static const char *group = "@GROUP@";
+ 
+ static const char *colorname[NUMCOLS] = {
+-	[INIT] =   "black",     /* after initialization */
+-	[INPUT] =  "#005577",   /* during input */
+-	[FAILED] = "#CC3333",   /* wrong password */
+-	[CAPS] =   "#007755",   /* CapsLock on */
++	[INIT] =   "@COLOUR_INITIALISATION@",   /* after initialization */
++	[INPUT] =  "@COLOUR_INPUT@",   /* during input */
++	[FAILED] = "@COLOUR_FAILED@",   /* wrong password */
++	[CAPS] =   "@COLOUR_CAPS_LOCK@",   /* CapsLock on */
+ };
+ 
+ /* treat a cleared input like a wrong password (color) */
+-static const int failonclear = 1;
++static const int failonclear = @FAIL_ON_CLEAR@;
+ 
+ /* allow control key to trigger fail on clear */
+-static const int controlkeyclear = 0;
++static const int controlkeyclear = @CONTROL_KEY_CLEAR@;
+ 
+ /* time in seconds before the monitor shuts down */
+-static const int monitortime = 5;
++static const int monitortime = @MONITOR_OFF_SECONDS@;
+ 
+ /* time in seconds to cancel lock with mouse movement */
+-static const int timetocancel = 4;
++static const int timetocancel = @QUICK_CANCEL_SECONDS@;
+ /* whether quick-cancel is enabled by default (the `-c` flag flips this) */
+-static const int quickcancelenabledbydefault = 1;
++static const int quickcancelenabledbydefault = @QUICK_CANCEL_ENABLED_BY_DEFAULT@;
+ 
+ /* secret passwords for running commands while locked */
+ static const struct secretpass scom[] = {
+ 	/* password              command */
+-	{ "shutdown",           "doas poweroff" },
++	@COMMANDS@
+ };

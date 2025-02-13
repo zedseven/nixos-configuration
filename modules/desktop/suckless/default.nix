@@ -151,6 +151,72 @@ in {
         };
       };
     };
+    slock = {
+      user = mkOption {
+        description = "The user to drop privileges to.";
+        type = types.str;
+        default = "nobody";
+      };
+      group = mkOption {
+        description = "The group to drop privileges to.";
+        type = types.str;
+        default = "nogroup"; # The default in `slock` is actually `nobody`, but NixOS uses `nogroup` instead
+      };
+      failOnClear = mkOption {
+        description = "Whether to treat a cleared input like a wrong password (changing the screen colour).";
+        type = types.bool;
+        default = true;
+      };
+      controlKeyClear = mkOption {
+        description = "Whether to allow control key to trigger fail on clear.";
+        type = types.bool;
+        default = false;
+      };
+      monitorOffSeconds = mkOption {
+        description = "The time in seconds before the monitor shuts down.";
+        type = types.ints.unsigned;
+        default = 5;
+      };
+      quickCancelSeconds = mkOption {
+        description = "The time in seconds to cancel lock with mouse movement.";
+        type = types.ints.unsigned;
+        default = 4;
+      };
+      quickCancelEnabledByDefault = mkOption {
+        description = "Whether quick-cancel is enabled by default (the `-c` flag flips this).";
+        type = types.bool;
+        default = true;
+      };
+      commands = mkOption {
+        description = "Password values for running commands while locked.";
+        type = types.attrsOf types.str;
+        default = {
+          "shutdown" = "doas poweroff";
+        };
+      };
+      colours = {
+        initialisation = mkOption {
+          description = "After initialisation.";
+          type = types.str;
+          default = "#000000";
+        };
+        input = mkOption {
+          description = "During input.";
+          type = types.str;
+          default = "#005577";
+        };
+        failed = mkOption {
+          description = "After a wrong password.";
+          type = types.str;
+          default = "#cc3333";
+        };
+        capsLock = mkOption {
+          description = "Input while CapsLock is on.";
+          type = types.str;
+          default = "#007755";
+        };
+      };
+    };
     st = {
       shell = mkOption {
         description = "The shell to execute on startup.";
@@ -245,17 +311,7 @@ in {
 
       dwm = inputs.self.packages.${system}.dwm.override {conf = cfg.dwm;};
 
-      slock =
-        (pkgs.slock.overrideAttrs {
-          src = pkgs.fetchFromGitHub {
-            owner = "zedseven";
-            repo = "slock";
-            rev = "84c9d2702e94cf45bd0049cd430755613e6dfbd3";
-            hash = "sha256-BnS/lKWgRpjxsGDWMflPfgrFQeuTiT5gXvg2cztxlYE=";
-          };
-        })
-        .override
-        {conf = builtins.readFile ./config.slock.h;};
+      slock = inputs.self.packages.${system}.slock.override {conf = cfg.slock;};
 
       slstatus = pkgs.slstatus.override {conf = builtins.readFile ./config.slstatus.${hostname}.h;};
 

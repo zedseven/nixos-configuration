@@ -451,6 +451,17 @@ in {
               };
               colours = colour-schemes.dmenu.catppuccin.mocha;
             };
+            slock = {
+              failOnClear = true;
+              controlKeyClear = true;
+              quickCancelEnabledByDefault = false;
+              commands = {
+                "shutdown" = "${pkgs.systemd}/bin/systemctl poweroff -i";
+                "reboot" = "${pkgs.systemd}/bin/systemctl reboot -i";
+                "hibernate" = "${pkgs.systemd}/bin/systemctl hibernate -i";
+              };
+              colours = colour-schemes.slock.catppuccin.mocha;
+            };
             st = {
               font = {
                 family = font-family;

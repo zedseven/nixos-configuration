@@ -144,7 +144,7 @@ in {
       normalBackground = catppuccinPalettes.${palette}.base;
       selectedForeground = catppuccinPalettes.${palette}.base;
       selectedBackground = catppuccinPalettes.${palette}.sapphire;
-      outForeground = "#000000";
+      outForeground = catppuccinPalettes.${palette}.crust;
       outBackground = catppuccinPalettes.${palette}.sapphire;
       highlightForeground = catppuccinPalettes.${palette}.red;
       highPriorityForeground = catppuccinPalettes.${palette}.text;
@@ -152,6 +152,15 @@ in {
     };
   in
     schemeForCatppuccinPalettes dmenuFromPalette;
+  slock.catppuccin = let
+    slockFromPalette = palette: {
+      initialisation = catppuccinPalettes.${palette}.crust;
+      input = catppuccinPalettes.${palette}.blue;
+      failed = catppuccinPalettes.${palette}.red;
+      capsLock = catppuccinPalettes.${palette}.green;
+    };
+  in
+    schemeForCatppuccinPalettes slockFromPalette;
   st.catppuccin = let
     stFromPalette = palette: builtins.readFile "${catppuccin-st}/themes/${palette}.h";
   in
