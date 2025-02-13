@@ -1,6 +1,7 @@
 # My main PC.
 {
   config,
+  pkgs,
   inputs,
   userInfo,
   ...
@@ -77,6 +78,39 @@
           };
         };
       };
+
+      suckless.slstatus.arguments = [
+        {
+          function = "run_command";
+          displayFormat = "Audio: %s";
+          functionArgument = "${pkgs.bash}/bin/bash -c \\\"${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | ${pkgs.gnugrep}/bin/grep -Po '[0-9]+%' | ${pkgs.coreutils}/bin/head -n1\\\"";
+        }
+        {
+          function = "cpu_perc";
+          displayFormat = "CPU: %s%%";
+          functionArgument = "";
+        }
+        {
+          function = "temp";
+          displayFormat = "Temp: %s°C";
+          functionArgument = "/sys/class/hwmon/hwmon3/temp1_input";
+        }
+        {
+          function = "ram_perc";
+          displayFormat = "RAM: %s%%";
+          functionArgument = "";
+        }
+        {
+          function = "wifi_essid";
+          displayFormat = "Wi-Fi: %s";
+          functionArgument = "wlp5s0";
+        }
+        {
+          function = "datetime";
+          displayFormat = "%s";
+          functionArgument = "%F %T";
+        }
+      ];
 
       displayDriver = "nvidia";
       is4k = true;

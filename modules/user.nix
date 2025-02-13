@@ -463,6 +463,10 @@ in {
               };
               colours = colourSchemes.slock.catppuccin.${catppuccinFlavour};
             };
+            slstatus = {
+              unknownValueString = "∅";
+              argumentSeparator = "  ";
+            };
             st = {
               font = {
                 family = fontFamily;

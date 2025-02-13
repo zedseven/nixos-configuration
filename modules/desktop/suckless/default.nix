@@ -217,6 +217,58 @@ in {
         };
       };
     };
+    slstatus = {
+      updateIntervalMilliseconds = mkOption {
+        description = "The interval in milliseconds between updates.";
+        type = types.ints.unsigned;
+        default = 1000;
+      };
+      unknownValueString = mkOption {
+        description = "The text to show if no value can be retrieved.";
+        type = types.str;
+        default = "n/a";
+      };
+      maximumOutputStringLength = mkOption {
+        description = "The maximum output string length.";
+        type = types.ints.unsigned;
+        default = 2048;
+      };
+      argumentSeparator = mkOption {
+        description = "The separator between argument displays.";
+        type = types.str;
+        default = "  ";
+      };
+      arguments = mkOption {
+        description = "The arguments displayed by the program.";
+        type = types.listOf (
+          types.submodule (_: {
+            options = {
+              function = mkOption {
+                description = "The function to call to retrieve the value.";
+                type = types.str;
+              };
+
+              displayFormat = mkOption {
+                description = "The format that specifies how the value is displayed.";
+                type = types.str;
+              };
+
+              functionArgument = mkOption {
+                description = "The argument(s) passed to the function. They vary based on the function.";
+                type = types.str;
+              };
+            };
+          })
+        );
+        default = [
+          {
+            function = "datetime";
+            displayFormat = "%s";
+            functionArgument = "%F %T";
+          }
+        ];
+      };
+    };
     st = {
       shell = mkOption {
         description = "The shell to execute on startup.";
@@ -306,15 +358,11 @@ in {
   };
 
   config = {
-    nixpkgs.config.packageOverrides = pkgs: {
+    nixpkgs.config.packageOverrides = _: {
       dmenu = inputs.self.packages.${system}.dmenu.override {conf = cfg.dmenu;};
-
       dwm = inputs.self.packages.${system}.dwm.override {conf = cfg.dwm;};
-
       slock = inputs.self.packages.${system}.slock.override {conf = cfg.slock;};
-
-      slstatus = pkgs.slstatus.override {conf = builtins.readFile ./config.slstatus.${hostname}.h;};
-
+      slstatus = inputs.self.packages.${system}.slstatus.override {conf = cfg.slstatus;};
       st = inputs.self.packages.${system}.st.override {conf = cfg.st;};
     };
   };

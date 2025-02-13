@@ -1,0 +1,28 @@
+diff --git a/config.def.h b/config.def.h
+index 93a875ae..6e55778c 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -1,13 +1,13 @@
+ /* See LICENSE file for copyright and license details. */
+ 
+ /* interval between updates (in ms) */
+-const unsigned int interval = 1000;
++const unsigned int interval = @UPDATE_INTERVAL_MILLISECONDS@;
+ 
+ /* text to show if no value can be retrieved */
+-static const char unknown_str[] = "n/a";
++static const char unknown_str[] = "@UNKNOWN_VALUE_STRING@";
+ 
+ /* maximum output string length */
+-#define MAXLEN 2048
++#define MAXLEN @MAXIMUM_OUTPUT_STRING_LENGTH@
+ 
+ /*
+  * function            description                     argument (example)
+@@ -65,5 +65,5 @@ static const char unknown_str[] = "n/a";
+  */
+ static const struct arg args[] = {
+ 	/* function format          argument */
+-	{ datetime, "%s",           "%F %T" },
++	@ARGUMENTS@
+ };

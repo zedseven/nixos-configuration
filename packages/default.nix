@@ -25,6 +25,7 @@
         qemu-guest = callPackage ./qemu-guest.nix {};
         sharpii = callPackage ./sharpii.nix {}; # Technically, it will only work on x86_64 at the moment
         slock = callPackage ./suckless/slock {};
+        slstatus = callPackage ./suckless/slstatus {};
         st = callPackage ./suckless/st {};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         win2xcur = callPackage ./win2xcur {};
