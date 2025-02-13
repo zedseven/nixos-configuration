@@ -43,6 +43,7 @@ in {
 
   config = let
     homeDirectory = "/home/${userInfo.username}";
+    catppuccinFlavour = "mocha";
   in
     lib.mkMerge [
       # Minimal
@@ -233,7 +234,7 @@ in {
 
         catppuccin = {
           enable = true;
-          flavor = "mocha";
+          flavor = catppuccinFlavour;
         };
 
         home-manager.users.${userInfo.username} = {
@@ -241,7 +242,7 @@ in {
 
           catppuccin = {
             enable = true;
-            flavor = "mocha";
+            flavor = catppuccinFlavour;
           };
 
           programs = {
@@ -412,18 +413,18 @@ in {
         };
 
         custom.desktop.suckless = let
-          font-family = "PragmataPro Mono";
-          colour-schemes = (import ./desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
+          fontFamily = "PragmataPro Mono";
+          colourSchemes = (import ./desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
         in
           lib.mkDefault {
             dwm = {
               masterAreaSizePercentage = 0.5;
               respectResizeHints = true;
               font = {
-                family = font-family;
+                family = fontFamily;
                 pixelSize = 12;
               };
-              colours = colour-schemes.dwm.catppuccin.mocha;
+              colours = colourSchemes.dwm.catppuccin.${catppuccinFlavour};
               highPriorityPrograms = [
                 "slock"
                 "shutdown-now"
@@ -446,10 +447,10 @@ in {
             dmenu = {
               prompt = "launch ";
               font = {
-                family = font-family;
+                family = fontFamily;
                 pixelSize = 12;
               };
-              colours = colour-schemes.dmenu.catppuccin.mocha;
+              colours = colourSchemes.dmenu.catppuccin.${catppuccinFlavour};
             };
             slock = {
               failOnClear = true;
@@ -460,18 +461,18 @@ in {
                 "reboot" = "${pkgs.systemd}/bin/systemctl reboot -i";
                 "hibernate" = "${pkgs.systemd}/bin/systemctl hibernate -i";
               };
-              colours = colour-schemes.slock.catppuccin.mocha;
+              colours = colourSchemes.slock.catppuccin.${catppuccinFlavour};
             };
             st = {
               font = {
-                family = font-family;
+                family = fontFamily;
                 pixelSize = 24;
                 characterTweaks = {
                   heightScale = 14.0 / 15.0;
                   yOffset = -1;
                 };
               };
-              colourSchemeText = colour-schemes.st.catppuccin.mocha;
+              colourSchemeText = colourSchemes.st.catppuccin.${catppuccinFlavour};
             };
           };
       })
