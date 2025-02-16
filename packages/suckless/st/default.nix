@@ -69,13 +69,13 @@
 }:
 stdenv.mkDerivation {
   pname = "st";
-  version = "0.9-custom";
+  version = "0.9.2-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";
     repo = "st";
-    rev = "54d82a8156a1bee8ebfec5836c3325490259fca3";
-    hash = "sha256-n91/Evy9RuUXF+G5gbwm/7eKvMwVMKg/pBgl6rX9UZg=";
+    rev = "1aeed899de950fcb125a15854de68d5a7c627afd";
+    hash = "sha256-jBOTfRdAnVpdIteMOmi8SQ0G1Xq0E01LHNfqh9tB3W4=";
   };
 
   outputs = [
