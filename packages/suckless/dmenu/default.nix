@@ -34,13 +34,13 @@
 }:
 stdenv.mkDerivation {
   pname = "dmenu";
-  version = "5.2-custom";
+  version = "5.3-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";
     repo = "dmenu";
-    rev = "b823f73f2b477796ff95f48edbe1f740d800986e";
-    hash = "sha256-nxodcOXYhW5HPTWDyUot6lEIQDF2fnzWQFH+Xjq7ZSQ=";
+    rev = "1c75f8baaaf94ed9fa8321434aedfd7b900aae00";
+    hash = "sha256-ohr+LwGvnWZG0vzspioQt/jq6xk955gAVu0Lss6urPc=";
   };
 
   strictDeps = true;
