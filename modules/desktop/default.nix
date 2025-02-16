@@ -267,7 +267,7 @@ in {
       slock.enable = true;
       xss-lock = {
         enable = true;
-        lockerCommand = "${pkgs.slock}/bin/slock -c";
+        lockerCommand = "${config.security.wrapperDir}/slock -c";
       };
     };
 
@@ -338,7 +338,7 @@ in {
         # the ones in `pkgs` are overridden with the configuration for the system
         profileExtra = ''
           ${pkgs.slstatus}/bin/slstatus &
-          ${pkgs.slock}/bin/slock &
+          ${config.security.wrapperDir}/slock &
         '';
       };
 
