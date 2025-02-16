@@ -334,9 +334,11 @@ in {
     home-manager.users.${userInfo.username} = {
       xsession = {
         enable = true;
+        # These use the entries from `pkgs` despite existing as custom packages because
+        # the ones in `pkgs` are overridden with the configuration for the system
         profileExtra = ''
-          ${inputs.self.packages.${system}.slstatus}/bin/slstatus &
-          ${inputs.self.packages.${system}.slock}/bin/slock &
+          ${pkgs.slstatus}/bin/slstatus &
+          ${pkgs.slock}/bin/slock &
         '';
       };
 
