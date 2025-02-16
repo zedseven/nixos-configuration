@@ -28,13 +28,13 @@
 }:
 stdenv.mkDerivation {
   pname = "dwm";
-  version = "6.4-custom";
+  version = "6.5-custom";
 
   src = fetchFromGitHub {
     owner = "zedseven";
     repo = "dwm";
-    rev = "38d365ba283514549e756129970ef274ce9fb134";
-    hash = "sha256-Ka+qrJMsPlRM6/JZWNQApR6g7lNQtXJiQkvAkAArYAA=";
+    rev = "b155060dc0ec46db624f26fcff07f64d3314a681";
+    hash = "sha256-BmqjHWvuB+ac1/Fu1tjs2VHyCpIUq2h0pW2NcXZK9Hg=";
   };
 
   strictDeps = true;
