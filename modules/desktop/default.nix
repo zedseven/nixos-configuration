@@ -331,9 +331,9 @@ in {
           miniserve
           mpv
           obsidian
+          pulseaudio # To get `pactl` despite using PipeWire
           slstatus
           st
-          pulseaudio # To get `pactl` despite using PipeWire
         ]
         ++ [
           (pkgs.writeShellScriptBin "shutdown-now" ''
