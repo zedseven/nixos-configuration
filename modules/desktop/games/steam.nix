@@ -24,6 +24,9 @@ in {
 
         # Used for running Proton games with different environment variables
         home-manager.users.${userInfo.username}.home.packages = with pkgs; [gamemode];
+
+        # Add `steam` as a high-priority program
+        custom.desktop.suckless.dwm.highPriorityPrograms = ["steam"];
       }
       (lib.mkIf cfg.wrapSteam (
         let

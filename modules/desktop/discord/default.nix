@@ -35,7 +35,8 @@ in {
 
       # The bin name must be something other than `discord` because `betterdiscordctl` will kill all processes
       # by that name as part of the `uninstall` command
-      discordWrapped = pkgs.writeShellScriptBin "discord-better" ''
+      patchedDiscordName = "discord-better";
+      discordWrapped = pkgs.writeShellScriptBin patchedDiscordName ''
         ${pkgs.betterdiscordctl}/bin/betterdiscordctl uninstall
         ${pkgs.betterdiscordctl}/bin/betterdiscordctl install
         ${pkgs.findutils}/bin/find -L $HOME/.config/discord -name 'discord_krisp.node' -exec ${krispPatcher}/bin/discord-krisp-patcher {} +
@@ -55,6 +56,9 @@ in {
       nixpkgs.config.packageOverrides = pkgs: {
         discord = pkgs.discord.overrideAttrs {withOpenASAR = true;};
       };
+
+      # Add the patched version of Discord as a high-priority program
+      custom.desktop.suckless.dwm.highPriorityPrograms = [patchedDiscordName];
     }
   );
 }

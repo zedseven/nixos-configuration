@@ -19,5 +19,8 @@ in {
 
     # https://www.mobileread.com/forums/showthread.php?t=350674
     services.udisks2.enable = true;
+
+    # Add `calibre` as a high-priority program
+    custom.desktop.suckless.dwm.highPriorityPrograms = ["calibre"];
   };
 }

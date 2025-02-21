@@ -19,5 +19,8 @@ in {
 
     # Allow access to serial interfaces
     users.users.${userInfo.username}.extraGroups = ["dialout"];
+
+    # Add `plover` as a high-priority program
+    custom.desktop.suckless.dwm.highPriorityPrograms = ["plover"];
   };
 }

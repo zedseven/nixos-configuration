@@ -425,24 +425,6 @@ in {
                 pixelSize = 12;
               };
               colours = colourSchemes.dwm.catppuccin.${catppuccinFlavour};
-              highPriorityPrograms = [
-                "slock"
-                "shutdown-now"
-                "reboot"
-                "autorandr-change"
-                "firefox-devedition"
-                "discord-better"
-                "keepass"
-                "obsidian"
-                "steam"
-                "mullvad-vpn"
-                "blender"
-                "calibre"
-                "clion"
-                "rider"
-                "webstorm"
-                "jetbrains-toolbox"
-              ];
             };
             dmenu = {
               prompt = "launch ";

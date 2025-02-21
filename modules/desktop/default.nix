@@ -286,6 +286,20 @@ in {
       [intel-one-mono]
       ++ (builtins.attrValues {inherit (inputs.self.packages.${system}) dank-mono pragmatapro;});
 
+    # Add the UI programs enabled through this module as high-priority programs
+    custom.desktop.suckless.dwm.highPriorityPrograms = [
+      "autorandr-change"
+      "clion"
+      "firefox-devedition"
+      "keepass"
+      "mullvad-vpn"
+      "obsidian"
+      "reboot"
+      "rust-rover"
+      "shutdown-now"
+      "slock"
+    ];
+
     users.users.${userInfo.username} = {
       extraGroups = [
         "audio"
