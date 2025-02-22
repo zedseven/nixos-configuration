@@ -42,6 +42,10 @@
         utils.follows = "flake-utils";
       };
     };
+    nvidia-patch = {
+      url = "github:arcnmx/nvidia-patch.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     tolerable = {
       url = "github:wires-org/tolerable-nvim-nix";
       inputs = {
