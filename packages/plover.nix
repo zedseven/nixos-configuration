@@ -45,11 +45,14 @@ in
           python310Packages.evdev
         ];
 
-      # https://github.com/NixOS/nixpkgs/issues/7307#issuecomment-1232267367
-      # https://discourse.nixos.org/t/screenshot-with-mss-in-python-says-no-x11-library/14534/4
       postPatch = ''
+        # https://github.com/NixOS/nixpkgs/issues/7307#issuecomment-1232267367
+        # https://discourse.nixos.org/t/screenshot-with-mss-in-python-says-no-x11-library/14534/4
         substituteInPlace plover/oslayer/linux/log_dbus.py \
           --replace-fail "ctypes.util.find_library('dbus-1')" "'${lib.makeLibraryPath [dbus]}/libdbus-1.so'"
+
+        # https://stackoverflow.com/questions/66125129/unknownextra-error-when-installing-via-setup-py-but-not-via-pip
+        substituteInPlace setup.cfg --replace-fail "plover.gui_qt.main [gui_qt]" "plover.gui_qt.main"
       '';
     }
   )
