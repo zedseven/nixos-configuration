@@ -16,9 +16,7 @@ elf = ELFFile(open(executable, "rb"))
 symtab = elf.get_section_by_name('.symtab')
 
 krisp_initialize_address = symtab.get_symbol_by_name("_ZN7discordL17DoKrispInitializeEv")[0].entry.st_value
-isSignedByDiscord_address = symtab.get_symbol_by_name(
-    "_ZN7discord4util17IsSignedByDiscordERKNSt4__Cr12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE")[
-    0].entry.st_value
+isSignedByDiscord_address = symtab.get_symbol_by_name("_ZN7discord4util17IsSignedByDiscordERKNSt4__Cr12basic_stringIcNS1_11char_traitsIcEENS1_9allocatorIcEEEE")[0].entry.st_value
 
 text = elf.get_section_by_name('.text')
 text_start = text['sh_addr']
@@ -34,7 +32,7 @@ isSignedByDiscord_offset = krisp_initialize_address - address_to_file
 
 f = open(executable, "rb")
 f.seek(krisp_initialize_offset)
-krisp_initialize = f.read(64)
+krisp_initialize = f.read(256)
 f.close()
 
 # States
@@ -78,7 +76,7 @@ if je_location:
     shutil.copyfile(executable, executable + ".orig")
     f = open(executable, 'rb+')
     f.seek(je_location - address_to_file)
-    f.write(b'\x90' * je_size)  # je can be larger than 2 bytes given a large enough displacement :(
+    f.write(b'\x90' * je_size)   # je can be larger than 2 bytes given a large enough displacement :(
     f.close()
 else:
     if found_already_patched:
