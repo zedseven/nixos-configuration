@@ -8,7 +8,7 @@
       inherit system;
       config.allowUnfree = true;
     };
-    inherit (pkgs) callPackage;
+    inherit (pkgs) lib callPackage;
   in {
     name = system;
     value =
@@ -23,13 +23,15 @@
         neovim = callPackage ./neovim {inherit inputs purefmt;};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         qemu-guest = callPackage ./qemu-guest.nix {};
-        sharpii = callPackage ./sharpii.nix {}; # Technically, it will only work on x86_64 at the moment
         slock = callPackage ./suckless/slock {};
         slstatus = callPackage ./suckless/slstatus {};
         st = callPackage ./suckless/st {};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
         win2xcur = callPackage ./win2xcur {};
         wireguard-vanity-address = callPackage ./wireguard-vanity-address.nix {};
+      }
+      // lib.attrsets.optionalAttrs (system == "x86_64-linux") {
+        sharpii = callPackage ./sharpii.nix {};
       }
       # Re-export packages from other flakes
       // {
