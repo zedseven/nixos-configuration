@@ -3,8 +3,9 @@
   fetchFromGitHub,
   python310Packages,
   qt5,
+  dbus,
   ...
-} @ arguments: let
+}: let
   oldPackage =
     (
       (import (
@@ -14,7 +15,14 @@
           sha256 = "sha256:1cif5skn19fhlknkgqxkf1c6n35y2apsnp8kzxmabdf1bmcsnsil";
         }
       ))
-      arguments
+      {
+        inherit
+          lib
+          fetchFromGitHub
+          python310Packages
+          qt5
+          ;
+      }
     )
     .dev;
 in
@@ -36,5 +44,12 @@ in
         ++ [
           python310Packages.evdev
         ];
+
+      # https://github.com/NixOS/nixpkgs/issues/7307#issuecomment-1232267367
+      # https://discourse.nixos.org/t/screenshot-with-mss-in-python-says-no-x11-library/14534/4
+      postPatch = ''
+        substituteInPlace plover/oslayer/linux/log_dbus.py \
+          --replace-fail "ctypes.util.find_library('dbus-1')" "'${lib.makeLibraryPath [dbus]}/libdbus-1.so'"
+      '';
     }
   )
