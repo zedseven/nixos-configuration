@@ -21,6 +21,7 @@
         minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
         ndsplus = callPackage ./ndsplus.nix {};
         neovim = callPackage ./neovim {inherit inputs purefmt;};
+        plover = callPackage ./plover.nix {};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         qemu-guest = callPackage ./qemu-guest.nix {};
         slock = callPackage ./suckless/slock {};

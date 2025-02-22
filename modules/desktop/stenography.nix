@@ -4,6 +4,7 @@
   lib,
   inputs,
   userInfo,
+  system,
   ...
 }: let
   cfg = config.custom.desktop.stenography;
@@ -15,7 +16,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${userInfo.username}.home.packages = with pkgs; [plover.dev];
+    home-manager.users.${userInfo.username}.home.packages = [inputs.self.packages.${system}.plover];
 
     # Allow access to serial interfaces
     users.users.${userInfo.username}.extraGroups = ["dialout"];
