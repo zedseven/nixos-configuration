@@ -115,6 +115,8 @@ in {
           ''
         )
         cfg.backupPaths;
+
+      # Used for executing automatic backups of the whole system
       runBackup = pkgs.writeShellScriptBin "run-backup" ''
         # Constants
         TREES_DIR="$(mktemp -d)"
@@ -165,6 +167,8 @@ in {
         # Delete the temporary tree file directory
         rm -rf "$TREES_DIR"
       '';
+
+      # Used for executing one-off backups of external devices
       runBackupExternal = pkgs.writeShellScriptBin "run-backup-external" ''
         # Input arguments
         RESTIC_HOSTNAME="$1"
@@ -217,6 +221,10 @@ in {
             runBackup
             runBackupExternal
           ];
+
+          # Add `runBackup` as a high-priority program
+          # The script `runBackupExternal` isn't added because it must be run with arguments
+          custom.desktop.suckless.dwm.highPriorityPrograms = [runBackup.name];
         }
         (lib.mkIf cfg.scheduled.enable {
           systemd = {
