@@ -1,0 +1,18 @@
+diff --git a/src/ui/learn.rs b/src/ui/learn.rs
+index 02affdec..e8d94e54 100644
+--- a/src/ui/learn.rs
++++ b/src/ui/learn.rs
+@@ -312,11 +312,11 @@ impl App for LearnApp {
+             .constraints([Constraint::Percentage(50), Constraint::Percentage(50)].as_ref())
+             .split(left[0]);
+ 
+-        let lstatus = List::new(self.status.as_ref())
++        let lstatus = List::new(&*self.status)
+             .block(Block::default().title("Status").borders(Borders::ALL));
+         f.render_widget(lstatus, status[0]);
+ 
+-        let rstatus = List::new(self.rstatus.as_ref())
++        let rstatus = List::new(&*self.rstatus)
+             .block(Block::default().title("Totals").borders(Borders::ALL));
+         f.render_widget(rstatus, status[1]);
+ 

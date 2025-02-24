@@ -28,6 +28,7 @@
         slstatus = callPackage ./suckless/slstatus {};
         st = callPackage ./suckless/st {};
         steam-no-whats-new = callPackage ./steam-no-whats-new.nix {};
+        steno-drill = callPackage ./steno-drill {};
         win2xcur = callPackage ./win2xcur {};
         wireguard-vanity-address = callPackage ./wireguard-vanity-address.nix {};
       }
