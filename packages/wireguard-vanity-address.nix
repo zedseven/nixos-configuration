@@ -4,7 +4,7 @@
   rustPlatform,
   optimiseForNativeCpu ? true,
 }:
-rustPlatform.buildRustPackage rec {
+rustPlatform.buildRustPackage {
   pname = "wireguard-vanity-address";
   version = "0.4.0";
 
