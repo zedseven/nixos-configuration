@@ -418,6 +418,48 @@ in {
         in
           lib.mkDefault {
             dwm = {
+              rules = [
+                {
+                  class = "steam";
+                  tagIndices = [0];
+                  monitorIndex = 0;
+                }
+                {
+                  class = "jetbrains-clion";
+                  tagIndices = [3];
+                  monitorIndex = 0;
+                }
+                {
+                  class = "jetbrains-rustrover";
+                  tagIndices = [4];
+                  monitorIndex = 0;
+                }
+                {
+                  class = "Mullvad VPN";
+                  tagIndices = [2];
+                  monitorIndex = 1;
+                }
+                {
+                  class = "obsidian";
+                  tagIndices = [5];
+                  monitorIndex = 1;
+                }
+                {
+                  class = "KeePass2";
+                  tagIndices = [6];
+                  monitorIndex = 1;
+                }
+                {
+                  class = "firefox";
+                  tagIndices = [7];
+                  monitorIndex = 1;
+                }
+                {
+                  class = "discord";
+                  tagIndices = [8];
+                  monitorIndex = 1;
+                }
+              ];
               masterAreaSizePercentage = 0.5;
               respectResizeHints = true;
               font = {
