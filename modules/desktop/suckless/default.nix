@@ -44,7 +44,7 @@ in {
                 default = false;
               };
               monitorIndex = mkOption {
-                description = "Which monitor (0-indexed) to make the window available on. If `null`, then the window will be present on all monitors.";
+                description = "Which monitor (0-indexed) to make the window available on. If `null`, the window will be created on the current monitor.";
                 type = types.nullOr types.ints.unsigned;
                 default = null;
               };
