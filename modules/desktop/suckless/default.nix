@@ -9,6 +9,50 @@
 in {
   options.custom.desktop.suckless = with lib; {
     dwm = {
+      rules = mkOption {
+        description = "The rules to control how new windows are placed. For more information, visit: https://dwm.suckless.org/customisation/rules/";
+        type = types.listOf (
+          types.submodule (_: {
+            options = {
+              # Matching Section
+              # To get these properties for a window, run the following command: `xprop | awk '/^WM_CLASS/{sub(/.* =/, "instance:"); sub(/,/, "\nclass:"); print} /^WM_NAME/{sub(/.* =/, "title:"); print}'`
+              class = mkOption {
+                description = "The window class (part of `WM_CLASS`) to match as a substring. If `null`, anything is matched.";
+                type = types.nullOr types.str;
+                default = null;
+              };
+              instance = mkOption {
+                description = "The window instance name (part of `WM_CLASS`) to match as a substring. If `null`, anything is matched.";
+                type = types.nullOr types.str;
+                default = null;
+              };
+              title = mkOption {
+                description = "The window title (`WM_NAME`) to match as a substring. If `null`, anything is matched.";
+                type = types.nullOr types.str;
+                default = null;
+              };
+
+              # Action Section
+              tagIndices = mkOption {
+                description = "The tag indices (0-indexed) to put the window on when it's created. If empty, the window will be created on the currently-viewed tags at the time of creation.";
+                type = types.listOf types.ints.unsigned;
+                default = [];
+              };
+              isFloating = mkOption {
+                description = "Whether the window floats instead of being tiled.";
+                type = types.bool;
+                default = false;
+              };
+              monitorIndex = mkOption {
+                description = "Which monitor (0-indexed) to make the window available on. If `null`, then the window will be present on all monitors.";
+                type = types.nullOr types.ints.unsigned;
+                default = null;
+              };
+            };
+          })
+        );
+        default = [];
+      };
       masterAreaSizePercentage = mkOption {
         description = "The percentage of the total size used by the master area.";
         type = types.float;
@@ -246,12 +290,10 @@ in {
                 description = "The function to call to retrieve the value.";
                 type = types.str;
               };
-
               displayFormat = mkOption {
                 description = "The format that specifies how the value is displayed.";
                 type = types.str;
               };
-
               functionArgument = mkOption {
                 description = "The argument(s) passed to the function. They vary based on the function.";
                 type = types.str;

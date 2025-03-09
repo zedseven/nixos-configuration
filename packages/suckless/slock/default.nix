@@ -56,16 +56,8 @@ stdenv.mkDerivation {
   patches = [./configurable.patch];
 
   postPatch = let
-    failOnClearString =
-      if conf.failOnClear
-      then "1"
-      else "0";
-    controlKeyClearString =
-      if conf.controlKeyClear
-      then "1"
-      else "0";
-    quickCancelEnabledByDefaultString =
-      if conf.quickCancelEnabledByDefault
+    boolAsIntString = value:
+      if value
       then "1"
       else "0";
     commandsString = lib.concatStringsSep "\n" (
@@ -84,11 +76,11 @@ stdenv.mkDerivation {
     substituteInPlace config.h \
       --replace-fail "@USER@" "${conf.user}" \
       --replace-fail "@GROUP@" "${conf.group}" \
-      --replace-fail "@FAIL_ON_CLEAR@" "${failOnClearString}" \
-      --replace-fail "@CONTROL_KEY_CLEAR@" "${controlKeyClearString}" \
+      --replace-fail "@FAIL_ON_CLEAR@" "${(boolAsIntString conf.failOnClear)}" \
+      --replace-fail "@CONTROL_KEY_CLEAR@" "${(boolAsIntString conf.controlKeyClear)}" \
       --replace-fail "@MONITOR_OFF_SECONDS@" "${(builtins.toString conf.monitorOffSeconds)}" \
       --replace-fail "@QUICK_CANCEL_SECONDS@" "${(builtins.toString conf.quickCancelSeconds)}" \
-      --replace-fail "@QUICK_CANCEL_ENABLED_BY_DEFAULT@" "${quickCancelEnabledByDefaultString}" \
+      --replace-fail "@QUICK_CANCEL_ENABLED_BY_DEFAULT@" "${(boolAsIntString conf.quickCancelEnabledByDefault)}" \
       --replace-fail "@COMMANDS@" "''$COMMANDS_TEXT" \
       --replace-fail "@COLOUR_INITIALISATION@" "${conf.colours.initialisation}" \
       --replace-fail "@COLOUR_INPUT@" "${conf.colours.input}" \

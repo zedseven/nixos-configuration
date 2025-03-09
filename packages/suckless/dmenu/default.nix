@@ -62,12 +62,12 @@ stdenv.mkDerivation {
   patches = [./configurable.patch];
 
   postPatch = let
-    promptString =
-      if conf.prompt != null
-      then "\"${conf.prompt}\""
-      else "NULL";
-    displayOnScreenTopString =
-      if conf.displayOnScreenTop
+    codeStringOrNull = value:
+      if value == null
+      then "NULL"
+      else "\"${value}\"";
+    boolAsIntString = value:
+      if value
       then "1"
       else "0";
   in ''
@@ -77,8 +77,8 @@ stdenv.mkDerivation {
     cp config.def.h config.h
 
     substituteInPlace config.h \
-      --replace-fail "@PROMPT@" '${promptString}' \
-      --replace-fail "@DISPLAY_ON_SCREEN_TOP@" "${displayOnScreenTopString}" \
+      --replace-fail "@PROMPT@" '${(codeStringOrNull conf.prompt)}' \
+      --replace-fail "@DISPLAY_ON_SCREEN_TOP@" "${(boolAsIntString conf.displayOnScreenTop)}" \
       --replace-fail "@LIST_LINES_COUNT@" "${(builtins.toString conf.listLinesCount)}" \
       --replace-fail "@WORD_DELIMITERS@" "${conf.wordDelimiters}" \
       --replace-fail "@FONT_FAMILY@" "${conf.font.family}" \

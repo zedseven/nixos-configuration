@@ -7,6 +7,7 @@
   libXft,
   libXcursor,
   conf ? {
+    rules = {};
     masterAreaSizePercentage = 0.55;
     respectResizeHints = false;
     font = {
@@ -53,17 +54,42 @@ stdenv.mkDerivation {
   patches = [./configurable.patch];
 
   postPatch = let
-    respectResizeHintsString =
-      if conf.respectResizeHints
+    codeStringOrNull = value:
+      if value == null
+      then "NULL"
+      else "\"${value}\"";
+    boolAsIntString = value:
+      if value
       then "1"
       else "0";
+    rulesString = lib.concatStringsSep "\n" (
+      map (
+        rule: let
+          tagString =
+            if rule.tagIndices == []
+            then "0"
+            else lib.concatStringsSep " | " (map (tagIndex: "(1 << ${builtins.toString tagIndex})") rule.tagIndices);
+          monitorIndexString =
+            if rule.monitorIndex == null
+            then "-1"
+            else builtins.toString rule.monitorIndex;
+        in "{ ${(codeStringOrNull rule.class)}, ${(codeStringOrNull rule.instance)}, ${(codeStringOrNull rule.title)}, ${tagString}, ${(boolAsIntString rule.isFloating)}, ${monitorIndexString} },"
+      )
+      conf.rules
+    );
     highPriorityProgramsString = lib.concatStringsSep "," conf.highPriorityPrograms;
   in ''
     cp config.def.h config.h
 
+    RULES_TEXT=$(cat <<-END
+      ${rulesString}
+    END
+    )
+
     substituteInPlace config.h \
+      --replace-fail "@RULES@" "''$RULES_TEXT" \
       --replace-fail "@MASTER_AREA_SIZE_PERCENTAGE@" "${(builtins.toString conf.masterAreaSizePercentage)}" \
-      --replace-fail "@RESPECT_RESIZE_HINTS@" "${respectResizeHintsString}" \
+      --replace-fail "@RESPECT_RESIZE_HINTS@" "${(boolAsIntString conf.respectResizeHints)}" \
       --replace-fail "@FONT_FAMILY@" "${conf.font.family}" \
       --replace-fail "@FONT_PIXEL_SIZE@" "${(builtins.toString conf.font.pixelSize)}" \
       --replace-fail "@COLOUR_GREY_1@" "${conf.colours.grey1}" \
