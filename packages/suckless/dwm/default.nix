@@ -7,7 +7,7 @@
   libXft,
   libXcursor,
   conf ? {
-    rules = {};
+    rules = [];
     masterAreaSizePercentage = 0.55;
     respectResizeHints = false;
     font = {
