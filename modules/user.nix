@@ -421,6 +421,7 @@ in {
               rules = [
                 {
                   class = "steam";
+                  instance = "steamwebhelper";
                   tagIndices = [0];
                   monitorIndex = 0;
                 }
