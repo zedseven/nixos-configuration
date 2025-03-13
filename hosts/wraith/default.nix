@@ -69,27 +69,27 @@
       suckless.slstatus.arguments = [
         {
           function = "run_command";
-          displayFormat = "Audio: %s";
+          displayFormat = "Audio: %3s"; # Includes the percent sign in its width
           functionArgument = "${pkgs.bash}/bin/bash -c \\\"${pkgs.pulseaudio}/bin/pactl get-sink-volume @DEFAULT_SINK@ | ${pkgs.gnugrep}/bin/grep -Po '[0-9]+%' | ${pkgs.coreutils}/bin/head -n1\\\"";
         }
         {
           function = "cpu_perc";
-          displayFormat = "CPU: %s%%";
+          displayFormat = "CPU: %2s%%";
           functionArgument = "";
         }
         {
           function = "temp";
-          displayFormat = "Temp: %s°C";
+          displayFormat = "Temp: %2s°C";
           functionArgument = "/sys/class/hwmon/hwmon3/temp1_input";
         }
         {
           function = "ram_perc";
-          displayFormat = "RAM: %s%%";
+          displayFormat = "RAM: %2s%%";
           functionArgument = "";
         }
         {
           function = "battery_perc";
-          displayFormat = "Battery: %s%%";
+          displayFormat = "Battery: %3s%%";
           functionArgument = "BAT0";
         }
         {
