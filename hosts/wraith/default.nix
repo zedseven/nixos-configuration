@@ -118,7 +118,7 @@
     };
 
     symlinks = {
-      "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
+      # `agenix` Values
       "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
     };
 
@@ -133,8 +133,12 @@
 
   networking = {
     hostId = "eff5369a";
-    # Networks are defined in `/etc/wpa_supplicant.conf`
-    wireless.enable = true;
+    supplicant."WLAN".configFile.path = config.age.secrets."wpa_supplicant.conf".path;
+    wireless = {
+      enable = true;
+      allowAuxiliaryImperativeNetworks = true;
+      userControlled.enable = true;
+    };
   };
 
   hardware.nvidia.prime = {

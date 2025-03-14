@@ -137,7 +137,6 @@
 
     symlinks = {
       # `agenix` Values
-      "/etc/wpa_supplicant.conf".source = config.age.secrets."wpa_supplicant.conf".path;
       "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
 
       # Private Flakes
@@ -156,8 +155,12 @@
 
   networking = {
     hostId = "c4f086eb";
-    # Networks are defined in `/etc/wpa_supplicant.conf`
-    wireless.enable = true;
+    supplicant."WLAN".configFile.path = config.age.secrets."wpa_supplicant.conf".path;
+    wireless = {
+      enable = true;
+      allowAuxiliaryImperativeNetworks = true;
+      userControlled.enable = true;
+    };
   };
 
   # To allow cross-compilation for other architectures
