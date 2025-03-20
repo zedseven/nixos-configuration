@@ -24,7 +24,7 @@ in {
     topLevelDomain = mkOption {
       description = "The TLD to use for the host domains in the network.";
       type = types.str;
-      default = "local";
+      default = "wg"; # `.local` supposedly conflicts with `avahi`: https://askubuntu.com/questions/718653/avahi-daemon-repeatedly-registers-withdraws-address-record-causing-network-failu/735977#735977
     };
   };
 
