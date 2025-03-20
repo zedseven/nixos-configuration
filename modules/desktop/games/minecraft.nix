@@ -89,6 +89,9 @@ in {
           alsa-oss # Required because of https://github.com/NixOS/nixpkgs/issues/206378#issuecomment-1399327787
           prismlauncher
         ];
+
+        # Add `prismlauncher` as a high-priority program
+        custom.desktop.suckless.dwm.highPriorityPrograms = ["prismlauncher"];
       })
 
       # Server installation
