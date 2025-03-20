@@ -170,6 +170,16 @@ in {
     };
   };
 
+  hardware.printers.ensurePrinters = [
+    {
+      name = "HP_DeskJet_3630_series_CF2922";
+      description = "HP DeskJet 3630 series";
+      location = "Home";
+      deviceUri = "dnssd://HP%20DeskJet%203630%20series%20%5BCF2922%5D._ipp._tcp.local/?uuid=1c852a4d-b800-1f08-abcd-e4e749cf2922";
+      model = "HP/hp-deskjet_3630_series.ppd.gz"; # From `lpinfo -m`, also inside `hplip`
+    }
+  ];
+
   # To allow cross-compilation for other architectures
   boot.binfmt.emulatedSystems = ["aarch64-linux"];
 

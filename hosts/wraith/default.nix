@@ -145,14 +145,26 @@
     };
   };
 
-  hardware.nvidia.prime = {
-    offload = {
-      enable = true;
-      enableOffloadCmd = true;
+  hardware = {
+    nvidia.prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true;
+      };
+
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:59@0:0:0";
     };
 
-    intelBusId = "PCI:0:2:0";
-    nvidiaBusId = "PCI:59@0:0:0";
+    printers.ensurePrinters = [
+      {
+        name = "HP_DeskJet_3630_series_CF2922";
+        description = "HP DeskJet 3630 series";
+        location = "Home";
+        deviceUri = "dnssd://HP%20DeskJet%203630%20series%20%5BCF2922%5D._ipp._tcp.local/?uuid=1c852a4d-b800-1f08-abcd-e4e749cf2922";
+        model = "HP/hp-deskjet_3630_series.ppd.gz"; # From `lpinfo -m`, also inside `hplip`
+      }
+    ];
   };
 
   system.stateVersion = "23.05"; # Don't touch this, ever
