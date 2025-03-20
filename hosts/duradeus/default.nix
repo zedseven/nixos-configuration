@@ -43,7 +43,7 @@ in {
       "/etc/mullvad-vpn"
       "/etc/ssh"
       "/root/.cache/restic"
-      "/var/lib" # Required instead of `/var/lib/bluetooth` because of https://github.com/systemd/systemd/issues/25097
+      "/var/lib" # Required instead of `/var/lib/bluetooth` because of https://github.com/systemd/systemd/issues/25097 - also required for CUPS
       "/var/log"
     ];
 
@@ -133,6 +133,10 @@ in {
         };
         minecraft.enable = true;
         ndsplus.enable = true;
+      };
+      printing = {
+        enable = true;
+        drivers = ["hp"];
       };
       stenography.enable = true;
     };

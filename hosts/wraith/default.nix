@@ -115,6 +115,10 @@
         wrapDiscord = true;
       };
       games.ndsplus.enable = true;
+      printing = {
+        enable = true;
+        drivers = ["hp"];
+      };
     };
 
     symlinks = {

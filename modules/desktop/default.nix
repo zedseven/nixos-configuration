@@ -15,6 +15,7 @@ in {
     ./4k.nix
     ./audio.nix
     ./bluetooth.nix
+    ./printing.nix
     ./discord
     ./games
     ./calibre.nix
@@ -231,7 +232,6 @@ in {
       };
 
       pcscd.enable = true;
-      printing.enable = true;
       logind = {
         lidSwitch = "hybrid-sleep";
         extraConfig = ''
