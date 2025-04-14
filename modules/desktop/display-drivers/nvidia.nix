@@ -34,4 +34,7 @@ in {
       Option "metamodes" "${metamodesStr}"
     '';
   };
+
+  # Add `nvidia-settings` as a high-priority program
+  custom.desktop.suckless.dwm.highPriorityPrograms = ["nvidia-settings"];
 }
