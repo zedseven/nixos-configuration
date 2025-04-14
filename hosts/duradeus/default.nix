@@ -74,7 +74,7 @@ in {
             positionY = 0;
             resolutionX = 3840;
             resolutionY = 2160;
-            rate = 240;
+            rate = 120; # The monitor supports 240 Hz, but it seems my GPU can't handle 2x 4K @ 240 Hz displays - even though my previous, older card, could handle it just fine...
             dpi = 144;
             adaptiveSync = true;
           };
