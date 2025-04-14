@@ -298,6 +298,7 @@ in {
       "rust-rover"
       "shutdown-now"
       "slock"
+      "xrandr-auto"
     ];
 
     users.users.${userInfo.username} = {
@@ -342,6 +343,9 @@ in {
           '')
           (pkgs.writeShellScriptBin "autorandr-change" ''
             ${pkgs.autorandr}/bin/autorandr --change
+          '')
+          (pkgs.writeShellScriptBin "xrandr-auto" ''
+            ${pkgs.xorg.xrandr}/bin/xrandr --auto
           '')
         ];
     };
