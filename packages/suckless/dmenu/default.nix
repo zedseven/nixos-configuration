@@ -8,6 +8,8 @@
   libXinerama,
   libXft,
   zlib,
+  bash,
+  nix,
   conf ? {
     prompt = null;
     displayOnScreenTop = true;
@@ -59,7 +61,10 @@ stdenv.mkDerivation {
     ]
     ++ extraLibs;
 
-  patches = [./configurable.patch];
+  patches = [
+    ./nix-run.patch
+    ./configurable.patch
+  ];
 
   postPatch = let
     codeStringOrNull = value:
@@ -71,6 +76,9 @@ stdenv.mkDerivation {
       then "1"
       else "0";
   in ''
+    substituteInPlace dmenu_run \
+      --replace "/bin/bash" "${bash}/bin/bash" \
+      --replace "nix " "${nix}/bin/nix "
     sed -ri -e 's!\<(dmenu|dmenu_path|stest)\>!'"$out/bin"'/&!g' dmenu_run
     sed -ri -e 's!\<stest\>!'"$out/bin"'/&!g' dmenu_path
 
