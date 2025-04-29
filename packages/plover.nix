@@ -118,6 +118,7 @@ in
         substituteInPlace plover/oslayer/linux/log_dbus.py \
           --replace-fail "ctypes.util.find_library('dbus-1')" "'${lib.makeLibraryPath [dbus]}/libdbus-1.so'"
 
+        # Fixed in a newer version with: https://github.com/openstenoproject/plover/pull/1704
         # https://stackoverflow.com/questions/66125129/unknownextra-error-when-installing-via-setup-py-but-not-via-pip
         substituteInPlace setup.cfg --replace-fail "plover.gui_qt.main [gui_qt]" "plover.gui_qt.main"
       '';
