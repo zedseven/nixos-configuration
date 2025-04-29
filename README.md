@@ -14,6 +14,7 @@ You're welcome to use it as a reference for your own configuration, however I ca
 There are several related repositories that contain additional customisations:
 - `suckless` tools (my custom forks):
 	- [`dmenu`](https://github.com/zedseven/dmenu)
+		- With additional changes here to run unavailable commands with `nix run`
 	- [`dwm`](https://github.com/zedseven/dwm)
 	- [`slock`](https://github.com/zedseven/slock)
 	- [`st`](https://github.com/zedseven/st)
