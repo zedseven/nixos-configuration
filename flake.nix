@@ -118,11 +118,6 @@
   } @ inputs: let
     hosts = [
       {
-        hostname = "_install";
-        system = "x86_64-linux";
-        isServer = false;
-      }
-      {
         hostname = "autori";
         system = "x86_64-linux";
         isServer = true;
