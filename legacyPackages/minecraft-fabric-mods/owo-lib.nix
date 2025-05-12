@@ -6,11 +6,11 @@
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
   pname = "oωo-lib";
-  version = "0.12.15+1.21";
+  version = "0.12.15.4+1.21";
 
   src = fetchurl {
-    url = "https://cdn.modrinth.com/data/ccKDOlHs/versions/vCCHsvEa/owo-lib-0.12.15%2B1.21.jar";
-    hash = "sha256-Bwde2DsHv3DDxKD2UvFLDo9XM7pWrhtWQcFKog9Qc8k=";
+    url = "https://cdn.modrinth.com/data/ccKDOlHs/versions/JB1fLQnc/owo-lib-0.12.15.4%2B1.21.jar";
+    hash = "sha256-glGAzhe8AS+0UGU7FN+fMkedzdBz/D8TO7R0YvWmPOw=";
   };
 
   buildCommand = ''
