@@ -18,7 +18,10 @@
         dmenu = callPackage ./suckless/dmenu {};
         dwm = callPackage ./suckless/dwm {};
         lavalink = callPackage ./lavalink.nix {};
-        minecraft-server-fabric = callPackage ./minecraft-server-fabric {};
+        minecraft-server-fabric = callPackage ./minecraft-server-fabric {
+          inherit minecraft-server-vanilla;
+        };
+        minecraft-server-vanilla = callPackage ./minecraft-server-vanilla.nix {};
         ndsplus = callPackage ./ndsplus.nix {};
         neovim = callPackage ./neovim {inherit inputs purefmt;};
         plover = callPackage ./plover.nix {};
