@@ -1,11 +1,12 @@
 diff --git a/dmenu_run b/dmenu_run
-index 834ede54..6e77deee 100755
+index 834ede54..b46b3710 100755
 --- a/dmenu_run
 +++ b/dmenu_run
-@@ -1,2 +1,9 @@
+@@ -1,2 +1,10 @@
 -#!/bin/sh
 -dmenu_path | dmenu "$@" | ${SHELL:-"/bin/sh"} &
 +#!/bin/bash
++# Even if the entered command name partially matches an existing entry, the command can be ran as-entered with Shift + Enter
 +COMMAND=$(dmenu_path | dmenu "$@")
 +
 +# If the command is not available in the current `PATH`, attempt to run it with Nix
