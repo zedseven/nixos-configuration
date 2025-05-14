@@ -333,7 +333,7 @@ in {
           mpv
           obsidian
           pulseaudio # To get `pactl` despite using PipeWire
-          seahorse
+          seahorse # For GPG keystore management
           slstatus
           st
         ]

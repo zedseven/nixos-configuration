@@ -11,7 +11,7 @@ stdenv.mkDerivation {
   pname = "minecraft-server";
   version = "1.21.1";
 
-  # Find the URL for new versions at: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/games/minecraft-servers/versions.json
+  # Find the URLs for new versions at: https://github.com/NixOS/nixpkgs/blob/nixos-unstable/pkgs/games/minecraft-servers/versions.json
   src = fetchurl {
     url = "https://piston-data.mojang.com/v1/objects/59353fb40c36d304f2035d51e7d6e6baa98dc05c/server.jar";
     hash = "sha256-47xVaT6TzaAYjy5grqKBE/xkfF6FoV+j0bNHNJIxtLs=";
