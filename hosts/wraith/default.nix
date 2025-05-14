@@ -22,6 +22,7 @@
       "/etc/ssh"
       "/root/.cache/restic"
       "/var/lib/alsa"
+      "/var/lib/nixos"
       "/var/log"
     ];
     files = [

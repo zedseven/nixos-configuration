@@ -26,6 +26,7 @@ in {
       "/var/lib/alsa"
       "/var/lib/bluetooth"
       "/var/lib/cups"
+      "/var/lib/nixos"
       "/var/log"
     ];
     files = [

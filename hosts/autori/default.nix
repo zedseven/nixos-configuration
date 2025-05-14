@@ -24,6 +24,7 @@ in {
       "/etc/ssh"
       "/root/.cache/restic"
       "/var/lib/acme"
+      "/var/lib/nixos"
       "/var/log"
       radiumWorkingDirectory
     ];

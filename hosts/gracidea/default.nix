@@ -24,6 +24,7 @@ in {
     directories = [
       "/etc/ssh"
       "/root/.cache/restic"
+      "/var/lib/nixos"
       "/var/log"
       minecraftDir
     ];
