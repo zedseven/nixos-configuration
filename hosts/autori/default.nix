@@ -10,10 +10,27 @@
   radiumWorkingDirectory = "/var/run/radium";
 in {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
   ];
+
+  # Impermanence
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/ssh"
+      "/root/.cache/restic"
+      "/var/lib/acme"
+      "/var/log"
+      radiumWorkingDirectory
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   custom = {
     user.type = "minimal";
@@ -32,15 +49,6 @@ in {
       };
       scheduled.onCalendar = "*-*-* 01:00:00";
     };
-
-    darlings.persist.paths = [
-      "/etc/machine-id"
-      "/etc/ssh"
-      "/root/.cache/restic"
-      "/var/lib/acme"
-      "/var/log"
-      radiumWorkingDirectory
-    ];
 
     symlinks."${radiumWorkingDirectory}/.env".source = config.age.secrets."radium.env".path;
 

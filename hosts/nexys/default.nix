@@ -9,10 +9,26 @@
   forgejoDir = "/var/lib/forgejo";
 in {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
   ];
+
+  # Impermanence
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/ssh"
+      "/root/.cache/restic"
+      "/var/log"
+      forgejoDir
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   custom = {
     user.type = "minimal";
@@ -31,14 +47,6 @@ in {
       };
       scheduled.onCalendar = "*-*-* 01:30:00";
     };
-
-    darlings.persist.paths = [
-      "/etc/machine-id"
-      "/etc/ssh"
-      "/root/.cache/restic"
-      "/var/log"
-      forgejoDir
-    ];
 
     grub.enable = true;
     wireguard.enable = true;

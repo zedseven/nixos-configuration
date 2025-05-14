@@ -11,10 +11,26 @@
   minecraftDir = "/var/lib/minecraft";
 in {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
   ];
+
+  # Impermanence
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/ssh"
+      "/root/.cache/restic"
+      "/var/log"
+      minecraftDir
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   custom = {
     user.type = "minimal";
@@ -33,14 +49,6 @@ in {
       };
       scheduled.onCalendar = "*-*-* 02:00:00";
     };
-
-    darlings.persist.paths = [
-      "/etc/machine-id"
-      "/etc/ssh"
-      "/root/.cache/restic"
-      "/var/log"
-      minecraftDir
-    ];
 
     grub = {
       enable = true;

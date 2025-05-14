@@ -7,10 +7,27 @@
   ...
 }: {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
   ];
+
+  # Impermanence
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/mullvad-vpn"
+      "/etc/ssh"
+      "/root/.cache/restic"
+      "/var/lib/alsa"
+      "/var/log"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   custom = {
     user.type = "full";
@@ -35,14 +52,6 @@
       scheduled.onCalendar = "*-*-* 00:00:00";
       setEnvironmentVariables = true;
     };
-
-    darlings.persist.paths = [
-      "/etc/machine-id"
-      "/etc/mullvad-vpn"
-      "/etc/ssh"
-      "/root/.cache/restic"
-      "/var/log"
-    ];
 
     desktop = {
       enable = true;

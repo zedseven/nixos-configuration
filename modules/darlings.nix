@@ -2,6 +2,7 @@
 # NixOS will rebuild it every time, giving the system a "new computer feel" on every boot
 # This also tests the system's ability to build from scratch
 # https://grahamc.com/blog/erase-your-darlings/
+# This module has effectively been replaced by `impermanence`
 {
   config,
   lib,

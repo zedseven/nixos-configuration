@@ -9,10 +9,29 @@
   networkInterfaceWirelessName = "wlp5s0";
 in {
   imports = [
+    inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
     ./hardware-configuration.nix
     ../../modules
   ];
+
+  # Impermanence
+  environment.persistence."/persist" = {
+    enable = true;
+    hideMounts = true;
+    directories = [
+      "/etc/mullvad-vpn"
+      "/etc/ssh"
+      "/root/.cache/restic"
+      "/var/lib/alsa"
+      "/var/lib/bluetooth"
+      "/var/lib/cups"
+      "/var/log"
+    ];
+    files = [
+      "/etc/machine-id"
+    ];
+  };
 
   custom = {
     user.type = "full";
@@ -37,15 +56,6 @@ in {
       scheduled.onCalendar = "*-*-* 00:00:00";
       setEnvironmentVariables = true;
     };
-
-    darlings.persist.paths = [
-      "/etc/machine-id"
-      "/etc/mullvad-vpn"
-      "/etc/ssh"
-      "/root/.cache/restic"
-      "/var/lib" # Required instead of `/var/lib/bluetooth` because of https://github.com/systemd/systemd/issues/25097 - also required for CUPS
-      "/var/log"
-    ];
 
     desktop = {
       enable = true;
