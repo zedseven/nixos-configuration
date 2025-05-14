@@ -14,7 +14,7 @@
   ];
 
   # Impermanence
-  environment.persistence."/persist" = {
+  environment.persistence.${config.custom.darlings.persist.mirrorRoot} = {
     enable = true;
     hideMounts = true;
     directories = [
@@ -32,6 +32,7 @@
   custom = {
     user.type = "full";
     global.configurationPath = "/persist/etc/nixos";
+    darlings.persist.ageIdentityPaths.enable = true;
 
     backups = {
       enable = true;

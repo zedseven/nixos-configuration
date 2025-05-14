@@ -18,7 +18,7 @@ in {
   ];
 
   # Impermanence
-  environment.persistence."/persist" = {
+  environment.persistence.${config.custom.darlings.persist.mirrorRoot} = {
     enable = true;
     hideMounts = true;
     directories = [
@@ -34,6 +34,7 @@ in {
 
   custom = {
     user.type = "minimal";
+    darlings.persist.ageIdentityPaths.enable = true;
 
     backups = {
       enable = true;
