@@ -108,10 +108,10 @@ in {
                   ldd = "libtree -v --path";
                   less = "less --raw-control-chars";
                   libtree = "libtree -v --path";
-                  ll = "eza -lag --group-directories-first --git";
-                  llt = "eza -lag --group-directories-first --git --tree";
-                  ls = "eza --group-directories-first --git";
-                  lt = "eza -lg --group-directories-first --git --tree";
+                  ll = "eza -lag --group-directories-first --mounts --git";
+                  llt = "eza -lag --group-directories-first --mounts --git --tree";
+                  ls = "eza --group-directories-first --mounts --git";
+                  lt = "eza -lg --group-directories-first --mounts --git --tree";
                   mv = "mv --interactive";
                   n = "nix run nixpkgs#";
                   nflu = "nix flake lock --update-input";
