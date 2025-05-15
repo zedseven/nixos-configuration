@@ -329,9 +329,9 @@ in {
                   ;
               });
           })
-          miniserve
-          mpv
-          obsidian
+          miniserve # For sharing files on the network easily
+          mpv # Media player
+          obsidian # Notetaking app
           pulseaudio # To get `pactl` despite using PipeWire
           seahorse # For GPG keystore management
           slstatus
