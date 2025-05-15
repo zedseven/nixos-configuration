@@ -130,6 +130,7 @@ in {
                   s = "sudo";
                   shutdown = "shutdown -h now";
                   top = "btm --regex";
+                  v = "nvim";
                   vi = "nvim";
                   vim = "nvim";
                   w = "clear";
