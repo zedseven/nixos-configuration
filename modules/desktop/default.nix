@@ -358,10 +358,14 @@ in {
         enable = true;
         # These use the entries from `pkgs` despite existing as custom packages because
         # the ones in `pkgs` are overridden with the configuration for the system
-        profileExtra = ''
-          ${pkgs.slstatus}/bin/slstatus &
-          ${config.security.wrapperDir}/slock &
-        '';
+        profileExtra =
+          ''
+            ${pkgs.slstatus}/bin/slstatus &
+          ''
+          # If there's no full-disk encryption, launch `slock` on startup
+          + (lib.optionalString (builtins.length (builtins.attrNames config.boot.initrd.luks.devices) == 0) ''
+            ${config.security.wrapperDir}/slock &
+          '');
       };
 
       # Required so that cursor settings are applied for GTK applications
