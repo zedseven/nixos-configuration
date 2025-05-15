@@ -311,6 +311,7 @@ in {
           inputs.self.packages.${system}.breeze
           dmenu
           firefox-devedition
+          flameshot # For taking screenshots
           jetbrains.clion
           jetbrains.rust-rover
           (keepass.override {
@@ -328,7 +329,6 @@ in {
                   ;
               });
           })
-          maim
           miniserve
           mpv
           obsidian
@@ -346,6 +346,9 @@ in {
           '')
           (pkgs.writeShellScriptBin "xrandr-auto" ''
             ${pkgs.xorg.xrandr}/bin/xrandr --auto
+          '')
+          (pkgs.writeShellScriptBin "screenshot" ''
+            ${pkgs.flameshot}/bin/flameshot gui --path ~/pictures/screenshots
           '')
         ];
     };
