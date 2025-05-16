@@ -32,7 +32,7 @@
       };
     };
     nh = {
-      url = "github:viperML/nh";
+      url = "github:nix-community/nh";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     deploy-rs = {

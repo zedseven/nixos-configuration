@@ -251,13 +251,13 @@
       "locked": {
         "lastModified": 1738579718,
         "narHash": "sha256-HcNEFumdZ4Y59CBB1h1IzOyPxwn0u/Wson6hhzItXCA=",
-        "owner": "viperML",
+        "owner": "nix-community",
         "repo": "nh",
         "rev": "8ef70b642b8351c010a48f43dda6a1ebf038f5d9",
         "type": "github"
       },
       "original": {
-        "owner": "viperML",
+        "owner": "nix-community",
         "repo": "nh",
         "type": "github"
       }
