@@ -191,6 +191,34 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    boot = {
+      kernelParams = [
+        "boot.shell_on_fail"
+        "splash"
+      ];
+      loader.timeout = 0; # Hide the bootloader list unless any key is pressed
+      plymouth = let
+        # https://github.com/adi1090x/plymouth-themes/blob/master/README.md
+        # Themes I like:
+        # - Angular Alt: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/5.gif
+        # - Colourful Sliced: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/15.gif
+        # - Cuts: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/19.gif
+        # - Lone: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/53.gif
+        # - Pixels: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/59.gif
+        # - Rings 2: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/63.gif
+        # - Sphere: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/70.gif
+        theme = "sphere";
+      in {
+        enable = true;
+        theme = lib.mkForce theme;
+        themePackages = [
+          (pkgs.adi1090x-plymouth-themes.override {
+            selected_themes = [theme];
+          })
+        ];
+      };
+    };
+
     security = {
       protectKernelImage = false; # To allow for hibernation
       rtkit.enable = true; # Used by PipeWire to acquire realtime priority
