@@ -200,13 +200,10 @@ in {
       ];
       loader = {
         grub = let
-          primaryDisplay = builtins.head (
-            builtins.filter (display: display.primary == true) (builtins.attrValues cfg.displays.config)
-          );
-          primaryResolution = "${(builtins.toString primaryDisplay.resolutionX)}x${(builtins.toString primaryDisplay.resolutionY)}";
+          grubResolution = "1920x1080"; # Maximum mode supported, and at least it's 16:9
         in {
-          gfxmodeBios = "${primaryResolution},auto";
-          gfxmodeEfi = "${primaryResolution},auto";
+          gfxmodeBios = "${grubResolution}";
+          gfxmodeEfi = "${grubResolution}";
           gfxpayloadBios = "keep";
         };
         timeout = 0; # Hide the bootloader list unless any key is pressed
