@@ -196,7 +196,19 @@ in {
         "boot.shell_on_fail"
         "splash"
       ];
-      loader.timeout = 0; # Hide the bootloader list unless any key is pressed
+      loader = {
+        grub = let
+          primaryDisplay = builtins.head (
+            builtins.filter (display: display.primary == true) (builtins.attrValues cfg.displays.config)
+          );
+          primaryResolution = "${(builtins.toString primaryDisplay.resolutionX)}x${(builtins.toString primaryDisplay.resolutionY)}";
+        in {
+          gfxmodeBios = "${primaryResolution},auto";
+          gfxmodeEfi = "${primaryResolution},auto";
+          gfxpayloadBios = "keep";
+        };
+        timeout = 0; # Hide the bootloader list unless any key is pressed
+      };
       plymouth = let
         # https://github.com/adi1090x/plymouth-themes/blob/master/README.md
         # Themes I like:
