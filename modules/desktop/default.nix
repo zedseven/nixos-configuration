@@ -192,8 +192,10 @@ in {
 
   config = lib.mkIf cfg.enable {
     boot = {
+      initrd.systemd.enable = true;
       kernelParams = [
         "boot.shell_on_fail"
+        "quiet"
         "splash"
       ];
       loader = {
