@@ -221,7 +221,7 @@ in {
         # - Pixels: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/59.gif
         # - Rings 2: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/63.gif
         # - Sphere: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/70.gif
-        theme = "sphere";
+        theme = "lone";
       in {
         enable = true;
         theme = lib.mkForce theme;
