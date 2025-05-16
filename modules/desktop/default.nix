@@ -206,7 +206,6 @@ in {
           gfxmodeEfi = "${grubResolution}";
           gfxpayloadBios = "keep";
         };
-        timeout = 0; # Hide the bootloader list unless any key is pressed
       };
       plymouth = let
         # https://github.com/adi1090x/plymouth-themes/blob/master/README.md
