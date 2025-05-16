@@ -427,6 +427,12 @@ in {
                   monitorIndex = 0;
                 }
                 {
+                  class = "steam_app_";
+                  instance = "steam_app_";
+                  tagIndices = [1];
+                  monitorIndex = 0;
+                }
+                {
                   class = "jetbrains-clion";
                   tagIndices = [3];
                   monitorIndex = 0;
