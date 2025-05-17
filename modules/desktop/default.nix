@@ -288,11 +288,9 @@ in {
       openssh.settings.X11Forwarding = true;
     };
 
-    hardware = {
-      graphics = {
-        enable = true;
-        enable32Bit = true;
-      };
+    hardware.graphics = {
+      enable = true;
+      enable32Bit = true;
     };
 
     programs = {
@@ -423,30 +421,28 @@ in {
       programs.autorandr = {
         enable = true;
 
-        profiles = {
-          "home" = {
-            fingerprint = cfg.displays.fingerprints;
+        profiles."home" = {
+          fingerprint = cfg.displays.fingerprints;
 
-            config =
-              builtins.mapAttrs (_: config: {
-                inherit
-                  (config)
-                  enable
-                  crtc
-                  primary
-                  gamma
-                  rotate
-                  dpi
-                  scale
-                  filter
-                  ;
+          config =
+            builtins.mapAttrs (_: config: {
+              inherit
+                (config)
+                enable
+                crtc
+                primary
+                gamma
+                rotate
+                dpi
+                scale
+                filter
+                ;
 
-                position = "${(builtins.toString config.positionX)}x${(builtins.toString config.positionY)}";
-                mode = "${(builtins.toString config.resolutionX)}x${(builtins.toString config.resolutionY)}";
-                rate = "${(builtins.toString config.rate)}.00";
-              })
-              cfg.displays.config;
-          };
+              position = "${(builtins.toString config.positionX)}x${(builtins.toString config.positionY)}";
+              mode = "${(builtins.toString config.resolutionX)}x${(builtins.toString config.resolutionY)}";
+              rate = "${(builtins.toString config.rate)}.00";
+            })
+            cfg.displays.config;
         };
       };
 
