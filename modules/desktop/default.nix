@@ -163,18 +163,6 @@ in {
               '';
             };
 
-            filter = mkOption {
-              type = types.nullOr (
-                types.enum [
-                  "bilinear"
-                  "nearest"
-                ]
-              );
-              description = "Interpolation method to be used for scaling the output.";
-              default = null;
-              example = "nearest";
-            };
-
             adaptiveSync = mkOption {
               type = types.bool;
               description = "Whether Adaptive Sync (G-Sync or FreeSync) should be enabled for the display.";
@@ -266,6 +254,33 @@ in {
         autoLogin = {
           enable = true;
           user = userInfo.username;
+        };
+      };
+
+      autorandr = {
+        enable = true;
+        matchEdid = true;
+        profiles."home" = {
+          fingerprint = cfg.displays.fingerprints;
+
+          config =
+            builtins.mapAttrs (_: config: {
+              inherit
+                (config)
+                enable
+                crtc
+                primary
+                gamma
+                rotate
+                dpi
+                scale
+                ;
+
+              position = "${(builtins.toString config.positionX)}x${(builtins.toString config.positionY)}";
+              mode = "${(builtins.toString config.resolutionX)}x${(builtins.toString config.resolutionY)}";
+              rate = "${(builtins.toString config.rate)}.00";
+            })
+            cfg.displays.config;
         };
       };
 
@@ -418,46 +433,14 @@ in {
 
       xresources.properties = lib.mkDefault {"Xft.dpi" = 96;};
 
-      programs.autorandr = {
+      services.sxhkd = {
         enable = true;
-
-        profiles."home" = {
-          fingerprint = cfg.displays.fingerprints;
-
-          config =
-            builtins.mapAttrs (_: config: {
-              inherit
-                (config)
-                enable
-                crtc
-                primary
-                gamma
-                rotate
-                dpi
-                scale
-                filter
-                ;
-
-              position = "${(builtins.toString config.positionX)}x${(builtins.toString config.positionY)}";
-              mode = "${(builtins.toString config.resolutionX)}x${(builtins.toString config.resolutionY)}";
-              rate = "${(builtins.toString config.rate)}.00";
-            })
-            cfg.displays.config;
-        };
-      };
-
-      services = {
-        autorandr.enable = true;
-
-        sxhkd = {
-          enable = true;
-          keybindings = {
-            "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +2%";
-            "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -2%";
-            "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-            "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
-            "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
-          };
+        keybindings = {
+          "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +2%";
+          "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -2%";
+          "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
+          "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
+          "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
         };
       };
     };
