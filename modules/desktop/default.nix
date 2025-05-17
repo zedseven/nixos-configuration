@@ -336,6 +336,7 @@ in {
       "rust-rover"
       "shutdown-now"
       "slock"
+      "sshot"
       "xrandr-auto"
     ];
 
@@ -385,7 +386,7 @@ in {
           (pkgs.writeShellScriptBin "xrandr-auto" ''
             ${pkgs.xorg.xrandr}/bin/xrandr --auto
           '')
-          (pkgs.writeShellScriptBin "screenshot" ''
+          (pkgs.writeShellScriptBin "sshot" ''
             ${pkgs.flameshot}/bin/flameshot gui --path ~/pictures/screenshots
           '')
         ];
