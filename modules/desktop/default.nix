@@ -300,7 +300,7 @@ in {
         enable = true;
         enableSSHSupport = true;
       };
-      dconf.enable = true; # Required when `gtk.enable` is set in `home-manager`: https://github.com/nix-community/home-manager/issues/3113
+      dconf.enable = lib.mkDefault config.home-manager.users.${userInfo.username}.gtk.enable; # https://github.com/nix-community/home-manager/issues/3113
       light.enable = true;
       slock.enable = true;
       xss-lock = {
