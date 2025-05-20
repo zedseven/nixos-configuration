@@ -25,8 +25,13 @@ in {
         # Used for running Proton games with different environment variables
         home-manager.users.${userInfo.username}.home.packages = with pkgs; [gamemode];
 
-        # Add `steam` as a high-priority program
-        custom.desktop.suckless.dwm.highPriorityPrograms = ["steam"];
+        custom = {
+          # Add `steam` as a high-priority program
+          desktop.suckless.dwm.highPriorityPrograms = ["steam"];
+
+          # Install `pyroveil` as a Vulkan layer for applying hacks to games to work around driver bugs
+          symlinks."/home/${userInfo.username}/.local/share/vulkan/implicit_layer.d/VkLayer_pyroveil_64.json".source = "${inputs.self.packages.${system}.pyroveil}/share/vulkan/implicit_layer.d/VkLayer_pyroveil_64.json";
+        };
       }
       (lib.mkIf cfg.wrapSteam (
         let
