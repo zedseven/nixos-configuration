@@ -70,7 +70,7 @@ in {
 
         package = inputs.self.packages.${system}.minecraft-server-fabric;
         dataDir = "/persist" + minecraftDir;
-        memoryAllocatedGigabytes = 23;
+        memoryAllocatedGigabytes = 22;
         aikarsFlags = true;
         port = inputs.private.unencryptedValues.serverPorts.${hostname}.minecraft;
 
