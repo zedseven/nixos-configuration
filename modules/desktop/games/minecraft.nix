@@ -69,7 +69,7 @@ in {
         default = false;
       };
       extraJvmOpts = mkOption {
-        description = "Extra JVM options for the Minecraft server.";
+        description = "Extra JVM options for the Minecraft server. Do not use newline characters.";
         type = types.separatedString " ";
         default = "";
       };
@@ -107,15 +107,30 @@ in {
             + (
               # https://docs.papermc.io/paper/aikars-flags
               # https://flags.sh/
-              lib.optionalString cfg.server.aikarsFlags
-              " -XX:+UseG1GC -XX:+ParallelRefProcEnabled -XX:MaxGCPauseMillis=200
-                -XX:+UnlockExperimentalVMOptions -XX:+DisableExplicitGC -XX:+AlwaysPreTouch
-                -XX:G1NewSizePercent=30 -XX:G1MaxNewSizePercent=40 -XX:G1HeapRegionSize=8M
-                -XX:G1ReservePercent=20 -XX:G1HeapWastePercent=5 -XX:G1MixedGCCountTarget=4
-                -XX:InitiatingHeapOccupancyPercent=15 -XX:G1MixedGCLiveThresholdPercent=90
-                -XX:G1RSetUpdatingPauseTimePercent=5 -XX:SurvivorRatio=32 -XX:+PerfDisableSharedMem
-                -XX:MaxTenuringThreshold=1 -Dusing.aikars.flags=https://mcflags.emc.gs
-                -Daikars.new.flags=true"
+              lib.optionalString cfg.server.aikarsFlags (
+                lib.concatStringsSep " " [
+                  "-XX:+UseG1GC"
+                  "-XX:+ParallelRefProcEnabled"
+                  "-XX:MaxGCPauseMillis=200"
+                  "-XX:+UnlockExperimentalVMOptions"
+                  "-XX:+DisableExplicitGC"
+                  "-XX:+AlwaysPreTouch"
+                  "-XX:G1NewSizePercent=30"
+                  "-XX:G1MaxNewSizePercent=40"
+                  "-XX:G1HeapRegionSize=8M"
+                  "-XX:G1ReservePercent=20"
+                  "-XX:G1HeapWastePercent=5"
+                  "-XX:G1MixedGCCountTarget=4"
+                  "-XX:InitiatingHeapOccupancyPercent=15"
+                  "-XX:G1MixedGCLiveThresholdPercent=90"
+                  "-XX:G1RSetUpdatingPauseTimePercent=5"
+                  "-XX:SurvivorRatio=32"
+                  "-XX:+PerfDisableSharedMem"
+                  "-XX:MaxTenuringThreshold=1"
+                  "-Dusing.aikars.flags=https://mcflags.emc.gs"
+                  "-Daikars.new.flags=true"
+                ]
+              )
             );
         };
 
