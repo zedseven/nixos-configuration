@@ -39,6 +39,7 @@
         "carpet-extra"
         "carpet-fixes"
         "clumps"
+        "convenient-mobgriefing"
         "fabric-api"
         "ferrite-core"
         "immersive-portals"
@@ -49,6 +50,7 @@
         "mixin-trace"
         "noisium"
         "owo-lib"
+        "servux"
         "stitched-snow"
       ];
     };

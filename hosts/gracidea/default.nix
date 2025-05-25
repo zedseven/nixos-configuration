@@ -105,6 +105,7 @@ in {
             carpet
             carpet-extra
             clumps
+            convenient-mobgriefing
             fabric-api
             ferrite-core
             krypton
@@ -114,6 +115,7 @@ in {
             mixin-trace
             noisium
             owo-lib
+            servux
             stitched-snow
             ;
         };
