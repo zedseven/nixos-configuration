@@ -107,6 +107,7 @@ in {
             clumps
             convenient-mobgriefing
             fabric-api
+            fabrication
             ferrite-core
             krypton
             let-me-despawn

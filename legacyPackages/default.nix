@@ -41,6 +41,7 @@
         "clumps"
         "convenient-mobgriefing"
         "fabric-api"
+        "fabrication"
         "ferrite-core"
         "immersive-portals"
         "krypton"
