@@ -49,8 +49,10 @@
         "lithium"
         "memory-leak-fix"
         "mixin-trace"
+        "modernfix"
         "noisium"
         "owo-lib"
+        "scalablelux"
         "servux"
         "stitched-snow"
       ];
