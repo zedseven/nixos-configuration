@@ -34,6 +34,7 @@
         "aether"
         "almanac"
         "appleskin"
+        "axes-are-weapons"
         "c2me"
         "carpet"
         "carpet-extra"
