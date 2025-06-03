@@ -108,9 +108,12 @@ in {
             cloth-config
             clumps
             convenient-mobgriefing
+            explorify
             fabric-api
             fabrication
             ferrite-core
+            geophilic
+            hearths
             krypton
             let-me-despawn
             lithium
