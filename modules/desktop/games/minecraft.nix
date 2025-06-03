@@ -221,6 +221,16 @@ in {
               );
           };
 
+          # Automatically restart the server if any of the following derivations change
+          systemd.services.minecraft-server.restartTriggers =
+            [
+              serverPropertiesFile
+              cfg.server.whitelistFile
+              cfg.server.operatorsFile
+              cfg.server.iconFile
+            ]
+            ++ cfg.server.mods;
+
           # The whitelist and server properties are generated & symlinked manually instead of using the provided
           # functionality from the module.
           # This is so that the whitelist can be stored within `agenix`.
