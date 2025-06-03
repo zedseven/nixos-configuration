@@ -95,49 +95,8 @@ in {
       })
 
       # Server installation
-      (lib.mkIf cfg.server.enable {
-        services.minecraft-server = {
-          inherit (cfg.server) dataDir package;
-          enable = true;
-          eula = true;
-          jvmOpts = let
-            memoryAllocatedGigabytes = builtins.toString cfg.server.memoryAllocatedGigabytes;
-          in
-            "-Xms${memoryAllocatedGigabytes}G -Xmx${memoryAllocatedGigabytes}G ${cfg.server.extraJvmOpts}"
-            + (
-              # https://docs.papermc.io/paper/aikars-flags
-              # https://flags.sh/
-              lib.optionalString cfg.server.aikarsFlags (
-                lib.concatStringsSep " " [
-                  "-XX:+UseG1GC"
-                  "-XX:+ParallelRefProcEnabled"
-                  "-XX:MaxGCPauseMillis=200"
-                  "-XX:+UnlockExperimentalVMOptions"
-                  "-XX:+DisableExplicitGC"
-                  "-XX:+AlwaysPreTouch"
-                  "-XX:G1NewSizePercent=30"
-                  "-XX:G1MaxNewSizePercent=40"
-                  "-XX:G1HeapRegionSize=8M"
-                  "-XX:G1ReservePercent=20"
-                  "-XX:G1HeapWastePercent=5"
-                  "-XX:G1MixedGCCountTarget=4"
-                  "-XX:InitiatingHeapOccupancyPercent=15"
-                  "-XX:G1MixedGCLiveThresholdPercent=90"
-                  "-XX:G1RSetUpdatingPauseTimePercent=5"
-                  "-XX:SurvivorRatio=32"
-                  "-XX:+PerfDisableSharedMem"
-                  "-XX:MaxTenuringThreshold=1"
-                  "-Dusing.aikars.flags=https://mcflags.emc.gs"
-                  "-Daikars.new.flags=true"
-                ]
-              )
-            );
-        };
-
-        # The whitelist and server properties are generated & symlinked manually instead of using the provided
-        # functionality from the module.
-        # This is so that the whitelist can be stored within `agenix`.
-        custom.symlinks = let
+      (lib.mkIf cfg.server.enable (
+        let
           # https://minecraft.wiki/w/Server.properties
           defaultServerProperties = {
             allow-flight = false;
@@ -223,8 +182,49 @@ in {
             name = "minecraft-server-mods";
             paths = cfg.server.mods;
           };
-        in
-          lib.mkMerge [
+        in {
+          services.minecraft-server = {
+            inherit (cfg.server) dataDir package;
+            enable = true;
+            eula = true;
+            jvmOpts = let
+              memoryAllocatedGigabytes = builtins.toString cfg.server.memoryAllocatedGigabytes;
+            in
+              "-Xms${memoryAllocatedGigabytes}G -Xmx${memoryAllocatedGigabytes}G ${cfg.server.extraJvmOpts}"
+              + (
+                # https://docs.papermc.io/paper/aikars-flags
+                # https://flags.sh/
+                lib.optionalString cfg.server.aikarsFlags (
+                  lib.concatStringsSep " " [
+                    "-XX:+UseG1GC"
+                    "-XX:+ParallelRefProcEnabled"
+                    "-XX:MaxGCPauseMillis=200"
+                    "-XX:+UnlockExperimentalVMOptions"
+                    "-XX:+DisableExplicitGC"
+                    "-XX:+AlwaysPreTouch"
+                    "-XX:G1NewSizePercent=30"
+                    "-XX:G1MaxNewSizePercent=40"
+                    "-XX:G1HeapRegionSize=8M"
+                    "-XX:G1ReservePercent=20"
+                    "-XX:G1HeapWastePercent=5"
+                    "-XX:G1MixedGCCountTarget=4"
+                    "-XX:InitiatingHeapOccupancyPercent=15"
+                    "-XX:G1MixedGCLiveThresholdPercent=90"
+                    "-XX:G1RSetUpdatingPauseTimePercent=5"
+                    "-XX:SurvivorRatio=32"
+                    "-XX:+PerfDisableSharedMem"
+                    "-XX:MaxTenuringThreshold=1"
+                    "-Dusing.aikars.flags=https://mcflags.emc.gs"
+                    "-Daikars.new.flags=true"
+                  ]
+                )
+              );
+          };
+
+          # The whitelist and server properties are generated & symlinked manually instead of using the provided
+          # functionality from the module.
+          # This is so that the whitelist can be stored within `agenix`.
+          custom.symlinks = lib.mkMerge [
             {
               "${cfg.server.dataDir}/server.properties".source = serverPropertiesFile;
               "${cfg.server.dataDir}/mods".source = "${modsDirectory}/mods";
@@ -240,9 +240,10 @@ in {
             })
           ];
 
-        # Open the firewall for the configured port
-        networking.firewall.allowedTCPPorts = [cfg.server.port];
-      })
+          # Open the firewall for the configured port
+          networking.firewall.allowedTCPPorts = [cfg.server.port];
+        }
+      ))
     ]
   );
 }
