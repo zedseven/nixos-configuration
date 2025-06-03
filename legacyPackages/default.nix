@@ -39,6 +39,7 @@
         "carpet"
         "carpet-extra"
         "carpet-fixes"
+        "cloth-config"
         "clumps"
         "convenient-mobgriefing"
         "fabric-api"

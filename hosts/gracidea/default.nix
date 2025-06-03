@@ -105,6 +105,7 @@ in {
             c2me
             carpet
             carpet-extra
+            cloth-config
             clumps
             convenient-mobgriefing
             fabric-api
