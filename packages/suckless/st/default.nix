@@ -74,8 +74,8 @@ stdenv.mkDerivation {
   src = fetchFromGitHub {
     owner = "zedseven";
     repo = "st";
-    rev = "1aeed899de950fcb125a15854de68d5a7c627afd";
-    hash = "sha256-jBOTfRdAnVpdIteMOmi8SQ0G1Xq0E01LHNfqh9tB3W4=";
+    rev = "55bff9b56310206b1409ce6a2fadf0baf43b1cba";
+    hash = "sha256-NOnrmf9i4SGArs2190Q00ZKDCUjDrKUtG2Nkztlin5k=";
   };
 
   outputs = [
