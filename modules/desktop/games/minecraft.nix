@@ -86,7 +86,7 @@ in {
       # User installation
       (lib.mkIf (!cfg.server.enable) {
         home-manager.users.${userInfo.username}.home.packages = with pkgs; [
-          alsa-oss # Required because of https://github.com/NixOS/nixpkgs/issues/206378#issuecomment-1399327787
+          alsa-oss # Required because of https://github.com/NixOS/nixpkgs/issues/206378#issuecomment-1399327787 - set `aoss` as the wrapper command in Prism launcher
           prismlauncher
         ];
 
