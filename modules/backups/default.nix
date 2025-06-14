@@ -44,6 +44,11 @@ in {
       type = types.bool;
       default = false;
     };
+    maxRecursion = mkOption {
+      description = "The maximum directory recursion allowed. A value of 0 implies no limit.";
+      type = types.ints.unsigned;
+      default = 0;
+    };
     rclone = {
       enable = mkEnableOption "rclone";
       package = mkOption {
@@ -116,6 +121,12 @@ in {
         )
         cfg.backupPaths;
 
+      repeatString = string: count: lib.concatStrings (map (_: string) (lib.lists.range 0 (count - 1)));
+      recursionLimiter =
+        lib.optionalString (cfg.maxRecursion > 0) "--exclude='"
+        + (repeatString "/*" cfg.maxRecursion)
+        + "'";
+
       # Used for executing automatic backups of the whole system
       runBackup = pkgs.writeShellScriptBin "run-backup" ''
         # Constants
@@ -162,7 +173,7 @@ in {
         BACKUP_DIRS+=("$TREES_DIR")
 
         # Backup the directories
-        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE_GLOBAL" --${extraExcludeCommandOption}="$RESTIC_EXCLUDE_FILE_EXTRA" --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
+        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE_GLOBAL" --${extraExcludeCommandOption}="$RESTIC_EXCLUDE_FILE_EXTRA" ${recursionLimiter} --host="$RESTIC_HOSTNAME" "''${BACKUP_DIRS[@]}"
 
         # Delete the temporary tree file directory
         rm -rf "$TREES_DIR"
@@ -209,7 +220,7 @@ in {
         ${pkgs.eza}/bin/eza --tree --all --group-directories-first --classify=always --colour=never "$BACKUP_DIR" > "$TREES_DIR/$TREE_FILE"
 
         # Backup the directory
-        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE_GLOBAL" --host="$RESTIC_HOSTNAME" "$BACKUP_DIR" "$TREES_DIR/$TREE_FILE"
+        ${pkgs.restic}/bin/restic backup --exclude-caches --exclude-file="$RESTIC_EXCLUDE_FILE_GLOBAL" ${recursionLimiter} --host="$RESTIC_HOSTNAME" "$BACKUP_DIR" "$TREES_DIR/$TREE_FILE"
 
         # Delete the temporary tree file directory
         rm -rf "$TREES_DIR"
