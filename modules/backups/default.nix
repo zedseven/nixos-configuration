@@ -122,10 +122,9 @@ in {
         cfg.backupPaths;
 
       repeatString = string: count: lib.concatStrings (map (_: string) (lib.lists.range 0 (count - 1)));
-      recursionLimiter =
-        lib.optionalString (cfg.maxRecursion > 0) "--exclude='"
-        + (repeatString "/*" cfg.maxRecursion)
-        + "'";
+      recursionLimiter = lib.optionalString (cfg.maxRecursion > 0) (
+        "--exclude='" + (repeatString "/*" cfg.maxRecursion) + "'"
+      );
 
       # Used for executing automatic backups of the whole system
       runBackup = pkgs.writeShellScriptBin "run-backup" ''
