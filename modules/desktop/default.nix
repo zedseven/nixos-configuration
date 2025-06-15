@@ -10,6 +10,7 @@
   cfg = config.custom.desktop;
 in {
   imports = [
+    inputs.schizofox.nixosModules.schizofox
     ./display-drivers
     ./suckless
     ./4k.nix
@@ -341,7 +342,7 @@ in {
     custom.desktop.suckless.dwm.highPriorityPrograms = [
       "autorandr-change"
       "clion"
-      "firefox-devedition"
+      "firefox"
       "keepass"
       "mullvad-vpn"
       "obsidian"
@@ -353,6 +354,8 @@ in {
       "xrandr-auto"
     ];
 
+    programs.schizofox.enable = true; # The rest is configured with the user settings
+
     users.users.${userInfo.username} = {
       extraGroups = [
         "audio"
@@ -362,7 +365,6 @@ in {
         [
           inputs.self.packages.${system}.breeze
           dmenu
-          firefox-devedition
           flameshot # For taking screenshots
           jetbrains.clion
           jetbrains.rust-rover

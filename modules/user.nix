@@ -12,6 +12,7 @@ in {
   imports = [
     inputs.home-manager.nixosModules.home-manager
     inputs.catppuccin.nixosModules.catppuccin
+    inputs.schizofox.nixosModules.schizofox
     ./symlinks.nix
   ];
 
@@ -236,6 +237,99 @@ in {
         catppuccin = {
           enable = true;
           flavor = catppuccinFlavour;
+        };
+
+        programs.schizofox = {
+          settings = {
+            "browser.aboutConfig.showWarning" = false;
+            "browser.firefox-view.feature-tour" = {
+              "screen" = "";
+              "complete" = true;
+            };
+            "browser.tabs.tabMinWidth" = 0;
+            "browser.urlbar.update2.engineAliasRefresh" = true;
+            "devtools.theme" = "dark";
+            "extensions.activeThemeID" = "firefox-compact-dark@mozilla.org";
+            "extensions.pocket.enabled" = false;
+            "font.name.monospace.x-western" = "Intel One Mono"; # intel-one-mono
+            "general.autoScroll" = true;
+            "general.smoothScroll" = true;
+            "reader.color_scheme" = "dark";
+            "ui.systemUsesDarkTheme" = true;
+          };
+
+          security = {
+            sandbox = {
+              enable = true;
+              allowFontPaths = true;
+            };
+            sanitizeOnShutdown = {
+              enable = true;
+              sanitize = {
+                cache = true;
+                downloads = false;
+                formdata = true;
+                history = false;
+                siteSettings = false;
+              };
+            };
+            userAgent = "Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:110.0) Gecko/20100101 Firefox/110.0";
+            webRTC.disable = true;
+          };
+
+          misc = {
+            contextMenu.enable = true;
+            disableWebgl = false;
+            drm.enable = true;
+          };
+
+          extensions = {
+            enableDefaultExtensions = false;
+            enableExtraExtensions = true;
+            darkreader.enable = true;
+            simplefox = {
+              enable = true;
+              showUrlBar = true;
+            };
+            # Get the IDs from `extensions.webextensions.uuids` in `about:config`
+            extraExtensions = {
+              "uBlock0@raymondhill.net".install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"; # uBlock Origin
+              "jid1-MnnxcxisBPnSXQ@jetpack".install_url = "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi"; # Privacy Badger
+              "{74145f27-f039-47ce-a470-a662b129930a}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/clearurls/latest.xpi"; # Clear URLs
+              "sponsorBlockerBETA@ajay.app".install_url = "https://github.com/ajayyy/SponsorBlock/releases/latest/download/FirefoxSignedInstaller.xpi"; # SponsorBlock Beta
+              "keefox@chris.tomlinson".install_url = "https://addons.mozilla.org/firefox/downloads/latest/keefox/latest.xpi"; # Kee
+              "@vivaldi-fox".install_url = "https://addons.mozilla.org/firefox/downloads/latest/vivaldifox/latest.xpi"; # VivaldiFox
+              "{aecec67f-0d10-4fa7-b7c7-609a2db280cf}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/violentmonkey/latest.xpi"; # ViolentMonkey
+              "{58204f8b-01c2-4bbc-98f8-9a90458fd9ef}".install_url = "https://addons.mozilla.org/firefox/downloads/latest/blocktube/latest.xpi"; # BlockTube
+            };
+          };
+
+          search = {
+            defaultSearchEngine = "DuckDuckGo";
+            addEngines = [
+              {
+                Name = "NixOS Packages";
+                Description = "";
+                Alias = "np";
+                Method = "GET";
+                URLTemplate = "https://search.nixos.org/packages?query={searchTerms}";
+              }
+              {
+                Name = "NixOS Options";
+                Description = "";
+                Alias = "no";
+                Method = "GET";
+                URLTemplate = "https://search.nixos.org/options?query={searchTerms}";
+              }
+              {
+                Name = "Noogle";
+                Description = "";
+                Alias = "nf";
+                Method = "GET";
+                URLTemplate = "https://noogle.dev/q?term={searchTerms}";
+              }
+            ];
+          };
         };
 
         home-manager.users.${userInfo.username} = {

@@ -54,6 +54,17 @@
         nightly.follows = "";
       };
     };
+    schizofox = {
+      url = "github:schizofox/schizofox";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+        flake-compat.follows = "flake-compat";
+        flake-parts.follows = "flake-parts";
+        searx-randomizer.follows = "searx-randomizer";
+        systems.follows = "systems";
+      };
+    };
     catppuccin = {
       url = "github:catppuccin/nix";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -107,6 +118,14 @@
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+    searx-randomizer = {
+      url = "github:schizofox/searx-randomizer";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        crane.follows = "crane";
+        flake-parts.follows = "flake-parts";
+      };
     };
     systems.url = "github:nix-systems/default";
   };
