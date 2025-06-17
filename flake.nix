@@ -52,6 +52,7 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         nightly.follows = "";
+        flake-compat.follows = "flake-compat";
       };
     };
     schizofox = {
