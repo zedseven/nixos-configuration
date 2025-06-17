@@ -538,7 +538,7 @@ in {
                   monitorIndex = 1;
                 }
                 {
-                  class = "KeePass2";
+                  class = "KeePass";
                   tagIndices = [6];
                   monitorIndex = 1;
                 }
