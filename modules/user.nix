@@ -324,7 +324,7 @@ in {
         };
 
         home-manager.users.${userInfo.username} = {
-          imports = [inputs.catppuccin.homeManagerModules.catppuccin];
+          imports = [inputs.catppuccin.homeModules.catppuccin];
 
           catppuccin = {
             enable = true;
