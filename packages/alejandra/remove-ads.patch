@@ -1,21 +1,33 @@
 diff --git a/src/alejandra_cli/src/cli.rs b/src/alejandra_cli/src/cli.rs
-index bab102c..002ab34 100644
+index 0ef0496d..fa5d326d 100644
 --- a/src/alejandra_cli/src/cli.rs
 +++ b/src/alejandra_cli/src/cli.rs
-@@ -206,7 +206,6 @@ pub fn main() -> std::io::Result<()> {
-
+@@ -224,7 +224,6 @@ pub fn main() -> ! {
+ 
              if in_place {
                  eprintln!();
 -                eprint!("{}", random_ad());
              }
          }
-
-@@ -218,8 +217,6 @@ pub fn main() -> std::io::Result<()> {
-         eprintln!(
+ 
+@@ -237,7 +236,6 @@ pub fn main() -> ! {
              "Congratulations! Your code complies with the Alejandra style."
          );
--        eprintln!();
+         eprintln!();
 -        eprint!("{}", random_ad());
      }
-
+ 
      std::process::exit(0);
+diff --git a/src/alejandra_cli/src/lib.rs b/src/alejandra_cli/src/lib.rs
+index fd49ce8c..feff9034 100644
+--- a/src/alejandra_cli/src/lib.rs
++++ b/src/alejandra_cli/src/lib.rs
+@@ -1,3 +1,8 @@
++#![allow(
++    dead_code,
++    unused_imports
++)]
++
+ mod ads;
+ pub mod cli;
+ mod find;
