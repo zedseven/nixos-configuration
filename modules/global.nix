@@ -81,7 +81,7 @@ in {
       time.timeZone = "America/Toronto";
 
       # Select internationalisation properties.
-      i18n.defaultLocale = "en_CA.utf8";
+      i18n.defaultLocale = "en_CA.UTF-8";
 
       security.sudo.extraConfig = ''
         Defaults lecture="never"
