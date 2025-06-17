@@ -263,16 +263,7 @@ in {
               enable = true;
               allowFontPaths = true;
             };
-            sanitizeOnShutdown = {
-              enable = true;
-              sanitize = {
-                cache = true;
-                downloads = false;
-                formdata = true;
-                history = false;
-                siteSettings = false;
-              };
-            };
+            sanitizeOnShutdown.enable = false;
             userAgent = "Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:110.0) Gecko/20100101 Firefox/110.0";
             webRTC.disable = true;
           };
