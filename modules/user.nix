@@ -118,8 +118,8 @@ in {
                   nflu = "nix flake lock --update-input";
                   nfluo = "nix flake lock --offline --update-input";
                   nfu = "nix flake update";
-                  nrb = "git diff --quiet && nh os boot --ask"; # `git diff --quiet` is to prevent switching to a dirty configuration
-                  nrs = "git diff --quiet && nh os switch --ask";
+                  nrb = "git diff --quiet && nh os boot --ask -- --keep-going"; # `git diff --quiet` is to prevent switching to a dirty configuration
+                  nrs = "git diff --quiet && nh os switch --ask -- --keep-going";
                   nrt = "nh os test --verbose -- --keep-going --show-trace";
                   nrta = "nh os test --verbose --ask -- --keep-going --show-trace";
                   nrtd = "nh os test --verbose --dry -- --keep-going --show-trace";
