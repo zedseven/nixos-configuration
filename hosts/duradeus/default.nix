@@ -133,6 +133,7 @@ in {
         alsaDirPath = "/persist/var/lib/alsa";
       };
       bluetooth.enable = true;
+      blender.enable = true;
       calibre.enable = true;
       discord = {
         enable = true;
