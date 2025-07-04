@@ -577,6 +577,7 @@ in {
                 "shutdown" = "${pkgs.systemd}/bin/systemctl poweroff -i";
                 "reboot" = "${pkgs.systemd}/bin/systemctl reboot -i";
                 "hibernate" = "${pkgs.systemd}/bin/systemctl hibernate -i";
+                "autorandr" = "autorandr-change";
               };
               colours = colourSchemes.slock.catppuccin.${catppuccinFlavour};
             };
