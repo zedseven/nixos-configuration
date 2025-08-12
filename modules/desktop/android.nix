@@ -18,7 +18,7 @@ in {
     programs.adb.enable = true;
     users.users.${userInfo.username}.extraGroups = [
       "adbusers"
-      "kvm" # For virtualisation support
+      "kvm" # For virtualisation support - SVM must also be enabled in the computer BIOS in order for `/dev/kvm` to be created
     ];
 
     home-manager.users.${userInfo.username}.home.packages = with pkgs; [android-studio];
