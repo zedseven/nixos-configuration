@@ -128,6 +128,7 @@ in {
 
       displayDriver = "nvidia";
       is4k = true;
+      android.enable = true;
       audio.persistentSettings = {
         enable = true;
         alsaDirPath = "/persist/var/lib/alsa";

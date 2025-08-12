@@ -19,6 +19,7 @@ in {
     ./printing.nix
     ./discord
     ./games
+    ./android.nix
     ./blender.nix
     ./calibre.nix
     ./stenography.nix
