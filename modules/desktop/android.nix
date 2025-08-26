@@ -16,10 +16,22 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.adb.enable = true;
-    users.users.${userInfo.username}.extraGroups = [
-      "adbusers"
-      "kvm" # For virtualisation support - SVM must also be enabled in the computer BIOS in order for `/dev/kvm` to be created
-    ];
+    users.users.${userInfo.username} = {
+      extraGroups = [
+        "adbusers"
+        "kvm" # For virtualisation support - SVM must also be enabled in the computer BIOS in order for `/dev/kvm` to be created
+      ];
+
+      # To make it easier to work around an issue where, if Android Studio is started first, the `adb` server will start without `root` privileges
+      packages = [
+        (pkgs.writeShellScriptBin "adb-sudo-server-restart" ''
+          set -o errexit
+
+          ${config.security.wrapperDir}/sudo ${pkgs.android-tools}/bin/adb kill-server
+          ${config.security.wrapperDir}/sudo ${pkgs.android-tools}/bin/adb start-server
+        '')
+      ];
+    };
 
     home-manager.users.${userInfo.username}.home.packages = with pkgs; [android-studio];
   };
