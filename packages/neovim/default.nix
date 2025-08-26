@@ -22,8 +22,7 @@
         ];
       };
     }
-)
-.overrideAttrs
+).overrideAttrs
 (oldAttrs: {
   generatedWrapperArgs =
     (oldAttrs.generatedWrapperArgs or [])

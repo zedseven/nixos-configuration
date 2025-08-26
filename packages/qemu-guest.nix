@@ -20,5 +20,4 @@
   canokeySupport = false;
   capstoneSupport = false;
   enableDocs = false;
-})
-.ga
+}).ga
