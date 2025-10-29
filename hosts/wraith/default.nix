@@ -5,7 +5,9 @@
   inputs,
   userInfo,
   ...
-}: {
+}: let
+  networkInterfaceWirelessName = "wlp0s20f3";
+in {
   imports = [
     inputs.impermanence.nixosModules.impermanence
     inputs.home-manager.nixosModules.home-manager
@@ -106,7 +108,7 @@
         {
           function = "wifi_essid";
           displayFormat = "Wi-Fi: %s";
-          functionArgument = "wlp0s20f3";
+          functionArgument = networkInterfaceWirelessName;
         }
         {
           function = "datetime";
@@ -148,7 +150,8 @@
 
   networking = {
     hostId = "eff5369a";
-    supplicant."WLAN".configFile.path = config.age.secrets."wpa_supplicant.conf".path;
+    supplicant.${networkInterfaceWirelessName}.configFile.path =
+      config.age.secrets."wpa_supplicant.conf".path;
     wireless = {
       enable = true;
       allowAuxiliaryImperativeNetworks = true;
