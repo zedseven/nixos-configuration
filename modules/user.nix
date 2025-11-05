@@ -454,6 +454,7 @@ in {
               };
               extraConfig = {
                 # https://git-scm.com/docs/git-config
+                advice.detachedHead = false;
                 checkout.defaultRemote = "origin";
                 commit.gpgSign = true;
                 core = {
