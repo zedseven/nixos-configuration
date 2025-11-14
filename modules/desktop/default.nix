@@ -379,6 +379,7 @@ in {
               ++ (builtins.attrValues {
                 inherit
                   (inputs.self.legacyPackages.${system}.keepassPlugins)
+                  hibp-offline-check
                   keetheme
                   patternpass
                   yet-another-favicon-downloader

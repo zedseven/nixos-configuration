@@ -21,6 +21,7 @@
     value = {
       keepassPlugins = includePackages ./keepass-plugins [
         "app-id-linker"
+        "hibp-offline-check"
         "keetheme"
         "patternpass"
         "yet-another-favicon-downloader"
