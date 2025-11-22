@@ -335,9 +335,11 @@ in {
             fish.shellAbbrs = {
               alejandra = "purefmt";
               b = "bat";
+              batw = "bat (which )";
               bm = "batman";
               c = "cargo";
               cat = "bat";
+              catw = "bat (which )";
               cb = "cargo build";
               cbr = "cargo build --release";
               cc = "cargo clippy";
