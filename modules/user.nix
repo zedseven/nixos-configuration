@@ -395,7 +395,8 @@ in {
               gpu = "git push --set-upstream";
               gr = "git reset";
               grao = "git remote add origin";
-              gs = "git diff && git status";
+              gs = "git status";
+              gsd = "git diff && git status";
               gu = "git pull";
               gx = "git update-index --chmod=+x";
               gy = "git apply";
