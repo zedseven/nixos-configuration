@@ -137,6 +137,9 @@ in {
     symlinks = {
       # `agenix` Values
       "/home/${userInfo.username}/.ssh/config".source = config.age.secrets."ssh_config".path;
+
+      # Private Flakes
+      "/etc/website-ztdp".source = "/home/${userInfo.username}/git/website-ztdp";
     };
 
     grub = {
