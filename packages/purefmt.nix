@@ -1,7 +1,7 @@
 {
   writeShellScriptBin,
   alejandra,
-  nixfmt-rfc-style,
+  nixfmt-tree, # Uses `nixfmt-rfc-style` internally
   ...
 }:
 writeShellScriptBin "purefmt" ''
@@ -9,7 +9,7 @@ writeShellScriptBin "purefmt" ''
   set -o errexit
 
   # For purity - https://github.com/NixOS/rfcs/blob/master/rfcs/0166-nix-formatting.md#initial-standard-nix-format
-  ${nixfmt-rfc-style}/bin/nixfmt "$@"
+  ${nixfmt-tree}/bin/treefmt "$@"
 
   # For the style of `alejandra`
   ${alejandra}/bin/alejandra --quiet "$@"
