@@ -1,0 +1,1 @@
+require("non-nix.lazy")

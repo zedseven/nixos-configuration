@@ -3,6 +3,7 @@
   inputs,
   pkgs,
   lib,
+  stdenvNoCC,
   purefmt,
 }:
 (
@@ -11,13 +12,38 @@
   in
     inputs.tolerable.makeNeovimConfig configName {
       inherit pkgs;
-      src = lib.fileset.toSource {
-        root = ./.;
-        fileset = ./. + "/${configName}";
+      src = stdenvNoCC.mkDerivation {
+        name = configName;
+        src = lib.fileset.toSource {
+          root = ./.;
+          fileset = ./. + "/${configName}";
+        };
+
+        patches = [./uses-nix.patch];
+
+        installPhase = ''
+          mkdir -p $out
+          cp -r * $out/ # Copy patched files to output
+        '';
       };
       config = {
         plugins = with pkgs.vimPlugins; [
+          bufferline-nvim
           catppuccin-nvim
+          cmp-buffer
+          cmp-nvim-lsp
+          cmp_luasnip
+          conform-nvim
+          fidget-nvim
+          friendly-snippets
+          hardtime-nvim
+          luasnip
+          nvim-cmp
+          nvim-lspconfig
+          nvim-tree-lua
+          nvim-treesitter.withAllGrammars
+          rustaceanvim
+          telescope-nvim
           which-key-nvim
         ];
       };
@@ -32,10 +58,15 @@
       ":"
       (lib.makeBinPath (
         with pkgs; [
+          deadnix
           git
+          lua-language-server
           nil
           purefmt
+          # `rustfmt` and `rust-analyzer` come from the `direnv` environment of each project
           statix
+          stylua
+          taplo
         ]
       ))
     ];

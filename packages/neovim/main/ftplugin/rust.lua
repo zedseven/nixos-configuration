@@ -1,0 +1,2 @@
+--vim.lsp.enable("rust_analyzer") -- Not needed because `rustaceanvim` handles it instead
+--vim.g.rustfmt_autosave = 1 -- Not needed because `conform` handles it instead
