@@ -61,6 +61,7 @@ in {
 
     desktop = {
       enable = true;
+      plymouth.enable = true;
 
       displays = {
         fingerprints = {

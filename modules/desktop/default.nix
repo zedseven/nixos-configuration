@@ -27,6 +27,9 @@ in {
 
   options.custom.desktop = with lib; {
     enable = mkEnableOption "customisations for desktop devices";
+    plymouth = {
+      enable = mkEnableOption "the Plymouth custom boot screen";
+    };
     displays = {
       fingerprints = mkOption {
         description = ''
@@ -210,7 +213,7 @@ in {
         # - Sphere: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/70.gif
         theme = "lone";
       in {
-        enable = true;
+        enable = cfg.plymouth.enable;
         theme = lib.mkForce theme;
         themePackages = [
           (pkgs.adi1090x-plymouth-themes.override {
