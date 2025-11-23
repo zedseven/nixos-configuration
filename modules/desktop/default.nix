@@ -213,7 +213,8 @@ in {
         # - Sphere: https://raw.githubusercontent.com/adi1090x/files/master/plymouth-themes/previews/70.gif
         theme = "lone";
       in {
-        enable = cfg.plymouth.enable;
+        inherit (cfg.plymouth) enable;
+
         theme = lib.mkForce theme;
         themePackages = [
           (pkgs.adi1090x-plymouth-themes.override {
