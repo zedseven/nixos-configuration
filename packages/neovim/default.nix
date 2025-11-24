@@ -41,6 +41,7 @@
           luasnip
           nvim-cmp
           nvim-lspconfig
+          nvim-spider
           nvim-tree-lua
           nvim-treesitter.withAllGrammars
           rustaceanvim

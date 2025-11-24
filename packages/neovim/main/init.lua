@@ -3,8 +3,6 @@
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
 vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
@@ -22,6 +20,7 @@ end
 require("format")
 require("lsp")
 require("completion")
+require("mappings")
 require("find")
 require("colours")
 
