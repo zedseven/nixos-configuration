@@ -8,7 +8,8 @@ vim.g.maplocalleader = "\\"
 vim.opt.expandtab = false
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 0
-vim.wo.relativenumber = true
+vim.wo.number = true -- Show the current line number
+vim.wo.relativenumber = true -- Show all other line numbers as relative to the current one
 
 vim.opt.termguicolors = true
 
