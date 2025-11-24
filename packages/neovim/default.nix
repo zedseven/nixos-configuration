@@ -36,6 +36,7 @@
           conform-nvim
           fidget-nvim
           friendly-snippets
+          gitsigns-nvim
           hardtime-nvim
           luasnip
           nvim-cmp

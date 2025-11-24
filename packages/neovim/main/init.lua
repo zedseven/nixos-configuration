@@ -43,3 +43,4 @@ require("hardtime").setup({
 		["<Right>"] = { "n", "x" },
 	},
 })
+require("gitsigns").setup({ current_line_blame = true })
