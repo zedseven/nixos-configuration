@@ -31,6 +31,7 @@ require("bufferline").setup({
 		offsets = { { filetype = "NvimTree" } }, -- Display right of the file tree
 		diagnostics = "nvim_lsp",
 		separator_style = "slant",
+		groups = { items = { require("bufferline.groups").builtin.pinned:with({ icon = "󰐃 " }) } },
 	},
 })
 
