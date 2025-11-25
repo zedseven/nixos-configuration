@@ -25,7 +25,13 @@ require("find")
 require("colours")
 
 require("nvim-tree").setup()
-require("bufferline").setup({ options = { offsets = { { filetype = "NvimTree" } } } })
+require("bufferline").setup({
+	options = {
+		offsets = { { filetype = "NvimTree" } }, -- Display right of the file tree
+		diagnostics = "nvim_lsp",
+		separator_style = "slant",
+	},
+})
 
 require("hardtime").setup({
 	disable_mouse = false,
