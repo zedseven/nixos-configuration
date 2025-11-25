@@ -19,3 +19,7 @@ mapKey({ "n" }, "<leader><Tab>p", "<cmd>BufferLineTogglePin<CR>", "Pin/unpin buf
 mapKey({ "n" }, "<leader><Tab>x", "<cmd>bdelete<CR>", "Close buffer") -- Uses standard Vim functionality
 
 mapKey({ "n" }, "<leader>w", "<cmd>WhichKey<CR>", "Show which-key")
+
+-- Default mappings to note:
+-- - <C-w>v - Split window vertically
+-- - <C-w>w - Switch window focus
