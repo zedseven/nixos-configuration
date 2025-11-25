@@ -2,5 +2,5 @@ diff --git a/main/init.lua b/main/init.lua
 --- a/main/init.lua
 +++ b/main/init.lua
 @@ -1,1 +1,1 @@
---- `uses_nix` constant goes here
+-vim.g.uses_nix = false -- Patched during Nix builds
 +vim.g.uses_nix = true
