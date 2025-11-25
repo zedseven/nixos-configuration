@@ -20,6 +20,8 @@ mapKey({ "n" }, "<leader><Tab>x", "<cmd>bdelete<CR>", "Close buffer") -- Uses st
 
 mapKey({ "n" }, "<leader>w", "<cmd>WhichKey<CR>", "Show which-key")
 
+mapKey({ "n" }, "<leader>/", "<cmd>let @/ = ''<CR>", "Clear last search highlighting") -- https://stackoverflow.com/questions/657447/vim-clear-last-search-highlighting/657484#657484
+
 -- Default mappings to note:
 -- - <C-w>v - Split window vertically
 -- - <C-w>w - Switch window focus
