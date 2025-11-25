@@ -402,6 +402,7 @@ in {
               gy = "git apply";
               m = "batman";
               man = "batman";
+              rg-non-ascii = "rg --pretty --stats '[^\\x00-\\x7f]+'";
               sc = "maim";
               scs = "maim --select";
               t = "tldr";
