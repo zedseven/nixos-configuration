@@ -90,10 +90,12 @@ cmp.setup({
 vim.diagnostic.config({
 	virtual_text = { prefix = "\u{25cf}" },
 	signs = {
-		error = "\u{2718}",
-		warn = "\u{25b2}",
-		info = "\u{2691}",
-		hint = "\u{bb}",
+		text = {
+			[vim.diagnostic.severity.ERROR] = "\u{2718}",
+			[vim.diagnostic.severity.WARN] = "\u{25b2}",
+			[vim.diagnostic.severity.INFO] = "\u{2691}",
+			[vim.diagnostic.severity.HINT] = "\u{bb}",
+		},
 	},
 	severity_sort = true,
 	float = {
