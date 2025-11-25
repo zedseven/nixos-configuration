@@ -1,4 +1,5 @@
 -- `uses_nix` constant goes here
+vim.g.work_environment = not vim.g.uses_nix -- An easy heuristic to determine whether it's running in the work environment
 
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
