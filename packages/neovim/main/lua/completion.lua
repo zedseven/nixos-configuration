@@ -26,9 +26,9 @@ cmp.setup({
 		fields = { "menu", "abbr", "kind" },
 		format = function(entry, item)
 			local menu_icon = {
-				nvim_lsp = "λ",
-				luasnip = "⋗",
-				buffer = "Ω",
+				nvim_lsp = "\u{3bb}",
+				luasnip = "\u{22d7}",
+				buffer = "\u{3a9}",
 			}
 
 			item.menu = menu_icon[entry.source.name]
@@ -88,12 +88,12 @@ cmp.setup({
 })
 
 vim.diagnostic.config({
-	virtual_text = { prefix = "●" },
+	virtual_text = { prefix = "\u{25cf}" },
 	signs = {
-		error = "✘",
-		warn = "▲",
-		info = "⚑",
-		hint = "»",
+		error = "\u{2718}",
+		warn = "\u{25b2}",
+		info = "\u{2691}",
+		hint = "\u{bb}",
 	},
 	severity_sort = true,
 	float = {
