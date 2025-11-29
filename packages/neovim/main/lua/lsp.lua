@@ -5,6 +5,8 @@ vim.lsp.config("*", {
 	capabilities = require("cmp_nvim_lsp").default_capabilities(),
 })
 
+vim.o.winborder = "rounded"
+
 vim.diagnostic.config({
 	virtual_text = { prefix = "\u{25cf}" },
 	signs = {

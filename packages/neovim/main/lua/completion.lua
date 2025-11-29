@@ -86,5 +86,3 @@ cmp.setup({
 		end, { "i", "s" }),
 	},
 })
-
-vim.o.winborder = "rounded"
