@@ -27,6 +27,23 @@ vim.diagnostic.config({
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function()
+		require("lspsaga").setup({
+			-- https://github.com/nvimdev/lspsaga.nvim/blob/main/lua/lspsaga/init.lua
+			finder = { keys = {
+				toggle_or_open = "<CR>",
+				close = "<Esc>",
+			} },
+			outline = { keys = { jump = "<CR>" } },
+			rename = { keys = { quit = "<Esc>" } },
+			code_action = { extend_gitsigns = true },
+			lightbulb = { enable = false },
+			ui = {
+				devicon = false,
+				use_nerd = false,
+				code_action = "",
+			},
+		})
+
 		local mapBuffer = function(mode, lhs, rhs, description)
 			local opts = { buffer = true, desc = description }
 			vim.keymap.set(mode, lhs, rhs, opts)
@@ -54,10 +71,13 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		mapBuffer("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature")
 
 		-- Rename all references to the symbol under the cursor
-		mapBuffer("n", "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename")
+		mapBuffer("n", "gR", "<cmd>Lspsaga rename<cr>", "Rename")
 
 		-- Select a code action available at the current cursor position
-		mapBuffer("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action")
+		mapBuffer("n", "ga", "<cmd>Lspsaga code_action<cr>", "Code action")
+
+		-- Open the symbol finder for the symbol at the current cursor position
+		mapBuffer("n", "gf", "<cmd>Lspsaga finder<cr>", "Symbol finder")
 
 		-- Show diagnostics in a floating window
 		mapBuffer("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", "Show diagnostics")

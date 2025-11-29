@@ -38,6 +38,7 @@
           friendly-snippets
           gitsigns-nvim
           hardtime-nvim
+          lspsaga-nvim
           luasnip
           nvim-cmp
           nvim-lspconfig

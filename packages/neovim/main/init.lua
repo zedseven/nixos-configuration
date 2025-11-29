@@ -49,5 +49,10 @@ require("hardtime").setup({
 		["<Left>"] = { "n", "x" },
 		["<Right>"] = { "n", "x" },
 	},
+	disabled_filetypes = { -- Window filetypes can be found with `:echo &filetype`
+		["markdown"] = true, -- Unfortunately required because some plugin windows use this filetype
+		["sagafinder"] = true,
+		["sagaoutline"] = true,
+	},
 })
 require("gitsigns").setup({ current_line_blame = true })
