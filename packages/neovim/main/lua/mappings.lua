@@ -18,6 +18,8 @@ mapKey({ "n" }, "<S-Tab>", "<cmd>BufferLineCyclePrev<CR>", "Previous buffer")
 mapKey({ "n" }, "<leader><Tab>p", "<cmd>BufferLineTogglePin<CR>", "Pin/unpin buffer")
 mapKey({ "n" }, "<leader><Tab>x", "<cmd>bdelete<CR>", "Close buffer") -- Uses standard Vim functionality
 
+mapKey({ "n" }, "<leader>a", "<cmd>ASToggle<CR>", "Toggle auto-save")
+
 mapKey({ "n" }, "<leader>w", "<cmd>WhichKey<CR>", "Show which-key")
 mapKey({ "n" }, "<leader>m", "<cmd>messages<CR>", "Show messages")
 

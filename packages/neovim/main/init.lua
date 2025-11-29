@@ -56,3 +56,4 @@ require("hardtime").setup({
 	},
 })
 require("gitsigns").setup({ current_line_blame = true })
+require("auto-save").setup()

@@ -28,6 +28,7 @@
       };
       config = {
         plugins = with pkgs.vimPlugins; [
+          auto-save-nvim
           bufferline-nvim
           catppuccin-nvim
           cmp-buffer
