@@ -84,5 +84,7 @@ cmp.setup({
 				fallback()
 			end
 		end, { "i", "s" }),
+
+		["<C-Space>"] = cmp.mapping.complete(),
 	},
 })
