@@ -32,32 +32,32 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			vim.keymap.set(mode, lhs, rhs, opts)
 		end
 
-		-- Displays hover information about the symbol under the cursor
+		-- Display hover information about the symbol under the cursor
 		mapBuffer("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", "Hover")
 
 		-- Jump to the definition
 		mapBuffer("n", "gd", "<cmd>lua vim.lsp.buf.definition()<cr>", "Go to definition")
 
+		-- Jump to the definition of the type of the symbol
+		mapBuffer("n", "gt", "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Go to definition (symbol's type)")
+
 		-- Jump to declaration
 		mapBuffer("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", "Go to declaration")
 
-		-- Lists all the implementations for the symbol under the cursor
+		-- List all the implementations for the symbol under the cursor
 		mapBuffer("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", "List implementations")
 
-		-- Jumps to the definition of the type symbol
-		mapBuffer("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>", "Go to definition (type)")
-
-		-- Lists all the references
+		-- List all the references
 		mapBuffer("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", "List references")
 
-		-- Displays a function's signature information
+		-- Display a function's signature information
 		mapBuffer("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Show signature")
 
-		-- Renames all references to the symbol under the cursor
-		mapBuffer("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename")
+		-- Rename all references to the symbol under the cursor
+		mapBuffer("n", "gR", "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename")
 
-		-- Selects a code action available at the current cursor position
-		mapBuffer("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action")
+		-- Select a code action available at the current cursor position
+		mapBuffer("n", "ga", "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action")
 
 		-- Show diagnostics in a floating window
 		mapBuffer("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", "Show diagnostics")
