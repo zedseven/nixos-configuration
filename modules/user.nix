@@ -132,6 +132,7 @@ in {
                   shutdown = "shutdown -h now";
                   top = "btm --regex";
                   v = "nvim";
+                  "v." = "nvim .";
                   vi = "nvim";
                   vim = "nvim";
                   w = "clear";
