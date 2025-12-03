@@ -563,7 +563,7 @@ in {
               respectResizeHints = true;
               font = {
                 family = fontFamily;
-                pixelSize = 12;
+                pixelSize = 14;
               };
               colours = colourSchemes.dwm.catppuccin.${catppuccinFlavour};
             };
@@ -571,7 +571,7 @@ in {
               prompt = "launch ";
               font = {
                 family = fontFamily;
-                pixelSize = 12;
+                pixelSize = 14;
               };
               colours = colourSchemes.dmenu.catppuccin.${catppuccinFlavour};
             };
@@ -594,7 +594,7 @@ in {
             st = {
               font = {
                 family = fontFamily;
-                pixelSize = 24;
+                pixelSize = 28;
                 characterTweaks = {
                   heightScale = 14.0 / 15.0;
                   yOffset = -1;
