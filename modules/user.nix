@@ -226,12 +226,6 @@ in {
             traceroute
             viu
             yt-dlp
-
-            # Language Servers (LSP) and Debug Adapters (DAP)
-            clang-tools # C, C++
-            lldb # LLVM-based languages
-            #rust-analyzer # Rust (installed on a per-project basis to match the toolchain, using `direnv`)
-            nil # Nix
           ];
         };
 
