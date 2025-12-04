@@ -25,7 +25,9 @@ require("mappings")
 require("find")
 require("colours")
 
-require("nvim-tree").setup()
+require("nvim-tree").setup({
+	git = { ignore = false },
+})
 require("bufferline").setup({
 	options = {
 		offsets = { { filetype = "NvimTree" } }, -- Display right of the file tree
