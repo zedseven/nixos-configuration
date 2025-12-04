@@ -62,6 +62,7 @@
       ":"
       (lib.makeBinPath (
         with pkgs; [
+          clang-tools
           deadnix
           git
           lua-language-server
