@@ -224,12 +224,41 @@ in {
         # Delete the temporary tree file directory
         rm -rf "$TREES_DIR"
       '';
+
+      # Used for mounting the Restic repository for file access over FUSE
+      resticMount = pkgs.writeShellScriptBin "restic-mount" ''
+        # Input arguments
+        MOUNT_DIR="$1"
+
+        # Input validation
+        if [[ -z "$MOUNT_DIR" ]]; then
+          MOUNT_DIR="/mnt-restic"
+        fi
+
+        # Environment Variables
+        export RESTIC_REPOSITORY="${repository}"
+        export RESTIC_COMPRESSION="max"
+        export RESTIC_PASSWORD_FILE="${cfg.passwordFile}"
+        ${lib.optionalString cfg.rclone.enable (
+          (lib.optionalString (cfg.rclone.configPath != null) ''
+            export RCLONE_CONFIG="${cfg.rclone.configPath}"
+          '')
+          + ''
+            PATH="${cfg.rclone.package}/bin''${PATH:+:''${PATH}}"
+          ''
+        )}
+
+        sudo mkdir -p "$MOUNT_DIR" &&
+        sudo chown -R ${userInfo.username}:users "$MOUNT_DIR" &&
+        ${pkgs.restic}/bin/restic mount "$MOUNT_DIR"
+      '';
     in
       lib.mkMerge [
         {
           users.users.${userInfo.username}.packages = [
             runBackup
             runBackupExternal
+            resticMount
           ];
 
           # Add `runBackup` as a high-priority program
