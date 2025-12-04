@@ -1,8 +1,3 @@
-vim.lsp.config("nil_ls", {
-	-- Configure the completion capabilities supported by `nvim-cmp`
-	capabilities = require("cmp_nvim_lsp").default_capabilities(),
-})
-
 vim.lsp.enable("nil_ls")
 
 vim.opt_local.expandtab = false
