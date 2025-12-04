@@ -68,6 +68,8 @@
           nil
           purefmt
           # `rustfmt` and `rust-analyzer` come from the `direnv` environment of each project
+          sleek
+          sqls
           statix
           stylua
           taplo

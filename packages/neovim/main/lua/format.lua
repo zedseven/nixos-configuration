@@ -9,6 +9,7 @@ require("conform").setup({
 		lua = { "stylua" },
 		nix = { "purefmt" },
 		rust = { "rustfmt" },
+		sql = { "sleek" },
 		toml = { "taplo" },
 		["*"] = { "injected" },
 	},
