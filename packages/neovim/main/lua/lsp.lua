@@ -24,26 +24,30 @@ vim.diagnostic.config({
 	},
 })
 
+-- Despite the documentation suggesting to lazy-load this plugin, lazy-loading
+-- it currently breaks the `outline` and `breadcrumbs` functionality
+--
+-- See the following issue for more information: https://github.com/nvimdev/lspsaga.nvim/issues/1314
+require("lspsaga").setup({
+	-- https://github.com/nvimdev/lspsaga.nvim/blob/main/lua/lspsaga/init.lua
+	finder = { keys = {
+		toggle_or_open = "<CR>",
+		close = "<Esc>",
+	} },
+	outline = { keys = { jump = "<CR>" } },
+	rename = { keys = { quit = "<Esc>" } },
+	code_action = { extend_gitsigns = true },
+	lightbulb = { enable = false },
+	ui = {
+		devicon = false,
+		use_nerd = false,
+		code_action = "",
+	},
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	desc = "LSP actions",
 	callback = function()
-		require("lspsaga").setup({
-			-- https://github.com/nvimdev/lspsaga.nvim/blob/main/lua/lspsaga/init.lua
-			finder = { keys = {
-				toggle_or_open = "<CR>",
-				close = "<Esc>",
-			} },
-			outline = { keys = { jump = "<CR>" } },
-			rename = { keys = { quit = "<Esc>" } },
-			code_action = { extend_gitsigns = true },
-			lightbulb = { enable = false },
-			ui = {
-				devicon = false,
-				use_nerd = false,
-				code_action = "",
-			},
-		})
-
 		local mapBuffer = function(mode, lhs, rhs, description)
 			local opts = { buffer = true, desc = description }
 			vim.keymap.set(mode, lhs, rhs, opts)
