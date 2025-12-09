@@ -1,0 +1,3 @@
+# Non-Nix plugin-related stuff
+/lua/plugins/
+/lazy-lock.json
