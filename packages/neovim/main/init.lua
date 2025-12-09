@@ -55,6 +55,7 @@ require("hardtime").setup({
 		["markdown"] = true, -- Unfortunately required because some plugin windows use this filetype
 		["sagafinder"] = true,
 		["sagaoutline"] = true,
+		["sagarename"] = true,
 	},
 })
 require("gitsigns").setup({ current_line_blame = true })
