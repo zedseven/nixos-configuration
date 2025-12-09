@@ -498,105 +498,115 @@ in {
           };
         };
 
-        custom.desktop.suckless = let
-          fontFamily = "PragmataPro Mono Liga";
-          colourSchemes = (import ./desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
-        in
-          lib.mkDefault {
-            dwm = {
-              rules = [
-                {
-                  class = "steam";
-                  instance = "steamwebhelper";
-                  tagIndices = [0];
-                  monitorIndex = 0;
-                }
-                {
-                  class = "steam_app_";
-                  instance = "steam_app_";
-                  tagIndices = [1];
-                  monitorIndex = 0;
-                }
-                {
-                  class = "jetbrains-clion";
-                  tagIndices = [3];
-                  monitorIndex = 0;
-                }
-                {
-                  class = "jetbrains-rustrover";
-                  tagIndices = [4];
-                  monitorIndex = 0;
-                }
-                {
-                  class = "Mullvad VPN";
-                  tagIndices = [2];
-                  monitorIndex = 1;
-                }
-                {
-                  class = "obsidian";
-                  tagIndices = [5];
-                  monitorIndex = 1;
-                }
-                {
-                  class = "KeePass";
-                  tagIndices = [6];
-                  monitorIndex = 1;
-                }
-                {
-                  class = "firefox";
-                  tagIndices = [7];
-                  monitorIndex = 1;
-                }
-                {
-                  class = "discord";
-                  tagIndices = [8];
-                  monitorIndex = 1;
-                }
-              ];
-              masterAreaSizePercentage = 0.5;
-              respectResizeHints = true;
-              font = {
-                family = fontFamily;
-                pixelSize = 14;
-              };
-              colours = colourSchemes.dwm.catppuccin.${catppuccinFlavour};
-            };
-            dmenu = {
-              prompt = "launch ";
-              font = {
-                family = fontFamily;
-                pixelSize = 14;
-              };
-              colours = colourSchemes.dmenu.catppuccin.${catppuccinFlavour};
-            };
-            slock = {
-              failOnClear = true;
-              controlKeyClear = true;
-              quickCancelEnabledByDefault = false;
-              commands = {
-                "shutdown" = "${pkgs.systemd}/bin/systemctl poweroff -i";
-                "reboot" = "${pkgs.systemd}/bin/systemctl reboot -i";
-                "hibernate" = "${pkgs.systemd}/bin/systemctl hibernate -i";
-                "autorandr" = "autorandr-change";
-              };
-              colours = colourSchemes.slock.catppuccin.${catppuccinFlavour};
-            };
-            slstatus = {
-              unknownValueString = "∅";
-              argumentSeparator = "  ";
-            };
-            st = {
-              font = {
-                family = fontFamily;
-                pixelSize = 28;
-                characterTweaks = {
-                  heightScale = 14.0 / 15.0;
-                  yOffset = -1;
+        custom = {
+          desktop.suckless = let
+            fontFamily = "PragmataPro Mono Liga";
+            colourSchemes = (import ./desktop/suckless/colour-schemes.nix) pkgs.fetchFromGitHub;
+          in
+            lib.mkDefault {
+              dwm = {
+                rules = [
+                  {
+                    class = "steam";
+                    instance = "steamwebhelper";
+                    tagIndices = [0];
+                    monitorIndex = 0;
+                  }
+                  {
+                    class = "steam_app_";
+                    instance = "steam_app_";
+                    tagIndices = [1];
+                    monitorIndex = 0;
+                  }
+                  {
+                    class = "jetbrains-clion";
+                    tagIndices = [3];
+                    monitorIndex = 0;
+                  }
+                  {
+                    class = "jetbrains-rustrover";
+                    tagIndices = [4];
+                    monitorIndex = 0;
+                  }
+                  {
+                    class = "Mullvad VPN";
+                    tagIndices = [2];
+                    monitorIndex = 1;
+                  }
+                  {
+                    class = "obsidian";
+                    tagIndices = [5];
+                    monitorIndex = 1;
+                  }
+                  {
+                    class = "KeePass";
+                    tagIndices = [6];
+                    monitorIndex = 1;
+                  }
+                  {
+                    class = "firefox";
+                    tagIndices = [7];
+                    monitorIndex = 1;
+                  }
+                  {
+                    class = "discord";
+                    tagIndices = [8];
+                    monitorIndex = 1;
+                  }
+                ];
+                masterAreaSizePercentage = 0.5;
+                respectResizeHints = true;
+                font = {
+                  family = fontFamily;
+                  pixelSize = 14;
                 };
+                colours = colourSchemes.dwm.catppuccin.${catppuccinFlavour};
               };
-              colourSchemeText = colourSchemes.st.catppuccin.${catppuccinFlavour};
+              dmenu = {
+                prompt = "launch ";
+                font = {
+                  family = fontFamily;
+                  pixelSize = 14;
+                };
+                colours = colourSchemes.dmenu.catppuccin.${catppuccinFlavour};
+              };
+              slock = {
+                failOnClear = true;
+                controlKeyClear = true;
+                quickCancelEnabledByDefault = false;
+                commands = {
+                  "shutdown" = "${pkgs.systemd}/bin/systemctl poweroff -i";
+                  "reboot" = "${pkgs.systemd}/bin/systemctl reboot -i";
+                  "hibernate" = "${pkgs.systemd}/bin/systemctl hibernate -i";
+                  "autorandr" = "autorandr-change";
+                };
+                colours = colourSchemes.slock.catppuccin.${catppuccinFlavour};
+              };
+              slstatus = {
+                unknownValueString = "∅";
+                argumentSeparator = "  ";
+              };
+              st = {
+                font = {
+                  family = fontFamily;
+                  pixelSize = 28;
+                  characterTweaks = {
+                    heightScale = 14.0 / 15.0;
+                    yOffset = -1;
+                  };
+                };
+                colourSchemeText = colourSchemes.st.catppuccin.${catppuccinFlavour};
+              };
             };
+
+          symlinks."${homeDirectory}/.sqliterc".source = pkgs.writeTextFile {
+            name = ".sqliterc";
+            text = ''
+              .headers on
+              .mode columns
+            '';
           };
+        };
       })
     ];
 }
