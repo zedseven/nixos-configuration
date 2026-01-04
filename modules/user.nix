@@ -377,6 +377,8 @@ in {
               ga = "git add";
               gb = "git branch";
               gc = "git commit --gpg-sign --message";
+              gd = "git diff";
+              gds = "git diff --staged";
               ge = "git checkout";
               geb = "git checkout -b";
               gf = "git fetch --all";
