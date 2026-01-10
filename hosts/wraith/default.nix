@@ -173,6 +173,8 @@ in {
       nvidiaBusId = "PCI:59@0:0:0";
     };
 
+    logitech.wireless.enable = true;
+
     printers.ensurePrinters = [
       {
         name = "HP_DeskJet_3630_series_CF2922";
