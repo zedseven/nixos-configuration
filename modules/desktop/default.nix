@@ -337,8 +337,11 @@ in {
       HybridSleepState=disk
     '';
 
-    # To allow file sharing over HTTP via `miniserve`
-    networking.firewall.allowedTCPPorts = [8080];
+    # To allow file sharing over HTTP via `miniserve`, and development testing
+    networking.firewall.allowedTCPPorts = [
+      8000
+      8080
+    ];
 
     fonts.packages = with pkgs;
       [intel-one-mono]
