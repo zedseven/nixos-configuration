@@ -656,11 +656,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1732334363,
-        "narHash": "sha256-k1IyG8e3NL8b6m2ifqIEEL4ds7o08FGyIrE0tMPwLqM=",
+        "lastModified": 1776021388,
+        "narHash": "sha256-yfHCp9UPQ6hHjeVX+d47oCfIUSMWEa9syLu+P/xC55s=",
         "ref": "refs/heads/main",
-        "rev": "7e156f56d9c08cd668e04ef4859c5b287340c126",
-        "revCount": 17,
+        "rev": "3c22bc71b179d2b3d87a2ffd61ddf4cc58524635",
+        "revCount": 36,
         "type": "git",
         "url": "file:///etc/website-ztdp"
       },
