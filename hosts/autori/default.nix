@@ -7,7 +7,8 @@
   system,
   ...
 }: let
-  radiumWorkingDirectory = "/var/run/radium";
+  # Persisted directories cannot be in `/var/run` - see https://github.com/nix-community/impermanence/issues/219 for more information
+  radiumWorkingDirectory = "/var/lib/radium";
 in {
   imports = [
     inputs.impermanence.nixosModules.impermanence
