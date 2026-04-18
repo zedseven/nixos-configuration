@@ -133,6 +133,7 @@ in {
         enable = true;
         drivers = ["hp"];
       };
+      stenography.enable = true;
     };
 
     symlinks = {
