@@ -447,14 +447,7 @@ in {
               '';
             in {
               enable = true;
-              userName = userInfo.name;
-              userEmail = userInfo.email;
-              signing = {
-                format = "openpgp";
-                key = userInfo.gpgKeyId;
-                signByDefault = true;
-              };
-              extraConfig = {
+              settings = {
                 # https://git-scm.com/docs/git-config
                 advice.detachedHead = false;
                 checkout.defaultRemote = "origin";
@@ -476,8 +469,21 @@ in {
                 };
                 push.gpgSign = "if-asked";
                 tag.gpgSign = true;
+                user = {
+                  name = userInfo.name;
+                  email = userInfo.email;
+                };
               };
-              delta.enable = true;
+              signing = {
+                format = "openpgp";
+                key = userInfo.gpgKeyId;
+                signByDefault = true;
+              };
+            };
+
+            delta = {
+              enable = true;
+              enableGitIntegration = true;
             };
 
             git-cliff.enable = true;
