@@ -6,9 +6,9 @@
   ncurses,
   fontconfig,
   freetype,
-  libX11,
-  libXft,
-  libXcursor,
+  libx11,
+  libxft,
+  libxcursor,
   harfbuzz,
   conf ? {
     shell = "/bin/sh";
@@ -96,9 +96,9 @@ stdenv.mkDerivation {
 
   buildInputs =
     [
-      libX11
-      libXft
-      libXcursor
+      libx11
+      libxft
+      libxcursor
       harfbuzz
     ]
     ++ extraLibs;

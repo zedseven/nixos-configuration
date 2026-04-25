@@ -3,9 +3,9 @@
   stdenv,
   fetchFromGitHub,
   xorgproto,
-  libX11,
-  libXext,
-  libXrandr,
+  libx11,
+  libxext,
+  libxrandr,
   libxcrypt,
   conf ? {
     user = "nobody";
@@ -44,9 +44,9 @@ stdenv.mkDerivation {
   buildInputs =
     [
       xorgproto
-      libX11
-      libXext
-      libXrandr
+      libx11
+      libxext
+      libxrandr
       libxcrypt
     ]
     ++ extraLibs;

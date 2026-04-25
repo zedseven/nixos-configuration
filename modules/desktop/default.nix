@@ -408,7 +408,7 @@ in {
             ${pkgs.autorandr}/bin/autorandr --change
           '')
           (pkgs.writeShellScriptBin "xrandr-auto" ''
-            ${pkgs.xorg.xrandr}/bin/xrandr --auto
+            ${pkgs.xrandr}/bin/xrandr --auto
           '')
           (pkgs.writeShellScriptBin "sshot" ''
             ${pkgs.flameshot}/bin/flameshot gui --path ~/pictures/screenshots

@@ -2,10 +2,10 @@
   lib,
   stdenv,
   fetchFromGitHub,
-  libX11,
-  libXinerama,
-  libXft,
-  libXcursor,
+  libx11,
+  libxinerama,
+  libxft,
+  libxcursor,
   conf ? {
     rules = [];
     masterAreaSizePercentage = 0.55;
@@ -42,10 +42,10 @@ stdenv.mkDerivation {
 
   buildInputs =
     [
-      libX11
-      libXinerama
-      libXft
-      libXcursor
+      libx11
+      libxinerama
+      libxft
+      libxcursor
     ]
     ++ extraLibs;
 

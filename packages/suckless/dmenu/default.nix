@@ -4,9 +4,9 @@
   fetchFromGitHub,
   pkg-config,
   fontconfig,
-  libX11,
-  libXinerama,
-  libXft,
+  libx11,
+  libxinerama,
+  libxft,
   zlib,
   bash,
   nix,
@@ -54,9 +54,9 @@ stdenv.mkDerivation {
   buildInputs =
     [
       fontconfig
-      libX11
-      libXinerama
-      libXft
+      libx11
+      libxinerama
+      libxft
       zlib
     ]
     ++ extraLibs;
