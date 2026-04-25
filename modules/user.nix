@@ -60,11 +60,11 @@ in {
             bottom
             dust
             eza
+            fastfetch
             fd
             file
             fzf
             libtree
-            neofetch
             nix-tree
             procs
             ripgrep
