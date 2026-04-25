@@ -450,6 +450,7 @@ in {
               userName = userInfo.name;
               userEmail = userInfo.email;
               signing = {
+                format = "openpgp";
                 key = userInfo.gpgKeyId;
                 signByDefault = true;
               };
