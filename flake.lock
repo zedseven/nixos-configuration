@@ -438,29 +438,6 @@
         "type": "indirect"
       }
     },
-    "programs-db": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "utils": [
-          "flake-utils"
-        ]
-      },
-      "locked": {
-        "lastModified": 1777112205,
-        "narHash": "sha256-5pFMu5UTUF7hCI6PowhUNQO7yEeiyH6c2DTy/qdoIQU=",
-        "owner": "wamserma",
-        "repo": "flake-programs-sqlite",
-        "rev": "4c024b0a00adc0f6374ab27d22d15a03fffe689d",
-        "type": "github"
-      },
-      "original": {
-        "owner": "wamserma",
-        "repo": "flake-programs-sqlite",
-        "type": "github"
-      }
-    },
     "radium": {
       "inputs": {
         "crane": [
@@ -508,7 +485,6 @@
         "nixpkgs": "nixpkgs",
         "nvidia-patch": "nvidia-patch",
         "private": "private",
-        "programs-db": "programs-db",
         "radium": "radium",
         "rust-overlay": "rust-overlay",
         "schizofox": "schizofox",

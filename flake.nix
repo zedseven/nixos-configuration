@@ -14,13 +14,6 @@
         flake-compat.follows = "flake-compat";
       };
     };
-    programs-db = {
-      url = "github:wamserma/flake-programs-sqlite";
-      inputs = {
-        nixpkgs.follows = "nixpkgs";
-        utils.follows = "flake-utils";
-      };
-    };
     impermanence = {
       url = "github:nix-community/impermanence";
       inputs = {

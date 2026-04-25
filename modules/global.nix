@@ -8,7 +8,6 @@
   ...
 }: let
   cfg = config.custom.global;
-  programsDbRedirectionPath = "/etc/programs.sqlite";
   defaultConfigurationPath = "/etc/nixos";
 in {
   imports = [
@@ -102,11 +101,7 @@ in {
         shells = with pkgs; [fish];
       };
 
-      # https://blog.nobbz.dev/2023-02-27-nixos-flakes-command-not-found/
-      custom.symlinks.${programsDbRedirectionPath}.source = "${inputs.programs-db.packages.${system}.programs-sqlite}";
-
       programs = {
-        command-not-found.dbPath = programsDbRedirectionPath;
         fish.enable = true;
         neovim = {
           defaultEditor = true;
