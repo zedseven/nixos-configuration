@@ -15,7 +15,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    programs.adb.enable = true;
     users.users.${userInfo.username} = {
       extraGroups = [
         "adbusers"
@@ -33,6 +32,9 @@ in {
       ];
     };
 
-    home-manager.users.${userInfo.username}.home.packages = with pkgs; [android-studio];
+    home-manager.users.${userInfo.username}.home.packages = with pkgs; [
+      android-studio
+      android-tools
+    ];
   };
 }
