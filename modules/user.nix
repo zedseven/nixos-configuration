@@ -58,7 +58,7 @@ in {
           packages = with pkgs; [
             inputs.self.packages.${system}.neovim
             bottom
-            du-dust
+            dust
             eza
             fd
             file
