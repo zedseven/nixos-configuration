@@ -321,7 +321,6 @@ in {
         enableSSHSupport = true;
       };
       dconf.enable = lib.mkDefault config.home-manager.users.${userInfo.username}.gtk.enable; # https://github.com/nix-community/home-manager/issues/3113
-      light.enable = true;
       slock.enable = true;
       xss-lock = {
         enable = true;
@@ -451,8 +450,8 @@ in {
           "XF86AudioRaiseVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ +2%";
           "XF86AudioLowerVolume" = "${pkgs.pulseaudio}/bin/pactl set-sink-volume @DEFAULT_SINK@ -2%";
           "XF86AudioMute" = "${pkgs.pulseaudio}/bin/pactl set-sink-mute @DEFAULT_SINK@ toggle";
-          "XF86MonBrightnessUp" = "${pkgs.light}/bin/light -A 5";
-          "XF86MonBrightnessDown" = "${pkgs.light}/bin/light -U 5";
+          "XF86MonBrightnessUp" = "${pkgs.brightnessctl}/bin/brightnessctl set 5%+";
+          "XF86MonBrightnessDown" = "${pkgs.brightnessctl}/bin/brightnessctl set 5%-";
         };
       };
     };
