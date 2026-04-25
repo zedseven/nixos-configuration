@@ -136,7 +136,6 @@ in {
                   vi = "nvim";
                   vim = "nvim";
                   w = "clear";
-                  y = "yazi";
                 };
                 interactiveShellInit = ''
                   set fish_greeting
@@ -429,6 +428,7 @@ in {
                   sort_dir_first = true;
                 };
               };
+              shellWrapperName = "y";
             };
 
             gpg.enable = true;
