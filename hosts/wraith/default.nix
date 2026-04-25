@@ -160,7 +160,7 @@ in {
     wireless = {
       enable = true;
       allowAuxiliaryImperativeNetworks = true;
-      userControlled.enable = true;
+      userControlled = true;
     };
   };
 
