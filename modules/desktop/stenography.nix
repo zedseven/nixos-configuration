@@ -1,5 +1,6 @@
 {
   config,
+  pkgs,
   lib,
   inputs,
   userInfo,
@@ -15,13 +16,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home-manager.users.${userInfo.username}.home.packages = builtins.attrValues {
-      inherit
-        (inputs.self.packages.${system})
-        plover
-        steno-drill
-        ;
-    };
+    home-manager.users.${userInfo.username}.home.packages = [
+      pkgs.plover.dev
+      inputs.self.packages.${system}.steno-drill
+    ];
 
     # Allow access to serial interfaces
     users.users.${userInfo.username}.extraGroups = ["dialout"];

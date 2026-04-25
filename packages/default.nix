@@ -24,7 +24,6 @@
         minecraft-server-vanilla = callPackage ./minecraft-server-vanilla.nix {};
         ndsplus = callPackage ./ndsplus.nix {};
         neovim = callPackage ./neovim {inherit inputs purefmt;};
-        plover = callPackage ./plover.nix {};
         purefmt = callPackage ./purefmt.nix {inherit alejandra;};
         pyroveil = callPackage ./pyroveil.nix {};
         qemu-guest = callPackage ./qemu-guest.nix {};
