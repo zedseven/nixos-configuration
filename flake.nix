@@ -21,7 +21,13 @@
         utils.follows = "flake-utils";
       };
     };
-    impermanence.url = "github:nix-community/impermanence";
+    impermanence = {
+      url = "github:nix-community/impermanence";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+        home-manager.follows = "home-manager";
+      };
+    };
     agenix = {
       url = "github:ryantm/agenix";
       inputs = {
@@ -125,7 +131,6 @@
       inputs = {
         nixpkgs.follows = "nixpkgs";
         crane.follows = "crane";
-        flake-parts.follows = "flake-parts";
       };
     };
     systems.url = "github:nix-systems/default";
