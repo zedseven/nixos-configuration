@@ -294,11 +294,11 @@ in {
       pcscd.enable = true;
       logind = {
         lidSwitch = "hybrid-sleep";
-        extraConfig = ''
-          HandlePowerKey=hybrid-sleep
-          IdleAction=hybrid-sleep
-          IdleActionSec=1m
-        '';
+        settings.Login = {
+          HandlePowerKey = "hybrid-sleep";
+          IdleAction = "hybrid-sleep";
+          IdleActionSec = "1m";
+        };
       };
       mullvad-vpn = {
         enable = true;
@@ -329,13 +329,13 @@ in {
       };
     };
 
-    systemd.sleep.extraConfig = ''
-      AllowHibernation=yes
-      HibernateMode=platform shutdown
-      HibernateState=disk
-      HybridSleepMode=suspend platform shutdown
-      HybridSleepState=disk
-    '';
+    systemd.sleep.settings.Sleep = {
+      AllowHibernation = "yes";
+      HibernateMode = "platform shutdown";
+      HibernateState = "disk";
+      HybridSleepMode = "suspend platform shutdown";
+      HybridSleepState = "disk";
+    };
 
     # To allow file sharing over HTTP via `miniserve`, and development testing
     networking.firewall.allowedTCPPorts = [
