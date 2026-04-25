@@ -293,8 +293,8 @@ in {
 
       pcscd.enable = true;
       logind = {
-        lidSwitch = "hybrid-sleep";
         settings.Login = {
+          HandleLidSwitch = "hybrid-sleep";
           HandlePowerKey = "hybrid-sleep";
           IdleAction = "hybrid-sleep";
           IdleActionSec = "1m";
