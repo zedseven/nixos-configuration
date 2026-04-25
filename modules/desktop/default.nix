@@ -349,13 +349,11 @@ in {
     # Add the UI programs enabled through this module as high-priority programs
     custom.desktop.suckless.dwm.highPriorityPrograms = [
       "autorandr-change"
-      "clion"
       "firefox"
       "keepass"
       "mullvad-vpn"
       "obsidian"
       "reboot"
-      "rust-rover"
       "shutdown-now"
       "slock"
       "sshot"
@@ -374,8 +372,6 @@ in {
           inputs.self.packages.${system}.breeze
           dmenu
           flameshot # For taking screenshots
-          jetbrains.clion
-          jetbrains.rust-rover
           (keepass.override {
             plugins =
               [

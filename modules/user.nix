@@ -528,16 +528,6 @@ in {
                     monitorIndex = 0;
                   }
                   {
-                    class = "jetbrains-clion";
-                    tagIndices = [3];
-                    monitorIndex = 0;
-                  }
-                  {
-                    class = "jetbrains-rustrover";
-                    tagIndices = [4];
-                    monitorIndex = 0;
-                  }
-                  {
                     class = "Mullvad VPN";
                     tagIndices = [2];
                     monitorIndex = 1;
