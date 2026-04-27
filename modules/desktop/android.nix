@@ -33,6 +33,7 @@ in {
     };
 
     home-manager.users.${userInfo.username}.home.packages = with pkgs; [
+      adbfs-rootless
       android-studio
       android-tools
     ];
