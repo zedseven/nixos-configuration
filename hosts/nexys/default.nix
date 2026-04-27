@@ -3,7 +3,6 @@
   config,
   inputs,
   hostname,
-  system,
   ...
 }: let
   forgejoDir = "/var/lib/forgejo";

@@ -470,8 +470,7 @@ in {
                 push.gpgSign = "if-asked";
                 tag.gpgSign = true;
                 user = {
-                  name = userInfo.name;
-                  email = userInfo.email;
+                  inherit (userInfo) name email;
                 };
               };
               signing = {
