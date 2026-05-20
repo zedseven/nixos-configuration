@@ -99,6 +99,7 @@ in {
           wget
         ];
         shells = with pkgs; [fish];
+        sessionVariables.NIXPKGS_ALLOW_UNFREE = 1;
       };
 
       programs = {
