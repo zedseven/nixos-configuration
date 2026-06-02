@@ -1,10 +1,13 @@
 {
   config,
   lib,
+  inputs,
   ...
-} @ inputs: let
+} @ arguments: let
   cfg = config.custom.desktop;
 in {
+  imports = [inputs.nvidia-patch.nixosModules.nvidia-patch];
+
   options.custom.desktop = with lib; {
     displayDriver = mkOption {
       description = "The display driver to use.";
@@ -13,5 +16,5 @@ in {
     };
   };
 
-  config = lib.mkIf (cfg.displayDriver == "nvidia") ((import ./nvidia.nix) inputs);
+  config = lib.mkIf (cfg.displayDriver == "nvidia") ((import ./nvidia.nix) arguments);
 }

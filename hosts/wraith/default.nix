@@ -1,7 +1,8 @@
-# An HP Spectre x360 Laptop - 5FP19UA.
+# An HP Spectre x360 Laptop - 15-df0008ca 5FP19UA.
 {
   config,
   pkgs,
+  lib,
   inputs,
   userInfo,
   ...
@@ -173,14 +174,19 @@ in {
   };
 
   hardware = {
-    nvidia.prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
+    nvidia = {
+      # Last driver version supporting the GeForce MX150 (GP108M) GPU
+      patch.nvidiaPackage = lib.mkForce config.boot.kernelPackages.nvidiaPackages.legacy_580;
 
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:59:0:0";
+      prime = {
+        offload = {
+          enable = true;
+          enableOffloadCmd = true;
+        };
+
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:59:0:0";
+      };
     };
 
     logitech.wireless.enable = true;

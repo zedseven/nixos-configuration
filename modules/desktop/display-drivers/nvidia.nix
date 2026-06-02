@@ -1,8 +1,6 @@
 {
   config,
   lib,
-  inputs,
-  system,
   ...
 }: let
   cfg = config.custom.desktop;
@@ -12,7 +10,10 @@ in {
     powerManagement.enable = true;
     open = false;
     nvidiaSettings = true;
-    package = inputs.nvidia-patch.packages.${system}.nvidia-patch;
+    patch = {
+      enable = true;
+      nvidiaPackage = config.boot.kernelPackages.nvidiaPackages.stable;
+    };
   };
 
   services.xserver = {
