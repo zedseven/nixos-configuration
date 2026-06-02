@@ -180,7 +180,7 @@ in {
       };
 
       intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:59@0:0:0";
+      nvidiaBusId = "PCI:59:0:0";
     };
 
     logitech.wireless.enable = true;
