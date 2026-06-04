@@ -11,7 +11,7 @@ index 834ede54..b46b3710 100755
 +
 +# If the command is not available in the current `PATH`, attempt to run it with Nix
 +if [[ ! -x "$(command -v "$COMMAND")" ]]; then
-+	COMMAND="nix run nixpkgs#$COMMAND"
++	COMMAND="nix run --impure nixpkgs#$COMMAND"
 +fi
 +
 +echo "$COMMAND" | "$SHELL" &
